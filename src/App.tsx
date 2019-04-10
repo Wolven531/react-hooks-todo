@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import { TodoForm } from './TodoForm'
+import { TodoList } from './TodoList'
 import { TodoModel } from './TodoModel'
 
 import './App.css'
@@ -13,6 +15,13 @@ const App = () => {
 	return (
 		<div className="app">
 			<h1>To Do</h1>
+			<TodoForm
+				todos={todos}
+				todo={todo}
+				setTodo={setTodo}
+				setTodos={setTodos}
+			/>
+			<TodoList setTodos={setTodos} todos={todos} />
 		</div>
 	)
 }
