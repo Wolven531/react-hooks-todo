@@ -10,18 +10,28 @@ const App = () => {
 	const [todos, setTodos] = useState<TodoModel[]>([
 		new TodoModel(0, 'todo task 1')
 	])
-	const [todo, setTodo] = useState('')
+
+	const addTodo = (todo: TodoModel) => {
+		if (todo.id === -1) {
+			todo.id = todos.length
+		}
+		setTodos([...todos, todo])
+	}
+
+	const toggleTodo = (todoId: number) => {
+		setTodos(todos.map(todo => {
+			if (todo.id === todoId) {
+				todo.completed = !todo.completed
+			}
+			return todo
+		}))
+	}
 
 	return (
 		<div className="app">
 			<h1>To Do</h1>
-			<TodoForm
-				todos={todos}
-				todo={todo}
-				setTodo={setTodo}
-				setTodos={setTodos}
-			/>
-			<TodoList setTodos={setTodos} todos={todos} />
+			<TodoForm addTodo={addTodo} />
+			<TodoList todos={todos} toggleTodo={toggleTodo} />
 		</div>
 	)
 }

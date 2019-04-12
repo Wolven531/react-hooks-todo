@@ -1,23 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { TodoModel } from './TodoModel'
 
 const TodoForm = ({
-	setTodo,
-	setTodos,
-	todo,
-	todos
+	addTodo
 }: {
-	setTodo: (newTodo: string) => void
-	setTodos: (allTodos: TodoModel[]) => void
-	todo: string
-	todos: TodoModel[]
+	addTodo: (newTodo: TodoModel) => void
 }) => {
-	const clearCompletedTodos = () => {
-		setTodos(todos.filter(todo => !todo.completed))
-	}
-	const handleAddTodo = () => {
-		setTodos([...todos, new TodoModel(todos.length, todo)])
+	const [todo, setTodo] = useState('')
+	// const clearCompletedTodos = () => {
+	// 	setTodos(todos.filter(todo => !todo.completed))
+	// }
+
+	const handleClick = (e: React.MouseEvent) => {
+		e.preventDefault()
+		addTodo(new TodoModel(-1, todo))
 	}
 
 	return (
@@ -31,10 +28,12 @@ const TodoForm = ({
 				}}
 				value={todo}
 			/>
-			<button onClick={handleAddTodo}>Add new task</button>
+			<button onClick={handleClick}>Add new task</button>
+			{/*
 			<button onClick={clearCompletedTodos}>
 				Remove completed tasks
 			</button>
+			*/}
 		</form>
 	)
 }

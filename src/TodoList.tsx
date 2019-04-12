@@ -4,17 +4,17 @@ import { Todo } from './Todo'
 import { TodoModel } from './TodoModel'
 
 const TodoList = ({
-	setTodos,
-	todos
+	todos,
+	toggleTodo
 }: {
-	setTodos: (allTodos: TodoModel[]) => void
+	toggleTodo: (todoId: number) => void
 	todos: TodoModel[]
 }) => {
 	return (
 		<div className="todo-list">
 			{todos.length === 0 && <div>No todos are saved</div>}
 			{todos.map((todo, index) => (
-				<Todo key={index} todo={todo} setTodos={setTodos} />
+				<Todo key={index} todo={todo} toggleTodo={toggleTodo} />
 			))}
 		</div>
 	)

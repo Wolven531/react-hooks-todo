@@ -3,11 +3,11 @@ import React from 'react'
 import { TodoModel } from './TodoModel'
 
 const Todo = ({
-	setTodos,
-	todo
+	todo,
+	toggleTodo
 }: {
-	setTodos: (allTodos: TodoModel[]) => void
 	todo: TodoModel
+	toggleTodo: (todoId: number) => void
 }) => {
 	return (
 		<div>
@@ -15,7 +15,7 @@ const Todo = ({
 				type="checkbox"
 				checked={todo.completed}
 				onChange={() => {
-					todo.completed = !todo.completed
+					toggleTodo(todo.id)
 				}}
 			/>
 			<p>{todo.description}</p>
