@@ -14,6 +14,10 @@ const TodoForm = ({
 
 	const handleClick = (e: React.MouseEvent) => {
 		e.preventDefault()
+		if (todo.length < 1) {
+			alert('Todo must have a description')
+			return
+		}
 		addTodo(new TodoModel(-1, todo))
 	}
 
