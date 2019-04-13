@@ -1,0 +1,7 @@
+.todo {
+	border: 1px solid #000;
+}
+
+.todo.completed {
+	text-decoration: line-through;
+}

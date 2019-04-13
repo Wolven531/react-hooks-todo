@@ -2,6 +2,8 @@ import React from 'react'
 
 import { TodoModel } from './TodoModel'
 
+import './Todo.css'
+
 const Todo = ({
 	todo,
 	toggleTodo
@@ -10,7 +12,7 @@ const Todo = ({
 	toggleTodo: (todoId: number) => void
 }) => {
 	return (
-		<div>
+		<div className={['todo', todo.completed ? 'completed' : ''].join(' ')}>
 			<input
 				type="checkbox"
 				checked={todo.completed}
