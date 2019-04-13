@@ -20,7 +20,7 @@ const Todo = ({
 					toggleTodo(todo.id)
 				}}
 			/>
-			<p>{todo.description}</p>
+			<p className="description">{todo.description}</p>
 		</div>
 	)
 }
