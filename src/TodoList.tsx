@@ -3,6 +3,8 @@ import React from 'react'
 import { Todo } from './Todo'
 import { TodoModel } from './TodoModel'
 
+import './TodoList.css'
+
 const TodoList = ({
 	todos,
 	toggleTodo

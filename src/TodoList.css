@@ -1,0 +1,8 @@
+.todo-list {
+	display: grid;
+	grid-auto-rows: auto;
+	grid-gap: .5em;
+	margin: 1em auto;
+	min-width: 480px;
+	width: 50vw;
+}
