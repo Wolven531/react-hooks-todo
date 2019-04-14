@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import moment from 'moment'
+
 import { TodoModel } from './TodoModel'
 
 const TodoForm = ({
@@ -18,7 +20,7 @@ const TodoForm = ({
 			alert('Todo must have a description')
 			return
 		}
-		addTodo(new TodoModel(-1, todo))
+		addTodo(new TodoModel(-1, todo, false, moment.now()))
 	}
 
 	return (

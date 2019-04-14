@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import moment from 'moment'
+
 import { TodoForm } from './TodoForm'
 import { TodoList } from './TodoList'
 import { TodoModel } from './TodoModel'
@@ -8,7 +10,7 @@ import './App.css'
 
 const App = () => {
 	const [todos, setTodos] = useState<TodoModel[]>([
-		new TodoModel(0, 'todo task 1')
+		new TodoModel(0, 'todo task 1', false, moment.now())
 	])
 
 	const addTodo = (todo: TodoModel) => {
