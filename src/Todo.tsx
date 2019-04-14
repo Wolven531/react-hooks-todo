@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 import { TodoModel } from './TodoModel'
 
@@ -22,6 +23,7 @@ const Todo = ({
 				checked={todo.completed}
 			/>
 			<p className="description">{todo.description}</p>
+			<div className="creation">{moment(todo.creationTimestamp).calendar()}</div>
 		</div>
 	)
 }
