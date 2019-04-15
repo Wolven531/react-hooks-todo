@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import moment from 'moment'
 
@@ -28,6 +28,26 @@ const App = () => {
 			return todo
 		}))
 	}
+
+	const handleUnmount = () => {
+		console.info('This happens before un-render (only once)')
+	}
+
+	const handleMounted = () => {
+		window.document.title = 'Todo Manager'
+		console.info(`This happens after render (only once)`)
+		return handleUnmount
+	}
+
+	// NOTE: empty (no arg) to track nothing, just fire on mount/unmount
+	useEffect(handleMounted, [])
+
+	// NOTE: track todos, fire on every change
+	useEffect(() => {
+		console.info(`Todos was changed: ${JSON.stringify(todos, null, 4)}`)
+	}, [todos])
+
+	// console.info(`About to render`)
 
 	return (
 		<div className="app">
