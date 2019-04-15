@@ -21,6 +21,7 @@ const Todo = ({
 			<input
 				type="checkbox"
 				checked={todo.completed}
+				readOnly={true}
 			/>
 			<p className="description">{todo.description}</p>
 			<div className="creation">{moment(todo.creationTimestamp).calendar()}</div>
