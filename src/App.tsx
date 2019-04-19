@@ -12,12 +12,17 @@ const App = () => {
 	const [todos, setTodos] = useState<TodoModel[]>([
 		new TodoModel(0, 'todo task 1', false, moment.now())
 	])
+	const [money, setMoney] = useState(0)
 
 	const addTodo = (todo: TodoModel) => {
 		if (todo.id === -1) {
 			todo.id = todos.length
 		}
 		setTodos([...todos, todo])
+	}
+
+	const addMoney = () => {
+		setMoney(money + 1)
 	}
 
 	const toggleTodo = (todoId: number) => {
@@ -54,6 +59,10 @@ const App = () => {
 			<h1>To Do</h1>
 			<TodoForm addTodo={addTodo} />
 			<TodoList todos={todos} toggleTodo={toggleTodo} />
+			<div>
+				<p>Money: ${money.toFixed(2)}</p>
+				<button onClick={() => { addMoney() }}>Add Money</button>
+			</div>
 		</div>
 	)
 }
