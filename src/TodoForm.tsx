@@ -20,7 +20,7 @@ const TodoForm = ({
 			alert('Todo must have a description')
 			return
 		}
-		addTodo(new TodoModel(-1, todo, false, moment.now()))
+		addTodo(new TodoModel('', todo, false, moment.now()))
 	}
 
 	return (

@@ -10,7 +10,7 @@ const Todo = ({
 	toggleTodo
 }: {
 	todo: TodoModel
-	toggleTodo: (todoId: number) => void
+	toggleTodo: (todoId: string) => void
 }) => {
 	return (
 		<div

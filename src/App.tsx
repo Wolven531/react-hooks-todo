@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+import uuidv1 from 'uuid/v1'
 import moment from 'moment'
 
-import { TodoForm } from './TodoForm'
 import { TodoList } from './TodoList'
 import { TodoModel } from './TodoModel'
 
@@ -10,22 +10,21 @@ import './App.css'
 
 const App = () => {
 	const [todos, setTodos] = useState<TodoModel[]>([
-		new TodoModel(0, 'todo task 1', false, moment.now())
+		new TodoModel(uuidv1(), 'default todo task 1', false, moment.now())
 	])
-	const [money, setMoney] = useState(0)
 
 	const addTodo = (todo: TodoModel) => {
-		if (todo.id === -1) {
-			todo.id = todos.length
+		if (todo.id === '') {
+			todo.id = uuidv1()
 		}
 		setTodos([...todos, todo])
 	}
 
-	const addMoney = () => {
-		setMoney(money + 1)
+	const clearCompletedTodos = () => {
+		setTodos([...todos.filter(todo => !todo.completed)])
 	}
-
-	const toggleTodo = (todoId: number) => {
+	
+	const toggleTodo = (todoId: string) => {
 		setTodos(todos.map(todo => {
 			if (todo.id === todoId) {
 				todo.completed = !todo.completed
@@ -33,6 +32,12 @@ const App = () => {
 			return todo
 		}))
 	}
+
+	// const [money, setMoney] = useState(0)
+
+	// const addMoney = () => {
+	// 	setMoney(money + 1)
+	// }
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {}
@@ -52,15 +57,6 @@ const App = () => {
 		return handleUnmount
 	}
 
-	const saveTodos = () => {
-		if (!window.localStorage) {
-			alert('local storage not available, unable to save 😢')
-			return
-		}
-		console.info('localStorage is available! saving todos...')
-		window.localStorage.setItem('react-hooks-todo.todos', JSON.stringify(todos))
-	}
-
 	// NOTE: empty (no arg) to track nothing, just fire on mount/unmount
 	useEffect(handleMounted, [])
 
@@ -74,13 +70,13 @@ const App = () => {
 	return (
 		<div className="app">
 			<h1>To Do</h1>
-			<TodoForm addTodo={addTodo} />
-			<TodoList todos={todos} toggleTodo={toggleTodo} />
-			<button onClick={() => { saveTodos() }}>Save Todo list</button>
+			<TodoList todos={todos} addTodo={addTodo} toggleTodo={toggleTodo} clearCompletedTodos={clearCompletedTodos} />
+			{/*
 			<div>
 				<p>Money: ${money.toFixed(2)}</p>
 				<button onClick={() => { addMoney() }}>Add Money</button>
 			</div>
+			*/}
 		</div>
 	)
 }
