@@ -34,23 +34,40 @@ const App = () => {
 		}))
 	}
 
-	const handleUnmount = () => {
-		console.info('This happens before un-render (only once)')
-	}
+	// NOTE: This happens before un-render (only once)
+	const handleUnmount = () => {}
 
+	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
 		window.document.title = 'Todo Manager'
-		console.info(`This happens after render (only once)`)
+
+		if (window.localStorage) {
+			console.info('localStorage is available! loading todos...')
+			const storedTodoStr = window.localStorage.getItem('react-hooks-todo.todos')
+			if (storedTodoStr && storedTodoStr.length) {
+				setTodos(JSON.parse(storedTodoStr))
+			}
+		}
+
 		return handleUnmount
+	}
+
+	const saveTodos = () => {
+		if (!window.localStorage) {
+			alert('local storage not available, unable to save 😢')
+			return
+		}
+		console.info('localStorage is available! saving todos...')
+		window.localStorage.setItem('react-hooks-todo.todos', JSON.stringify(todos))
 	}
 
 	// NOTE: empty (no arg) to track nothing, just fire on mount/unmount
 	useEffect(handleMounted, [])
 
 	// NOTE: track todos, fire on every change
-	useEffect(() => {
-		console.info(`Todos was changed: ${JSON.stringify(todos, null, 4)}`)
-	}, [todos])
+	// useEffect(() => {
+	// 	console.info(`Todos was changed: ${JSON.stringify(todos, null, 4)}`)
+	// }, [todos])
 
 	// console.info(`About to render`)
 
@@ -59,6 +76,7 @@ const App = () => {
 			<h1>To Do</h1>
 			<TodoForm addTodo={addTodo} />
 			<TodoList todos={todos} toggleTodo={toggleTodo} />
+			<button onClick={() => { saveTodos() }}>Save Todo list</button>
 			<div>
 				<p>Money: ${money.toFixed(2)}</p>
 				<button onClick={() => { addMoney() }}>Add Money</button>
