@@ -43,30 +43,6 @@ const useTodoState = (initialValue: TodoModel[]) => {
 
 const App = () => {
 	const { addTodo, clearCompletedTodos, loadFromStorage, todos, toggleTodo } = useTodoState([])
-	// const [todos, setTodos] = useState<TodoModel[]>([
-	// 	new TodoModel(uuidv1(), 'default todo task 1', false, moment.now())
-	// ])
-
-	// const addTodo = (todo: TodoModel) => {
-	// 	if (todo.id === '') {
-	// 		todo.id = uuidv1()
-	// 	}
-	// 	setTodos([...todos, todo])
-	// }
-
-	// const clearCompletedTodos = () => {
-	// 	setTodos(todos.filter(todo => !todo.completed))
-	// }
-
-	// const toggleTodo = (todoId: string) => {
-	// 	setTodos(todos.map(todo => {
-	// 		if (todo.id === todoId) {
-	// 			todo.completed = !todo.completed
-	// 		}
-	// 		return todo
-	// 	}))
-	// }
-
 	// const [money, setMoney] = useState(0)
 
 	// const addMoney = () => {
