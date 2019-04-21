@@ -32,7 +32,7 @@ const TodoList = ({
 			{todos.length === 0 && <div>No todos are saved</div>}
 			<button onClick={() => { clearCompletedTodos() }}>Clear completed Todo items</button>
 			<button onClick={() => { saveTodos() }}>Save Todo list</button>
-			{todos.length > 1 && <React.Fragment>
+			{todos.length > 0 && <React.Fragment>
 				{todos.map((todo, index) => (
 					<Todo key={index} todo={todo} toggleTodo={toggleTodo} />
 				))}
