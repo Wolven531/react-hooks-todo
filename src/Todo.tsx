@@ -13,11 +13,8 @@ const Todo = ({
 	toggleTodo: (todoId: string) => void
 }) => {
 	return (
-		<div
-			className={['todo', todo.completed ? 'completed' : ''].join(' ')}
-			onClick={() => {
-				toggleTodo(todo.id)
-			}}>
+		<div className={['todo', todo.completed ? 'completed' : ''].join(' ')}
+			onClick={() => { toggleTodo(todo.id) }}>
 			<input
 				type="checkbox"
 				checked={todo.completed}
