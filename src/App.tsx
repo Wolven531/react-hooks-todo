@@ -1,37 +1,71 @@
 import React, { useEffect, useState } from 'react'
 
-import uuidv1 from 'uuid/v1'
-import moment from 'moment'
-
 import { TodoList } from './TodoList'
 import { TodoModel } from './TodoModel'
 
 import './App.css'
 
-const App = () => {
-	const [todos, setTodos] = useState<TodoModel[]>([
-		new TodoModel(uuidv1(), 'default todo task 1', false, moment.now())
-	])
+const useTodoState = (initialValue: TodoModel[]) => {
+	const [todos, setTodos] = useState(initialValue)
 
-	const addTodo = (todo: TodoModel) => {
-		if (todo.id === '') {
-			todo.id = uuidv1()
-		}
-		setTodos([...todos, todo])
-	}
-
-	const clearCompletedTodos = () => {
-		setTodos([...todos.filter(todo => !todo.completed)])
-	}
-	
-	const toggleTodo = (todoId: string) => {
-		setTodos(todos.map(todo => {
-			if (todo.id === todoId) {
-				todo.completed = !todo.completed
+	return {
+		todos,
+		addTodo: (newTodo: TodoModel) => {
+			setTodos(todos.concat(newTodo))
+		},
+		clearCompletedTodos: () => {
+			setTodos(todos.filter(todo => !todo.completed))
+		},
+		deleteTodo: (todoId: string) => {
+			setTodos(todos.filter(todo => todo.id !== todoId))
+		},
+		loadFromStorage: () => {
+			if (window.localStorage) {
+				console.info('localStorage is available! loading todos...')
+				const storedTodoStr = window.localStorage.getItem(
+					'react-hooks-todo.todos'
+				)
+				if (storedTodoStr && storedTodoStr.length) {
+					setTodos(JSON.parse(storedTodoStr))
+				}
 			}
-			return todo
-		}))
+		},
+		toggleTodo: (todoId: string) => {
+			setTodos(todos.map(todo => {
+				if (todo.id === todoId) {
+					todo.completed = !todo.completed
+				}
+				return todo
+			}))
+		}
 	}
+}
+
+const App = () => {
+	const { addTodo, clearCompletedTodos, loadFromStorage, todos, toggleTodo } = useTodoState([])
+	// const [todos, setTodos] = useState<TodoModel[]>([
+	// 	new TodoModel(uuidv1(), 'default todo task 1', false, moment.now())
+	// ])
+
+	// const addTodo = (todo: TodoModel) => {
+	// 	if (todo.id === '') {
+	// 		todo.id = uuidv1()
+	// 	}
+	// 	setTodos([...todos, todo])
+	// }
+
+	// const clearCompletedTodos = () => {
+	// 	setTodos(todos.filter(todo => !todo.completed))
+	// }
+
+	// const toggleTodo = (todoId: string) => {
+	// 	setTodos(todos.map(todo => {
+	// 		if (todo.id === todoId) {
+	// 			todo.completed = !todo.completed
+	// 		}
+	// 		return todo
+	// 	}))
+	// }
 
 	// const [money, setMoney] = useState(0)
 
@@ -45,14 +79,7 @@ const App = () => {
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
 		window.document.title = 'Todo Manager'
-
-		if (window.localStorage) {
-			console.info('localStorage is available! loading todos...')
-			const storedTodoStr = window.localStorage.getItem('react-hooks-todo.todos')
-			if (storedTodoStr && storedTodoStr.length) {
-				setTodos(JSON.parse(storedTodoStr))
-			}
-		}
+		loadFromStorage()
 
 		return handleUnmount
 	}
@@ -70,7 +97,12 @@ const App = () => {
 	return (
 		<div className="app">
 			<h1>To Do</h1>
-			<TodoList todos={todos} addTodo={addTodo} toggleTodo={toggleTodo} clearCompletedTodos={clearCompletedTodos} />
+			<TodoList
+				todos={todos}
+				addTodo={addTodo}
+				clearCompletedTodos={clearCompletedTodos}
+				toggleTodo={toggleTodo}
+			/>
 			{/*
 			<div>
 				<p>Money: ${money.toFixed(2)}</p>
