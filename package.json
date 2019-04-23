@@ -1,39 +1,45 @@
 {
-  "name": "react-hooks-todo",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@types/node": "11.13.2",
-    "@types/react": "16.8.13",
-    "@types/react-dom": "16.8.3",
-    "@types/uuid": "^3.4.4",
-    "enzyme": "^3.9.0",
-    "jest": "23.6.0",
-    "moment": "^2.24.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8",
-    "typescript": "3.4.2",
-    "uuid": "^3.3.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "@types/enzyme": "3.9.0",
-    "@types/jest": "23.6.0",
-    "cheerio": "^1.0.0-rc.3"
-  }
+	"name": "react-hooks-todo",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"moment": "^2.24.0",
+		"react": "^16.8.6",
+		"react-dom": "^16.8.6",
+		"react-scripts": "2.1.8",
+		"typescript": "3.4.2",
+		"uuid": "^3.3.2"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	],
+	"devDependencies": {
+		"@types/cheerio": "^0.22.11",
+		"@types/enzyme": "3.9.0",
+		"@types/enzyme-adapter-react-16": "^1.0.5",
+		"@types/jasmine": "^3.3.12",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "11.13.2",
+		"@types/react": "16.8.13",
+		"@types/react-dom": "16.8.3",
+		"@types/uuid": "^3.4.4",
+		"cheerio": "^1.0.0-rc.3",
+		"enzyme": "^3.9.0",
+		"enzyme-adapter-react-16": "^1.12.1",
+		"jest": "23.6.0",
+		"mocha": "^6.1.4",
+		"mock-local-storage": "^1.1.8"
+	}
 }
