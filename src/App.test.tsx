@@ -18,6 +18,7 @@ describe('Todo App component', () => {
 
 	it('renders without crashing', () => {
 		expect(fixture.exists()).toBe(true)
+		expect(fixture.hasClass('app')).toBe(true)
 	})
 
 	afterAll(() => {
