@@ -22,9 +22,7 @@ const useTodoState = (initialValue: TodoModel[]) => {
 		loadFromStorage: () => {
 			if (window.localStorage) {
 				console.info('localStorage is available! loading todos...')
-				const storedTodoStr = window.localStorage.getItem(
-					'react-hooks-todo.todos'
-				)
+				const storedTodoStr = window.localStorage.getItem('react-hooks-todo.todos')
 				if (storedTodoStr && storedTodoStr.length) {
 					setTodos(JSON.parse(storedTodoStr))
 				}

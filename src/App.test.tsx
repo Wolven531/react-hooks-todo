@@ -1,27 +1,26 @@
+import 'jest'
 import React from 'react'
-import { configure, shallow, ShallowWrapper } from 'enzyme'
+import { configure, mount, shallow, ShallowWrapper, ReactWrapper } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() })
 
 import App from './App'
 
 describe('Todo App component', () => {
-	let fixture: ShallowWrapper
-	let originalLocalStorage: Storage
+	let fixture: ReactWrapper
 
-	beforeAll(() => {
-		originalLocalStorage = window.localStorage
-		window.localStorage = jest.fn()
-		fixture = shallow(<App/>)
+	beforeAll(() => { })
+
+	beforeEach(() => {
+		// NOTE: need mount (rather than shallow) so that stateless componentDidMount will run
+		fixture = mount(<App/>)
 	})
 
 	it('renders without crashing', () => {
-		expect(fixture.exists()).toBe(true)
-		expect(fixture.hasClass('app')).toBe(true)
+		expect(fixture.find('.app').exists()).toBe(true)
+		expect(localStorage.getItem).toHaveBeenCalled()
 	})
 
-	afterAll(() => {
-		window.localStorage = originalLocalStorage
-	})
+	afterEach(() => { })
 })
