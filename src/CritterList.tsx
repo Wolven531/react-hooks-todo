@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import { v1 } from 'uuid'
+
 import './CritterList.css'
 
 class CritterModel {
@@ -10,8 +12,14 @@ class CritterModel {
 	constructor(
 		public hitpoints: number,
 		public attack: number,
-		public defense: number
-	) {}
+		public defense: number,
+		public id?: string
+	) {
+		if (!id) {
+			this.id = v1()
+			console.info(`[ctor | Critter] No ID, generated="${id}"...`)
+		}
+	}
 }
 
 const useCritterState = (initialValue: CritterModel[]) => {
@@ -61,6 +69,8 @@ const useCritterState = (initialValue: CritterModel[]) => {
 const CritterList = () => {
 	const { critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
 
+
+
 	return (
 		<article className="critter-list">
 			<button onClick={() => { spawnCritter() }}>
@@ -72,26 +82,36 @@ const CritterList = () => {
 			<button onClick={() => { loadFromStorage() }}>
 				Load Critters (local)
 			</button>
-			{critters.map(critter => {
-				return (
-					<section className="critter">
-						<table>
-							<tr>
-								<td>HP</td>
-								<td>{critter.hitpoints}</td>
-							</tr>
-							<tr>
-								<td>Attack</td>
-								<td>{critter.attack}</td>
-							</tr>
-							<tr>
-								<td>Defense</td>
-								<td>{critter.defense}</td>
-							</tr>
-						</table>
-					</section>
-				)
-			})}
+			<section className="display-container">
+				{critters.map(critter => {
+					console.info(`[render | CritterList] Rendering id="${critter.id}"`)
+					return (
+						<section className="critter" key={critter.id}>
+							<table>
+								<thead>
+									<tr>
+										<td colSpan={2}>{critter.id}</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>HP</td>
+										<td>{critter.hitpoints}</td>
+									</tr>
+									<tr>
+										<td>Attack</td>
+										<td>{critter.attack}</td>
+									</tr>
+									<tr>
+										<td>Defense</td>
+										<td>{critter.defense}</td>
+									</tr>
+								</tbody>
+							</table>
+						</section>
+					)
+				})}
+			</section>
 		</article>
 	)
 }

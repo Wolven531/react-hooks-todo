@@ -1,3 +1,45 @@
-table {
+.critter-list table {
+	background-image: radial-gradient(red, orange, yellow, green, blue, purple);
 	border: 1px solid #000;
+}
+
+.critter-list table thead td {
+	background-color: rgba(255, 255, 255, 1);
+	color: #333;
+	font-size: .4em;
+	font-weight: bolder;
+	text-shadow: rgba(0,0,0,.3) 1px 1px;
+	word-break: keep-all;
+	word-wrap: none;
+}
+
+.critter-list table tbody {
+	background-color: rgba(255, 255, 255, .67);
+	border: 2px solid #fff;
+	color: #000;
+	font-weight: bold;
+}
+
+.critter-list table tbody td {
+	padding: .2em;
+}
+
+.critter-list table tbody td:first-child {
+	text-indent: .3em;
+}
+
+.critter-list table tbody td:nth-of-type(2) {
+	text-align: right;
+}
+
+.critter-list .display-container {
+	align-content: space-evenly;
+	border: 1px solid #000;
+	display: grid;
+	grid-gap: 1em;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	justify-items: center;
+	padding: 1em;
+	margin: 2em;
+	overflow-x: scroll;
 }
