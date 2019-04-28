@@ -1,9 +1,23 @@
-.critter-list table {
-	background-image: radial-gradient(red, orange, yellow, green, blue, purple);
+.critter-list .critter {
+	background-color: rgba(0,0,0,.25);
+	/* background-image: radial-gradient(red, orange, yellow, green, blue, purple); */
 	border: 1px solid #000;
+	color: #000;
+	transition-property: all;
+	transition-duration: 1s;
+	transition-delay: 0s;
 }
 
-.critter-list table thead td {
+.critter-list .critter.selected {
+	background-color: rgba(0,255,0,.8);
+	/* background-image: radial-gradient(white, lime, green); */
+}
+
+.critter-list .critter.selected tbody td {
+	color: #070;
+}
+
+.critter-list .critter thead td {
 	background-color: rgba(255, 255, 255, 1);
 	color: #333;
 	font-size: .4em;
@@ -13,22 +27,22 @@
 	word-wrap: none;
 }
 
-.critter-list table tbody {
+.critter-list .critter tbody {
 	background-color: rgba(255, 255, 255, .67);
 	border: 2px solid #fff;
 	color: #000;
 	font-weight: bold;
 }
 
-.critter-list table tbody td {
+.critter-list .critter tbody td {
 	padding: .2em;
 }
 
-.critter-list table tbody td:first-child {
+.critter-list .critter tbody td:first-child {
 	text-indent: .3em;
 }
 
-.critter-list table tbody td:nth-of-type(2) {
+.critter-list .critter tbody td:nth-of-type(2) {
 	text-align: right;
 }
 

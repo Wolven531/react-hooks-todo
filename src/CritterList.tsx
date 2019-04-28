@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { v1 } from 'uuid'
 
@@ -17,7 +17,7 @@ class CritterModel {
 	) {
 		if (!id) {
 			this.id = v1()
-			console.info(`[ctor | Critter] No ID, generated="${id}"...`)
+			// console.info(`[ctor | Critter] No ID, generated="${id}"...`)
 		}
 	}
 }
@@ -37,7 +37,7 @@ const useCritterState = (initialValue: CritterModel[]) => {
 		// },
 		loadFromStorage: () => {
 			if (window.localStorage) {
-				console.info('localStorage is available! loading critter...')
+				// console.info('localStorage is available! loading critter...')
 				const storedCritterStr = window.localStorage.getItem(
 					'react-hooks-todo.critters'
 				)
@@ -51,7 +51,7 @@ const useCritterState = (initialValue: CritterModel[]) => {
 				alert('local storage not available, unable to save 😢')
 				return
 			}
-			console.info('localStorage is available! saving critters...')
+			// console.info('localStorage is available! saving critters...')
 			window.localStorage.setItem('react-hooks-todo.critters', JSON.stringify(critters))
 		},
 		spawnCritter: () => {
@@ -69,7 +69,17 @@ const useCritterState = (initialValue: CritterModel[]) => {
 const CritterList = () => {
 	const { critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
 
+	useEffect(() => {
+		loadFromStorage()
+	}, [])
 
+	const toggleSelectedOnClick = (evt: React.MouseEvent) => {
+		if (evt.currentTarget.classList.contains('selected')){
+			evt.currentTarget.classList.remove('selected')
+			return
+		}
+		evt.currentTarget.classList.add('selected')
+	}
 
 	return (
 		<article className="critter-list">
@@ -79,14 +89,11 @@ const CritterList = () => {
 			<button onClick={() => { saveToLocalStorage() }}>
 				Save Critters (local)
 			</button>
-			<button onClick={() => { loadFromStorage() }}>
-				Load Critters (local)
-			</button>
 			<section className="display-container">
 				{critters.map(critter => {
-					console.info(`[render | CritterList] Rendering id="${critter.id}"`)
+					// console.info(`[render | CritterList] Rendering id="${critter.id}"`)
 					return (
-						<section className="critter" key={critter.id}>
+						<section className="critter" key={critter.id} onClick={toggleSelectedOnClick}>
 							<table>
 								<thead>
 									<tr>
