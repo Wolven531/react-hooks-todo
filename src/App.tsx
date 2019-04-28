@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import { CritterList } from './CritterList'
 import { TodoList } from './TodoList'
 import { TodoModel } from './TodoModel'
 
@@ -77,6 +78,7 @@ const App = () => {
 				clearCompletedTodos={clearCompletedTodos}
 				toggleTodo={toggleTodo}
 			/>
+			<CritterList />
 			{/*
 			<div>
 				<p>Money: ${money.toFixed(2)}</p>
