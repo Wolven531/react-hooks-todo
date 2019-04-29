@@ -115,11 +115,13 @@ const CritterList = () => {
 					return (
 						<section className="critter" key={critter.id} onClick={toggleSelectedOnClick}>
 							<table>
+								{/*
 								<thead>
 									<tr>
 										<td colSpan={2}>{critter.id}</td>
 									</tr>
 								</thead>
+								*/}
 								<tbody>
 									<tr>
 										<td>Name</td>
