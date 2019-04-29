@@ -10,6 +10,7 @@ class CritterModel {
 	public static MAX_HITPOINTS = 10
 
 	constructor(
+		public name: string,
 		public hitpoints: number,
 		public attack: number,
 		public defense: number,
@@ -32,6 +33,9 @@ const useCritterState = (initialValue: CritterModel[]) => {
 	return {
 		critters,
 		addCritter,
+		clearCritters: () => {
+			setCritters([])
+		},
 		// deleteCritter: (critterId: string) => {
 		// 	setCritters(critters.filter(critter => critter.id !== critterId))
 		// },
@@ -54,9 +58,22 @@ const useCritterState = (initialValue: CritterModel[]) => {
 			// console.info('localStorage is available! saving critters...')
 			window.localStorage.setItem('react-hooks-todo.critters', JSON.stringify(critters))
 		},
-		spawnCritter: () => {
+		spawnCritter: async () => {
+			const nameResponse = await fetch(`https://randomuser.me/api/`)
+
+			if (nameResponse.status !== 200) {
+				console.warn(`Failed to generate random name, status=${nameResponse.status} ${nameResponse.statusText}`)
+				return
+			}
+
+			const nameData = await nameResponse.json()
+			// const { first, last } = nameData.results[0].name
+			const { first }: { first: string } = nameData.results[0].name
+			const firstLetter = first.charAt(0).toUpperCase()
+
 			addCritter(
 				new CritterModel(
+					`${firstLetter}${first.substring(1)}`,
 					1 + Math.round(Math.random() * (CritterModel.MAX_HITPOINTS - 1)),
 					1 + Math.round(Math.random() * (CritterModel.MAX_ATTACK - 1)),
 					1 + Math.round(Math.random() * (CritterModel.MAX_DEFENSE - 1))
@@ -67,7 +84,7 @@ const useCritterState = (initialValue: CritterModel[]) => {
 }
 
 const CritterList = () => {
-	const { critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
+	const { clearCritters, critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
 
 	useEffect(() => {
 		loadFromStorage()
@@ -89,6 +106,9 @@ const CritterList = () => {
 			<button onClick={() => { saveToLocalStorage() }}>
 				Save Critters (local)
 			</button>
+			<button onClick={() => { clearCritters() }}>
+				Clear Critters
+			</button>
 			<section className="display-container">
 				{critters.map(critter => {
 					// console.info(`[render | CritterList] Rendering id="${critter.id}"`)
@@ -101,6 +121,10 @@ const CritterList = () => {
 									</tr>
 								</thead>
 								<tbody>
+									<tr>
+										<td>Name</td>
+										<td>{critter.name}</td>
+									</tr>
 									<tr>
 										<td>HP</td>
 										<td>{critter.hitpoints}</td>
