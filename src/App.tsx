@@ -40,13 +40,20 @@ const useTodoState = (initialValue: TodoModel[]) => {
 	}
 }
 
+const useMoneyState = (initialValue: number) => {
+	const [money, setMoney] = useState(0)
+
+	return {
+		money,
+		addMoney: () => {
+			setMoney(money + 1)
+		}
+	}
+}
+
 const App = () => {
 	const { addTodo, clearCompletedTodos, loadFromStorage, todos, toggleTodo } = useTodoState([])
-	// const [money, setMoney] = useState(0)
-
-	// const addMoney = () => {
-	// 	setMoney(money + 1)
-	// }
+	const { addMoney, money } = useMoneyState(0)
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {}
