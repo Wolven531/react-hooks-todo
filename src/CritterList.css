@@ -7,6 +7,7 @@
 	/* background-image: radial-gradient(red, orange, yellow, green, blue, purple); */
 	border: 1px solid #000;
 	color: #000;
+	display: grid;
 	/* min-width: 150px; */
 	/* overflow: hidden; */
 	transition-delay: 0s;
@@ -53,11 +54,12 @@
 }
 
 .critter-list .display-container {
+	/* align-items: center; */
 	border: 1px solid #000;
 	display: grid;
 	grid-gap: .25em;
 	grid-template-columns: repeat(4, 1fr);
-	justify-items: center;
+	/* justify-items: center; */
 	/* justify-content: space-between; */
 	overflow: auto;
 }
