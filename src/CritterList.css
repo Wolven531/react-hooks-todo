@@ -53,6 +53,49 @@
 	text-align: right;
 }
 
+.critter-list .controls {
+	display: grid;
+	margin-bottom: 1em;
+}
+
+.critter-list .controls button {
+	color: #fff;
+	padding: .5em;
+	transition-delay: 0s;
+	transition-duration: 1s;
+	transition-property: all;
+}
+
+.critter-list .controls button:hover {
+	color: #333;
+	font-size: 1.25em;
+}
+
+.critter-list .controls .create {
+	background-color: rgba(0, 180, 0, .67);
+	border: 1px solid #070;
+}
+.critter-list .controls .create:hover {
+	background-color: rgba(0, 255, 0, .67);
+}
+
+.critter-list .controls .delete {
+	background-color: rgba(180, 0, 0, .67);
+	border: 1px solid #700;
+}
+.critter-list .controls .delete:hover {
+	background-color: rgba(255, 0, 0, .67);
+	color: #ff0;
+}
+
+.critter-list .controls .update {
+	background-color: rgba(0, 0, 180, .67);
+	border: 1px solid #007;
+}
+.critter-list .controls .update:hover {
+	background-color: rgba(0, 255, 255, .67);
+}
+
 .critter-list .display-container {
 	/* align-items: center; */
 	border: 1px solid #000;
