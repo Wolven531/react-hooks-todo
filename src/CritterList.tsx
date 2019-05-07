@@ -100,15 +100,17 @@ const CritterList = () => {
 
 	return (
 		<article className="critter-list">
-			<button onClick={() => { spawnCritter() }}>
-				Spawn Critter
-			</button>
-			<button onClick={() => { saveToLocalStorage() }}>
-				Save Critters (local)
-			</button>
-			<button onClick={() => { clearCritters() }}>
-				Clear Critters
-			</button>
+			<section className="controls">
+				<button className="create" onClick={() => { spawnCritter() }}>
+					Spawn Critter
+				</button>
+				<button className="update" onClick={() => { saveToLocalStorage() }}>
+					Save Critters (local)
+				</button>
+				<button className="delete" onClick={() => { clearCritters() }}>
+					Clear Critters
+				</button>
+			</section>
 			<section className="display-container">
 				{critters.map(critter => {
 					// console.info(`[render | CritterList] Rendering id="${critter.id}"`)
