@@ -1,87 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
-import { v1 } from 'uuid'
+import { useCritterState } from './useCritterState'
 
 import './CritterList.css'
-
-class CritterModel {
-	public static MAX_ATTACK = 5
-	public static MAX_DEFENSE = 5
-	public static MAX_HITPOINTS = 10
-
-	constructor(
-		public name: string,
-		public hitpoints: number,
-		public attack: number,
-		public defense: number,
-		public id?: string
-	) {
-		if (!id) {
-			this.id = v1()
-			// console.info(`[ctor | Critter] No ID, generated="${id}"...`)
-		}
-	}
-}
-
-const useCritterState = (initialValue: CritterModel[]) => {
-	const [critters, setCritters] = useState(initialValue)
-
-	const addCritter = (newCritter: CritterModel) => {
-		setCritters(critters.concat(newCritter))
-	}
-
-	return {
-		critters,
-		addCritter,
-		clearCritters: () => {
-			setCritters([])
-		},
-		// deleteCritter: (critterId: string) => {
-		// 	setCritters(critters.filter(critter => critter.id !== critterId))
-		// },
-		loadFromStorage: () => {
-			if (window.localStorage) {
-				// console.info('localStorage is available! loading critter...')
-				const storedCritterStr = window.localStorage.getItem(
-					'react-hooks-todo.critters'
-				)
-				if (storedCritterStr && storedCritterStr.length) {
-					setCritters(JSON.parse(storedCritterStr))
-				}
-			}
-		},
-		saveToLocalStorage: () => {
-			if (!window.localStorage) {
-				alert('local storage not available, unable to save 😢')
-				return
-			}
-			// console.info('localStorage is available! saving critters...')
-			window.localStorage.setItem('react-hooks-todo.critters', JSON.stringify(critters))
-		},
-		spawnCritter: async () => {
-			const nameResponse = await fetch(`https://randomuser.me/api/`)
-
-			if (nameResponse.status !== 200) {
-				console.warn(`Failed to generate random name, status=${nameResponse.status} ${nameResponse.statusText}`)
-				return
-			}
-
-			const nameData = await nameResponse.json()
-			// const { first, last } = nameData.results[0].name
-			const { first }: { first: string } = nameData.results[0].name
-			const firstLetter = first.charAt(0).toUpperCase()
-
-			addCritter(
-				new CritterModel(
-					`${firstLetter}${first.substring(1)}`,
-					1 + Math.round(Math.random() * (CritterModel.MAX_HITPOINTS - 1)),
-					1 + Math.round(Math.random() * (CritterModel.MAX_ATTACK - 1)),
-					1 + Math.round(Math.random() * (CritterModel.MAX_DEFENSE - 1))
-				)
-			)
-		}
-	}
-}
 
 const CritterList = () => {
 	const { clearCritters, critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
