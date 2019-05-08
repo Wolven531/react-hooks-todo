@@ -1,55 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { CritterList } from './CritterList'
 import { TodoList } from './TodoList'
-import { TodoModel } from './TodoModel'
+
+import { useTodoState } from './useTodoState'
+import { useMoneyState } from './useMoneyState'
 
 import './App.css'
-
-const useTodoState = (initialValue: TodoModel[]) => {
-	const [todos, setTodos] = useState(initialValue)
-
-	return {
-		todos,
-		addTodo: (newTodo: TodoModel) => {
-			setTodos(todos.concat(newTodo))
-		},
-		clearCompletedTodos: () => {
-			setTodos(todos.filter(todo => !todo.completed))
-		},
-		deleteTodo: (todoId: string) => {
-			setTodos(todos.filter(todo => todo.id !== todoId))
-		},
-		loadFromStorage: () => {
-			if (window.localStorage) {
-				console.info('localStorage is available! loading todos...')
-				const storedTodoStr = window.localStorage.getItem('react-hooks-todo.todos')
-				if (storedTodoStr && storedTodoStr.length) {
-					setTodos(JSON.parse(storedTodoStr))
-				}
-			}
-		},
-		toggleTodo: (todoId: string) => {
-			setTodos(todos.map(todo => {
-				if (todo.id === todoId) {
-					todo.completed = !todo.completed
-				}
-				return todo
-			}))
-		}
-	}
-}
-
-const useMoneyState = (initialValue: number) => {
-	const [money, setMoney] = useState(0)
-
-	return {
-		money,
-		addMoney: () => {
-			setMoney(money + 1)
-		}
-	}
-}
 
 const App = () => {
 	const { addTodo, clearCompletedTodos, loadFromStorage, todos, toggleTodo } = useTodoState([])
