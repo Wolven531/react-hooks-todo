@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-import { TodoModel } from './TodoModel'
+import { Todo } from './model/Todo'
 
-const useTodoState = (initialValue: TodoModel[]) => {
+const useTodoState = (initialValue: Todo[]) => {
 	const [todos, setTodos] = useState(initialValue)
 
 	return {
 		todos,
-		addTodo: (newTodo: TodoModel) => {
+		addTodo: (newTodo: Todo) => {
 			setTodos(todos.concat(newTodo))
 		},
 		clearCompletedTodos: () => {

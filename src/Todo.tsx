@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-import { TodoModel } from './TodoModel'
+import { Todo as TodoModel } from './model/Todo'
 
 import './Todo.css'
 

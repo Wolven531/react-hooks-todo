@@ -1,8 +1,9 @@
 import React from 'react'
 
+import { Todo as TodoModel } from './model/Todo'
+
 import { Todo } from './Todo'
 import { TodoForm } from './TodoForm'
-import { TodoModel } from './TodoModel'
 
 import './TodoList.css'
 

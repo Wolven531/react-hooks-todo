@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 
 import moment from 'moment'
 
-import { TodoModel } from './TodoModel'
+import { Todo } from './model/Todo'
 
 const TodoForm = ({
 	addTodo
 }: {
-	addTodo: (newTodo: TodoModel) => void
+	addTodo: (newTodo: Todo) => void
 }) => {
 	const [todo, setTodo] = useState('')
 	// const clearCompletedTodos = () => {
@@ -20,7 +20,7 @@ const TodoForm = ({
 			alert('Todo must have a description')
 			return
 		}
-		addTodo(new TodoModel('', todo, false, moment.now()))
+		addTodo(new Todo('', todo, false, moment.now()))
 	}
 
 	return (

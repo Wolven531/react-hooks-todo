@@ -1,4 +1,4 @@
-class TodoModel {
+class Todo {
 	constructor(
 		public id: string,
 		public description: string,
@@ -7,4 +7,4 @@ class TodoModel {
 	) {}
 }
 
-export { TodoModel }
+export { Todo }
