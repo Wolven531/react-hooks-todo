@@ -1,6 +1,6 @@
 import { v1 } from 'uuid'
 
-class CritterModel {
+class Critter {
 	public static MAX_ATTACK = 5;
 	public static MAX_DEFENSE = 5;
 	public static MAX_HITPOINTS = 10;
@@ -19,4 +19,4 @@ class CritterModel {
 	}
 }
 
-export { CritterModel }
+export { Critter }

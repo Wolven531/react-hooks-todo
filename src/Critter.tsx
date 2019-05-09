@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CritterModel } from './CritterModel'
+import { Critter as CritterModel } from './model/Critter'
 
 import './Critter.css'
 

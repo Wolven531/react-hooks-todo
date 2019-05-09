@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-import { CritterModel } from './CritterModel'
+import { Critter } from './model/Critter'
 
-const useCritterState = (initialValue: CritterModel[]) => {
+const useCritterState = (initialValue: Critter[]) => {
 	const [critters, setCritters] = useState(initialValue)
-	const addCritter = (newCritter: CritterModel) => {
+	const addCritter = (newCritter: Critter) => {
 		setCritters(critters.concat(newCritter))
 	}
 
@@ -48,11 +48,11 @@ const useCritterState = (initialValue: CritterModel[]) => {
 			const firstLetter = first.charAt(0).toUpperCase()
 
 			addCritter(
-				new CritterModel(
+				new Critter(
 					`${firstLetter}${first.substring(1)}`,
-					1 + Math.round(Math.random() * (CritterModel.MAX_HITPOINTS - 1)),
-					1 + Math.round(Math.random() * (CritterModel.MAX_ATTACK - 1)),
-					1 + Math.round(Math.random() * (CritterModel.MAX_DEFENSE - 1))
+					1 + Math.round(Math.random() * (Critter.MAX_HITPOINTS - 1)),
+					1 + Math.round(Math.random() * (Critter.MAX_ATTACK - 1)),
+					1 + Math.round(Math.random() * (Critter.MAX_DEFENSE - 1))
 				)
 			)
 		}
