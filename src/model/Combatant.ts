@@ -2,17 +2,18 @@ import { Critter } from '../model/Critter'
 
 class Combatant extends Critter {
 	constructor(
-		public name: string,
-		public hitpoints: number,
-		public attack: number,
-		public defense: number,
-		public id?: string,
-		public currentHitpoints?: number
+		critter: Critter,
+		public currentHitpoints: number = -1
 	) {
-		super(name, hitpoints, attack, defense, id)
+		super(
+			critter.name,
+			critter.hitpoints,
+			critter.attack,
+			critter.defense,
+			critter.id)
 
-		if (currentHitpoints === undefined) {
-			this.currentHitpoints = hitpoints
+		if (currentHitpoints === -1) {
+			this.currentHitpoints = critter.hitpoints
 		}
 	}
 }
