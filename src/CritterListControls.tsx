@@ -6,11 +6,15 @@ interface ICritterListControlsProps {
 	clearCritters: () => void
 	saveToLocalStorage: () => void
 	spawnCritter: () => void
+	startCombat: () => void
 }
 
-const CritterListControls = ({ clearCritters, saveToLocalStorage, spawnCritter }: ICritterListControlsProps) => {
+const CritterListControls = ({ clearCritters, saveToLocalStorage, spawnCritter, startCombat }: ICritterListControlsProps) => {
 	return (
 		<section className="critter-list-controls">
+			<button className="combat" onClick={() => { startCombat() }}>
+				Start Combat
+			</button>
 			<button className="create" onClick={() => { spawnCritter() }}>
 				Spawn Critter
 			</button>
