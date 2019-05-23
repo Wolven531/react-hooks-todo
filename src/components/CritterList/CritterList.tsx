@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { Critter } from '../Critter/Critter'
 import { CritterListControls } from '../CritterListControls/CritterListControls'
 
-import { useCritterState } from './useCritterState'
+import { useCritterState } from '../../state/useCritterState'
 
 import './CritterList.css'
 

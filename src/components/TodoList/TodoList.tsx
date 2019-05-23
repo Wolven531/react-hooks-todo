@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Todo as TodoModel } from './model/Todo'
+import { Todo as TodoModel } from '../../model/Todo'
 
 import { Todo } from '../Todo/Todo'
 import { TodoForm } from '../TodoForm/TodoForm'

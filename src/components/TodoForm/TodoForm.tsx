@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import moment from 'moment'
 
-import { Todo } from './model/Todo'
+import { Todo } from '../../model/Todo'
 
 const TodoForm = ({
 	addTodo
