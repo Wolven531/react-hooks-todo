@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
-import { CritterList } from './CritterList'
-import { TodoList } from './TodoList'
+import { CritterList } from '../CritterList/CritterList'
+import { TodoList } from '../TodoList/TodoList'
 
 import { useTodoState } from './useTodoState'
 import { useMoneyState } from './useMoneyState'

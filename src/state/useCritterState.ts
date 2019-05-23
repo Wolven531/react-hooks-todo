@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Critter } from './model/Critter'
+import { Critter } from '../model/Critter'
 
 const useCritterState = (initialValue: Critter[]) => {
 	const [critters, setCritters] = useState(initialValue)

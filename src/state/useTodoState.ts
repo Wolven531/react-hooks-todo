@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Todo } from './model/Todo'
+import { Todo } from '../model/Todo'
 
 const useTodoState = (initialValue: Todo[]) => {
 	const [todos, setTodos] = useState(initialValue)
