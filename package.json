@@ -1,4 +1,9 @@
 {
+	"author": {
+		"email": "anthony.williams.cs@gmail.com",
+		"name": "Anthony Williams",
+		"url": "https://github.com/Wolven531/react-hooks-todo"
+	},
 	"name": "react-hooks-todo",
 	"version": "0.1.1",
 	"private": true,
