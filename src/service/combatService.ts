@@ -33,6 +33,7 @@ const combatService = () => {
 				// TODO: fix c2 attacking c1
 				console.info(`[ fight | combatService] ${c2.name} attacks ${c1.name} with ${weapon2.name}...`)
 				c1.currentHitpoints -= damageAgainstC1
+				turns.push(t)
 			}
 
 		return turns
