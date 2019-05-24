@@ -11,7 +11,7 @@ const CritterList = () => {
 	const { clearCritters, critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
 
 	const startCombat = () => {
-
+		console.log('[startCombat | CritterList] Starting combat...')
 	}
 
 	useEffect(() => {
