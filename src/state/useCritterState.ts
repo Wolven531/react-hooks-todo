@@ -1,11 +1,17 @@
 import { useState } from 'react'
 
+import { combatService } from '../service/combatService'
+
 import { Critter } from '../model/Critter'
 
 const useCritterState = (initialValue: Critter[]) => {
 	const [critters, setCritters] = useState(initialValue)
+	const service = combatService()
 	const addCritter = (newCritter: Critter) => {
 		setCritters(critters.concat(newCritter))
+	}
+	const fight = () => {
+		// service.fight()
 	}
 
 	return {
