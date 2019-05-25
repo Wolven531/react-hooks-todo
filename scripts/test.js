@@ -56,5 +56,6 @@ if (argv.indexOf('--no-watch') !== -1) {
 	argv = argv.filter(arg => arg !== '--no-watch')
 }
 
+console.log(`[scripts | test] About to run jest tests...`, JSON.stringify(argv, null, 4))
 
 jest.run(argv)
