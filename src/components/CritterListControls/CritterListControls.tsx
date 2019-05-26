@@ -3,18 +3,28 @@ import React from 'react'
 import './CritterListControls.css'
 
 interface ICritterListControlsProps {
+	canStartCombat: boolean
 	clearCritters: () => void
 	saveToLocalStorage: () => void
+	shouldShowCombat: boolean
 	spawnCritter: () => void
 	startCombat: () => void
 }
 
-const CritterListControls = ({ clearCritters, saveToLocalStorage, spawnCritter, startCombat }: ICritterListControlsProps) => {
+const CritterListControls = ({
+	canStartCombat,
+	clearCritters,
+	saveToLocalStorage,
+	shouldShowCombat,
+	spawnCritter,
+	startCombat }: ICritterListControlsProps) => {
 	return (
 		<section className="critter-list-controls">
-			<button className="combat" onClick={() => { startCombat() }}>
-				Start Combat
-			</button>
+			{shouldShowCombat
+				? <button className="combat" onClick={() => { if (canStartCombat) {startCombat()} }} disabled={!canStartCombat}>
+					Start Combat
+				</button>
+				: null}
 			<button className="create" onClick={() => { spawnCritter() }}>
 				Spawn Critter
 			</button>

@@ -21,8 +21,10 @@ const CritterList = () => {
 	return (
 		<article className="critter-list">
 			<CritterListControls
+				canStartCombat={critters.filter(critter => false).length > 1}
 				clearCritters={clearCritters}
 				saveToLocalStorage={saveToLocalStorage}
+				shouldShowCombat={true}
 				spawnCritter={spawnCritter}
 				startCombat={startCombat} />
 			<section className="display-container">
