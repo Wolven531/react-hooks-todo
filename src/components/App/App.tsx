@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react'
 
-import { CritterList } from '../CritterList/CritterList'
-import { TodoList } from '../TodoList/TodoList'
+import { CritterList } from '../../views/CritterList/CritterList'
 
 import { useMoneyState } from '../../state/useMoneyState'
-import { useTodoState } from '../../state/useTodoState'
 
 import './App.css'
 
 const App = () => {
-	const { addTodo, clearCompletedTodos, loadFromStorage, todos, toggleTodo } = useTodoState([])
 	const { addMoney, money } = useMoneyState(0)
 
 	// NOTE: This happens before un-render (only once)
@@ -17,8 +14,7 @@ const App = () => {
 
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
-		window.document.title = 'Todo Manager'
-		loadFromStorage()
+		window.document.title = 'Critter Manager'
 
 		return handleUnmount
 	}
@@ -35,13 +31,6 @@ const App = () => {
 
 	return (
 		<div className="app">
-			<h1>To Do</h1>
-			<TodoList
-				todos={todos}
-				addTodo={addTodo}
-				clearCompletedTodos={clearCompletedTodos}
-				toggleTodo={toggleTodo}
-			/>
 			<CritterList />
 			{/*
 			<div>

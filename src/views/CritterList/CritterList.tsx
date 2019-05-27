@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
-import { Critter } from '../Critter/Critter'
-import { CritterListControls } from '../CritterListControls/CritterListControls'
+import { Critter } from '../../components/Critter/Critter'
+import { CritterListControls } from '../../components/CritterListControls/CritterListControls'
 
 import { useCritterState } from '../../state/useCritterState'
 
