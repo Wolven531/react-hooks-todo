@@ -40,3 +40,20 @@
 .critter-list-controls .update:hover {
 	background-color: rgba(0, 255, 255, .67);
 }
+
+.critter-list-controls .combat {
+	background-color: rgba(180, 0, 171, 0.67);
+	border: 1px solid #707;
+}
+.critter-list-controls .combat:hover {
+	background-color: rgba(255, 0, 255, .67);
+	color: #fff;
+}
+.critter-list-controls .combat[disabled] {
+	background-color: rgba(50, 50, 50, .67);
+	border: 1px solid #333;
+}
+.critter-list-controls .combat[disabled]:hover {
+	background-color: rgba(100, 100, 100, .67);
+	color: #555;
+}

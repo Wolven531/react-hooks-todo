@@ -7,7 +7,13 @@ import { useCritterState } from '../../state/useCritterState'
 
 import './CritterList.css'
 
-const CritterList = () => {
+const COMBAT_COST = 100
+
+interface ICritterListProps {
+	currentMoney: number
+}
+
+const CritterList = ({ currentMoney }: ICritterListProps) => {
 	const { clearCritters, critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
 
 	const startCombat = () => {
@@ -21,7 +27,7 @@ const CritterList = () => {
 	return (
 		<article className="critter-list">
 			<CritterListControls
-				canStartCombat={critters.filter(critter => false).length > 1}
+				canStartCombat={currentMoney >= COMBAT_COST}
 				clearCritters={clearCritters}
 				saveToLocalStorage={saveToLocalStorage}
 				shouldShowCombat={true}

@@ -28,7 +28,7 @@ const App = () => {
 	return (
 		<article className="app">
 			<MoneyControls addMoney={addMoney} money={money} />
-			<CritterList />
+			<CritterList currentMoney={money} />
 		</article>
 	)
 }
