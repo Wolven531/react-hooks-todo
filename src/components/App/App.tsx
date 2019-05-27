@@ -8,7 +8,7 @@ import { useMoneyState } from '../../state/useMoneyState'
 import './App.css'
 
 const App = () => {
-	const { addMoney, money } = useMoneyState(0)
+	const { addGatherer, addMoney, gatherers, money } = useMoneyState(0)
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {}
@@ -27,7 +27,9 @@ const App = () => {
 
 	return (
 		<article className="app">
-			<MoneyControls addMoney={addMoney} money={money} />
+			<MoneyControls
+				addGatherer={addGatherer} gatherers={gatherers}
+				addMoney={addMoney} money={money} />
 			<CritterList currentMoney={money} />
 		</article>
 	)
