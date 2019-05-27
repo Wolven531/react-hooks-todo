@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { CritterList } from '../../views/CritterList/CritterList'
+import { MoneyControls } from '../MoneyControls/MoneyControls'
 
 import { useMoneyState } from '../../state/useMoneyState'
 
@@ -22,23 +23,13 @@ const App = () => {
 	// NOTE: empty (no arg) to track nothing, just fire on mount/unmount
 	useEffect(handleMounted, [])
 
-	// NOTE: track todos, fire on every change
-	// useEffect(() => {
-	// 	console.info(`Todos was changed: ${JSON.stringify(todos, null, 4)}`)
-	// }, [todos])
-
 	// console.info(`About to render`)
 
 	return (
-		<div className="app">
+		<article className="app">
+			<MoneyControls addMoney={addMoney} money={money} />
 			<CritterList />
-			{/*
-			<div>
-				<p>Money: ${money.toFixed(2)}</p>
-				<button onClick={() => { addMoney() }}>Add Money</button>
-			</div>
-			*/}
-		</div>
+		</article>
 	)
 }
 
