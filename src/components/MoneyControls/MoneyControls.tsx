@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './MoneyControls.css'
 
@@ -12,6 +12,8 @@ interface IMoneyControlsProps {
 }
 
 const MoneyControls = ({ addGatherer, addMoney, gatherers, money }: IMoneyControlsProps) => {
+	const [gathererTick, setGathererTick] = useState(0)
+
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {}
 
@@ -27,6 +29,10 @@ const MoneyControls = ({ addGatherer, addMoney, gatherers, money }: IMoneyContro
 	// NOTE: empty (no arg) to track nothing, just fire on mount/unmount
 	useEffect(handleMounted, [])
 
+	useEffect(() => {
+		console.log(`[effect | MoneyControls] Should run only w/ change gathererTick=${gathererTick}`)
+	}, [gathererTick])
+
 	// console.info(`About to render`)
 
 	return (
@@ -34,7 +40,10 @@ const MoneyControls = ({ addGatherer, addMoney, gatherers, money }: IMoneyContro
 			<section>
 				<p>Money: ${money.toFixed(2)}</p>
 				{gatherers > 0
-					? <p>Gatherers: {gatherers}</p>
+					? <article>
+						Gatherers: {gatherers}
+						<progress value={gathererTick} />
+						</article>
 					: null}
 				<button onClick={() => { addMoney() }}>Add Money</button>
 			</section>
