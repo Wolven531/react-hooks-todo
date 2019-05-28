@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { COMBAT_COST } from '../../service/combatService'
+
 import './CritterListControls.css'
 
 interface ICritterListControlsProps {
@@ -22,7 +24,7 @@ const CritterListControls = ({
 		<section className="critter-list-controls">
 			{shouldShowCombat
 				? <button className="combat" onClick={() => { if (canStartCombat) {startCombat()} }} disabled={!canStartCombat}>
-					Start Combat
+					Start Combat ({COMBAT_COST})
 				</button>
 				: null}
 			<button className="create" onClick={() => { spawnCritter() }}>

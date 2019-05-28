@@ -3,11 +3,11 @@ import React, { useEffect } from 'react'
 import { Critter } from '../../components/Critter/Critter'
 import { CritterListControls } from '../../components/CritterListControls/CritterListControls'
 
+import { COMBAT_COST } from '../../service/combatService'
+
 import { useCritterState } from '../../state/useCritterState'
 
 import './CritterList.css'
-
-const COMBAT_COST = 100
 
 interface ICritterListProps {
 	currentMoney: number
