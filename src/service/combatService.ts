@@ -10,6 +10,8 @@ const getDamageForAttack = (fighter: Combatant, weapon: Weapon) => {
 	return fighter.attack + weapon.minimumDamage
 }
 
+const COMBAT_COST = 100
+
 const combatService = () => {
 	const fight = (
 		fighter1: Critter,
@@ -44,4 +46,7 @@ const combatService = () => {
 	}
 }
 
-export { combatService }
+export {
+	combatService,
+	COMBAT_COST
+}
