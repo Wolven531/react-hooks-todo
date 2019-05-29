@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react'
 
+import { useInterval } from '../../hooks/useInterval'
+
 import './MoneyControls.css'
 
 const GATHERER_COST = 10
+
+const GATHERER_INITIAL_TICK = 0
+const GATHERER_TICK_RATE = 10
+const GATHERER_TIME_SECONDS = 2
 
 interface IMoneyControlsProps {
 	addGatherer: () => void
@@ -12,7 +18,7 @@ interface IMoneyControlsProps {
 }
 
 const MoneyControls = ({ addGatherer, addMoney, gatherers, money }: IMoneyControlsProps) => {
-	const [gathererTick, setGathererTick] = useState(0)
+	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {}
@@ -22,29 +28,34 @@ const MoneyControls = ({ addGatherer, addMoney, gatherers, money }: IMoneyContro
 		return handleUnmount
 	}
 
+	// NOTE: empty (no arg) to track nothing, fires on mount/unmount
+	useEffect(handleMounted, [])
+
 	const handleBuyGatherer = () => {
 		addGatherer()
 	}
 
-	// NOTE: empty (no arg) to track nothing, just fire on mount/unmount
-	useEffect(handleMounted, [])
-
-	useEffect(() => {
-		console.log(`[effect | MoneyControls] Should run only w/ change gathererTick=${gathererTick}`)
-	}, [gathererTick])
-
-	// console.info(`About to render`)
+	useInterval(() => {
+		if (gatherers < 1) {
+			return
+		}
+		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
+			setGathererTick(GATHERER_INITIAL_TICK)
+			return
+		}
+		setGathererTick(gathererTick + 1)
+	}, 1000 / GATHERER_TICK_RATE)
 
 	return (
 		<article className="money-controls">
 			<section>
 				<p>Money: ${money.toFixed(2)}</p>
-				{gatherers > 0
-					? <article>
+				{gatherers < 1
+					? null
+					: <article>
 						Gatherers: {gatherers}
-						<progress value={gathererTick} />
-						</article>
-					: null}
+						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
+					</article>}
 				<button onClick={() => { addMoney() }}>Add Money</button>
 			</section>
 			<section>
