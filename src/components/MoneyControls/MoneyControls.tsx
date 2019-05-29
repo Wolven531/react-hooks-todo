@@ -13,11 +13,12 @@ const GATHERER_TIME_SECONDS = 2
 interface IMoneyControlsProps {
 	addGatherer: () => void
 	addMoney: () => void
+	collectFromGatherers: () => void
 	gatherers: number
 	money: number
 }
 
-const MoneyControls = ({ addGatherer, addMoney, gatherers, money }: IMoneyControlsProps) => {
+const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers, money }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 
 	// NOTE: This happens before un-render (only once)
@@ -41,6 +42,7 @@ const MoneyControls = ({ addGatherer, addMoney, gatherers, money }: IMoneyContro
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
 			setGathererTick(GATHERER_INITIAL_TICK)
+			collectFromGatherers()
 			return
 		}
 		setGathererTick(gathererTick + 1)
