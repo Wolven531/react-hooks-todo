@@ -14,8 +14,8 @@ const useMoneyState = (initialValue: number) => {
 			setMoney(money => money - GATHERER_COST)
 			setGatherers(gatherers => gatherers + 1)
 		},
-		addMoney: () => {
-			setMoney(money => money + 1)
+		addMoney: (additionalFunds: number = 1) => {
+			setMoney(money => money + additionalFunds)
 		}
 	}
 }
