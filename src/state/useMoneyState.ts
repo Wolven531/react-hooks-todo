@@ -1,10 +1,15 @@
 import { useState } from 'react'
 
 const GATHERER_COST = 10
+const GATHERER_INCOME = 1
 
 const useMoneyState = (initialValue: number) => {
 	const [money, setMoney] = useState(initialValue)
 	const [gatherers, setGatherers] = useState(0)
+
+	const addMoney = (additionalFunds: number = 1) => {
+		setMoney(money => money + additionalFunds)
+	}
 
 	return {
 		gatherers,
@@ -14,8 +19,9 @@ const useMoneyState = (initialValue: number) => {
 			setMoney(money => money - GATHERER_COST)
 			setGatherers(gatherers => gatherers + 1)
 		},
-		addMoney: (additionalFunds: number = 1) => {
-			setMoney(money => money + additionalFunds)
+		addMoney,
+		collectFromGatherers: () => {
+			addMoney(gatherers * GATHERER_INCOME)
 		}
 	}
 }
