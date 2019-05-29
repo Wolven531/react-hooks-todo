@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import { useInterval } from '../../hooks/useInterval'
 
-import './MoneyControls.css'
+import { GATHERER_COST } from '../../state/useMoneyState'
 
-const GATHERER_COST = 10
+import './MoneyControls.css'
 
 const GATHERER_INITIAL_TICK = 0
 const GATHERER_TICK_RATE = 10

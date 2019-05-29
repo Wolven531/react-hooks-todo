@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const GATHERER_COST = 10
+
 const useMoneyState = (initialValue: number) => {
 	const [money, setMoney] = useState(initialValue)
 	const [gatherers, setGatherers] = useState(0)
@@ -8,12 +10,14 @@ const useMoneyState = (initialValue: number) => {
 		gatherers,
 		money,
 		addGatherer: () => {
-			setGatherers(gatherers + 1)
+			// TODO: research if multiple setSTATE_VAR() calls is bad practice
+			setMoney(money => money - GATHERER_COST)
+			setGatherers(gatherers => gatherers + 1)
 		},
 		addMoney: () => {
-			setMoney(money + 1)
+			setMoney(money => money + 1)
 		}
 	}
 }
 
-export { useMoneyState }
+export { useMoneyState, GATHERER_COST }
