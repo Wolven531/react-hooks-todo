@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { useInterval } from '../../hooks/useInterval'
 
+import { UpgradeStore } from '../../state/upgradeStore'
 import { GATHERER_COST } from '../../state/useMoneyState'
 
 import './MoneyControls.css'
@@ -16,9 +17,10 @@ interface IMoneyControlsProps {
 	collectFromGatherers: () => void
 	gatherers: number
 	money: number
+	upgradeStore: UpgradeStore
 }
 
-const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers, money }: IMoneyControlsProps) => {
+const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers, money, upgradeStore }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 
 	// NOTE: This happens before un-render (only once)
@@ -58,6 +60,10 @@ const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers,
 						Gatherers: {gatherers}
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
+				<article>
+					<p>Gatherer Level: {upgradeStore.getGathererLevel()}</p>
+					<button onClick={() => {upgradeStore.upgradeGatherers()}}>Upgrade Gatherers</button>
+				</article>
 				<button onClick={() => { addMoney() }}>Add Money</button>
 			</section>
 			<section>
