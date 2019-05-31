@@ -14,7 +14,7 @@ const GATHERER_TIME_SECONDS = 2
 interface IMoneyControlsProps {
 	addGatherer: () => void
 	addMoney: () => void
-	collectFromGatherers: () => void
+	collectFromGatherers: (gathererLevel?: number) => void
 	gatherers: number
 	money: number
 	upgradeStore: UpgradeStore
@@ -44,7 +44,7 @@ const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers,
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
 			setGathererTick(GATHERER_INITIAL_TICK)
-			collectFromGatherers()
+			collectFromGatherers(upgradeStore.getGathererLevel())
 			return
 		}
 		setGathererTick(gathererTick + 1)
