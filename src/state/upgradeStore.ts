@@ -1,17 +1,14 @@
 import { useState, Dispatch, SetStateAction } from 'react'
 
 class UpgradeStore {
-	private gathererLevel: number
+	public gathererLevel: number
+
 	private setGathererLevel: Dispatch<SetStateAction<number>>
 
 	constructor(public initialLevel = 0) {
 		const [ _gathererLevel, setGathererLevel ] = useState(initialLevel)
 		this.setGathererLevel = setGathererLevel
 		this.gathererLevel = _gathererLevel
-	}
-
-	public getGathererLevel(): number {
-		return this.gathererLevel
 	}
 
 	public upgradeGatherers(): void {
