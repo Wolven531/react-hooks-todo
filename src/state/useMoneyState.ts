@@ -21,7 +21,7 @@ const useMoneyState = (initialValue: number) => {
 		},
 		addMoney,
 		collectFromGatherers: (gathererLevel = 1) => {
-			addMoney(gatherers * GATHERER_INCOME * gathererLevel)
+			addMoney(gatherers * GATHERER_INCOME * (gathererLevel + 1))
 		}
 	}
 }
