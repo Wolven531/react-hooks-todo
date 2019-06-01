@@ -44,7 +44,7 @@ const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers,
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
 			setGathererTick(GATHERER_INITIAL_TICK)
-			collectFromGatherers(upgradeStore.getGathererLevel())
+			collectFromGatherers(upgradeStore.gathererLevel)
 			return
 		}
 		setGathererTick(gathererTick + 1)
@@ -61,7 +61,7 @@ const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers,
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
 				<article>
-					<p>Gatherer Level: {upgradeStore.getGathererLevel()}</p>
+					<p>Gatherer Level: {upgradeStore.gathererLevel}</p>
 					<button onClick={() => {upgradeStore.upgradeGatherers()}}>Upgrade Gatherers</button>
 				</article>
 				<button onClick={() => { addMoney() }}>Add Money</button>
