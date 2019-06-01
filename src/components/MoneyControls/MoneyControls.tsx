@@ -62,12 +62,14 @@ const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers,
 					</article>}
 				<article>
 					<p>Gatherer Level: {upgradeStore.gathererLevel}</p>
-					<button onClick={() => {upgradeStore.upgradeGatherers()}}>Upgrade Gatherers</button>
+					<button disabled={money < upgradeStore.getGathererUpgradeCost()}
+						onClick={() => {upgradeStore.upgradeGatherers()}}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
 				</article>
 				<button onClick={() => { addMoney() }}>Add Money</button>
 			</section>
 			<section>
-				<button disabled={money < GATHERER_COST} onClick={handleBuyGatherer}>Buy Gatherer ({GATHERER_COST})</button>
+				<button disabled={money < GATHERER_COST}
+					onClick={handleBuyGatherer}>Buy Gatherer ({GATHERER_COST})</button>
 			</section>
 		</article>
 	)
