@@ -11,6 +11,10 @@ class UpgradeStore {
 		this.gathererLevel = _gathererLevel
 	}
 
+	public getGathererUpgradeCost(): number {
+		return Math.pow(this.gathererLevel + 1, 2) * 100
+	}
+
 	public upgradeGatherers(): void {
 		this.setGathererLevel(gathererLevel => gathererLevel + 1)
 	}
