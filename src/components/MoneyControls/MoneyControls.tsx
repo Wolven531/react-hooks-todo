@@ -14,13 +14,21 @@ const GATHERER_TIME_SECONDS = 2
 interface IMoneyControlsProps {
 	addGatherer: () => void
 	addMoney: (additionalFunds?: number) => void
+	calculateGathererIncome: (gathererLevel?: number) => number
 	collectFromGatherers: (gathererLevel?: number) => void
 	gatherers: number
 	money: number
 	upgradeStore: UpgradeStore
 }
 
-const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers, money, upgradeStore }: IMoneyControlsProps) => {
+const MoneyControls = ({
+	addGatherer,
+	addMoney,
+	calculateGathererIncome,
+	collectFromGatherers,
+	gatherers,
+	money,
+	upgradeStore }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 
 	// NOTE: This happens before un-render (only once)
@@ -63,14 +71,19 @@ const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers,
 					? null
 					: <article>
 						Gatherers: {gatherers}
+						<br/>
+						Gatherer Level: {upgradeStore.gathererLevel}
+						<br/>
+						Gatherer Income = ${calculateGathererIncome(upgradeStore.gathererLevel)}
+						<br/>
+						<button disabled={money < upgradeStore.getGathererUpgradeCost()}
+							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
+						<br/>
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
 				<article>
-					<p>Gatherer Level: {upgradeStore.gathererLevel}</p>
-					<button disabled={money < upgradeStore.getGathererUpgradeCost()}
-						onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
+					<button onClick={() => { addMoney() }}>Add Money</button>
 				</article>
-				<button onClick={() => { addMoney() }}>Add Money</button>
 			</section>
 			<section>
 				<button disabled={money < GATHERER_COST}

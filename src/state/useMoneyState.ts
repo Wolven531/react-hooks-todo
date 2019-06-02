@@ -11,6 +11,8 @@ const useMoneyState = (initialValue: number) => {
 		setMoney(money => money + additionalFunds)
 	}
 
+	const calculateGathererIncome = (gathererLevel = 1): number => gatherers * GATHERER_INCOME * (gathererLevel + 1)
+
 	return {
 		gatherers,
 		money,
@@ -20,8 +22,9 @@ const useMoneyState = (initialValue: number) => {
 			setGatherers(gatherers => gatherers + 1)
 		},
 		addMoney,
+		calculateGathererIncome,
 		collectFromGatherers: (gathererLevel = 1) => {
-			addMoney(gatherers * GATHERER_INCOME * (gathererLevel + 1))
+			addMoney(calculateGathererIncome(gathererLevel))
 		}
 	}
 }
