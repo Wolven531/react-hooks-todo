@@ -5,26 +5,27 @@
 		"url": "https://github.com/Wolven531/react-hooks-todo"
 	},
 	"name": "react-hooks-todo",
-	"version": "0.1.1",
+	"version": "0.2.1",
 	"private": true,
 	"dependencies": {
 		"bfj": "6.1.1",
-		"dotenv": "6.0.0",
-		"dotenv-expand": "4.2.0",
-		"fs-extra": "7.0.1",
+		"dotenv": "^8.0.0",
+		"dotenv-expand": "^5.1.0",
+		"fs-extra": "^8.0.1",
 		"identity-obj-proxy": "3.0.0",
 		"moment": "^2.24.0",
 		"react": "^16.8.6",
-		"react-app-polyfill": "^0.2.2",
+		"react-app-polyfill": "^1.0.1",
 		"react-dom": "^16.8.6",
-		"resolve": "1.10.0",
-		"typescript": "3.4.2",
+		"resolve": "1.11.0",
+		"typescript": "3.5.1",
 		"uuid": "^3.3.2"
 	},
 	"scripts": {
 		"start": "node scripts/start.js",
 		"build": "node scripts/build.js",
-		"test": "node scripts/test.js --coverage --watchAll"
+		"test": "node scripts/test.js --coverage --watchAll",
+		"test-debug": "node --inspect-brk scripts/test.js --coverage --watchAll"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -44,8 +45,8 @@
 		"@types/jasmine": "^3.3.12",
 		"@types/mocha": "^5.2.6",
 		"@types/node": "11.13.2",
-		"@types/react": "16.8.13",
-		"@types/react-dom": "16.8.3",
+		"@types/react": "16.8.19",
+		"@types/react-dom": "16.8.4",
 		"@types/uuid": "^3.4.4",
 		"babel-core": "7.0.0-bridge.0",
 		"babel-eslint": "9.0.0",
@@ -98,8 +99,8 @@
 		],
 		"resolver": "jest-pnp-resolver",
 		"setupFiles": [
-			"react-app-polyfill/jsdom",
-			"jest-localstorage-mock"
+			"jest-localstorage-mock",
+			"react-app-polyfill/jsdom"
 		],
 		"testMatch": [
 			"<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
@@ -121,20 +122,20 @@
 			"^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
 		},
 		"moduleFileExtensions": [
-			"web.js",
 			"js",
-			"web.ts",
-			"ts",
-			"web.tsx",
-			"tsx",
 			"json",
-			"web.jsx",
 			"jsx",
-			"node"
+			"node",
+			"ts",
+			"tsx",
+			"web.js",
+			"web.jsx",
+			"web.ts",
+			"web.tsx"
 		],
 		"watchPlugins": [
-			"/repos/react-hooks-todo/node_modules/jest-watch-typeahead/filename.js",
-			"/repos/react-hooks-todo/node_modules/jest-watch-typeahead/testname.js"
+			"./node_modules/jest-watch-typeahead/filename.js",
+			"./node_modules/jest-watch-typeahead/testname.js"
 		]
 	},
 	"babel": {
