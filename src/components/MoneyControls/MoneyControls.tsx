@@ -13,7 +13,7 @@ const GATHERER_TIME_SECONDS = 2
 
 interface IMoneyControlsProps {
 	addGatherer: () => void
-	addMoney: () => void
+	addMoney: (additionalFunds?: number) => void
 	collectFromGatherers: (gathererLevel?: number) => void
 	gatherers: number
 	money: number
@@ -36,6 +36,11 @@ const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers,
 
 	const handleBuyGatherer = () => {
 		addGatherer()
+	}
+
+	const handleUpgradeGatherers = () => {
+		addMoney(-1 * upgradeStore.getGathererUpgradeCost())
+		upgradeStore.upgradeGatherers()
 	}
 
 	useInterval(() => {
@@ -63,7 +68,7 @@ const MoneyControls = ({ addGatherer, addMoney, collectFromGatherers, gatherers,
 				<article>
 					<p>Gatherer Level: {upgradeStore.gathererLevel}</p>
 					<button disabled={money < upgradeStore.getGathererUpgradeCost()}
-						onClick={() => {upgradeStore.upgradeGatherers()}}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
+						onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
 				</article>
 				<button onClick={() => { addMoney() }}>Add Money</button>
 			</section>
