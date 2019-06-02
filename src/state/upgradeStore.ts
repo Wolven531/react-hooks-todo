@@ -1,4 +1,8 @@
-import { useState, Dispatch, SetStateAction } from 'react'
+import {
+	Dispatch,
+	SetStateAction,
+	useState
+} from 'react'
 
 class UpgradeStore {
 	public gathererLevel: number
@@ -18,16 +22,6 @@ class UpgradeStore {
 	public upgradeGatherers(): void {
 		this.setGathererLevel(gathererLevel => gathererLevel + 1)
 	}
-
-	// const [gathererLevel, setGathererLevel] = useState(0)
-	// const upgradeGatherers = () => {
-	// 	setGathererLevel(gathererLevel => gathererLevel + 1)
-	// }
-
-	// return {
-	// 	gathererLevel,
-	// 	upgradeGatherers
-	// }
 }
 
 export { UpgradeStore }
