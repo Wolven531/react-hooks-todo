@@ -30,6 +30,7 @@ const MoneyControls = ({
 	money,
 	upgradeStore }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
+	const [isShowingModal, setIsShowingModal] = useState(true)
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {}
@@ -44,6 +45,14 @@ const MoneyControls = ({
 
 	const handleBuyGatherer = () => {
 		addGatherer()
+	}
+
+	const handleModalClick = () => {
+		console.log(`[handleModalClick]`)
+	}
+
+	const handleModalDialogClose = () => {
+		console.log(`[handleModalDialogClose]`)
 	}
 
 	const handleUpgradeGatherers = () => {
@@ -65,6 +74,16 @@ const MoneyControls = ({
 
 	return (
 		<article className="money-controls">
+			<div onClick={handleModalClick}>
+				{isShowingModal && <div className="modal">
+					{false // TODO: this should be `isLoading`
+						? <div>Spinner</div>
+						: <div>
+							<button onClick={handleModalDialogClose}>X</button>
+							<h1>Modal Dialog Content</h1>
+						</div>}
+				</div>}
+			</div>
 			<section>
 				<p>Money: ${money.toFixed(2)}</p>
 				{gatherers < 1
