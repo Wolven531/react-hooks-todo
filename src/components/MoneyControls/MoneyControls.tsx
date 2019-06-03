@@ -76,17 +76,20 @@ const MoneyControls = ({
 						<br/>
 						Gatherer Income = ${calculateGathererIncome(upgradeStore.gathererLevel)}
 						<br/>
-						<button disabled={money < upgradeStore.getGathererUpgradeCost()}
+						<button className="upgrade"
+							disabled={money < upgradeStore.getGathererUpgradeCost()}
 							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
 						<br/>
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
 				<article>
-					<button onClick={() => { addMoney() }}>Add Money</button>
+					<button className="add-money"
+						onClick={() => { addMoney() }}>Add Money</button>
 				</article>
 			</section>
 			<section>
-				<button disabled={money < GATHERER_COST}
+				<button className="buy-gatherer"
+					disabled={money < GATHERER_COST}
 					onClick={handleBuyGatherer}>Buy Gatherer ({GATHERER_COST})</button>
 			</section>
 		</article>
