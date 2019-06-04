@@ -74,7 +74,7 @@ const MoneyControls = ({
 
 	return (
 		<article className="money-controls">
-			<div onClick={handleModalClick}>
+			<div onClick={handleModalClick} className="modal-container">
 				{isShowingModal && <div className="modal">
 					{false // TODO: this should be `isLoading`
 						? <div>Spinner</div>
