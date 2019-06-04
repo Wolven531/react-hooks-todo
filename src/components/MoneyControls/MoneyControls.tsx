@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, MouseEvent } from 'react'
 
 import { useInterval } from '../../hooks/useInterval'
 
@@ -47,12 +47,15 @@ const MoneyControls = ({
 		addGatherer()
 	}
 
-	const handleModalClick = () => {
-		console.log(`[handleModalClick]`)
+	const handleModalClick = (evt: MouseEvent) => {
+		// TODO: figure out how to alert the user about the modal
+		// const { currentTarget, target, preventDefault } = evt
+		// preventDefault()
+		// alert(`Must close the modal... ${(target as Element).classList}`)
 	}
 
 	const handleModalDialogClose = () => {
-		console.log(`[handleModalDialogClose]`)
+		setIsShowingModal(false)
 	}
 
 	const handleUpgradeGatherers = () => {
@@ -74,16 +77,16 @@ const MoneyControls = ({
 
 	return (
 		<article className="money-controls">
-			<div onClick={handleModalClick} className="modal-container">
-				{isShowingModal && <div className="modal">
+			{isShowingModal && <div onClick={handleModalClick} className="modal-container">
+				<div className="modal">
 					{false // TODO: this should be `isLoading`
 						? <div>Spinner</div>
 						: <div>
 							<button onClick={handleModalDialogClose}>X</button>
 							<h1>Modal Dialog Content</h1>
 						</div>}
-				</div>}
-			</div>
+				</div>
+			</div>}
 			<section>
 				<p>Money: ${money.toFixed(2)}</p>
 				{gatherers < 1
