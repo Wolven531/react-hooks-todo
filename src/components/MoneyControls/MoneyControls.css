@@ -49,3 +49,9 @@
 	transform: translate(-50%, -50%);
 	width: 600px;
 }
+
+.modal .close {
+	position: absolute;
+	right: 1em;
+	top: 1em;
+}

@@ -82,7 +82,7 @@ const MoneyControls = ({
 					{false // TODO: this should be `isLoading`
 						? <div>Spinner</div>
 						: <div>
-							<button onClick={handleModalDialogClose}>X</button>
+							<button onClick={handleModalDialogClose} className="close">X</button>
 							<h1>Modal Dialog Content</h1>
 						</div>}
 				</div>
