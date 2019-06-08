@@ -72,7 +72,12 @@ const MoneyControls = ({
 
 	return (
 		<article className="money-controls">
-			{isShowingModal && <Modal handleModalDialogClose={handleModalDialogClose} />}
+			{isShowingModal && (
+			<Modal handleModalDialogClose={handleModalDialogClose}>
+				<article>
+					<h1>Welcome!</h1>
+				</article>
+			</Modal>)}
 			<section>
 				<p>Money: ${money.toFixed(2)}</p>
 				{gatherers < 1
