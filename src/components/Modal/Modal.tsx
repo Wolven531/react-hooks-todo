@@ -4,7 +4,7 @@ interface IModalProps {
 	handleModalDialogClose: () => void
 }
 
-const Modal: FC<IModalProps> = ({ handleModalDialogClose }) => {
+const Modal: FC<IModalProps> = ({ handleModalDialogClose, children }) => {
 	const handleModalClick = (evt: MouseEvent) => {
 		// TODO: figure out how to alert the user about the modal
 		// const { currentTarget, target, preventDefault } = evt
@@ -19,7 +19,7 @@ const Modal: FC<IModalProps> = ({ handleModalDialogClose }) => {
 					? <div>Spinner</div>
 					: <div>
 						<button onClick={handleModalDialogClose} className="close">X</button>
-						<h1>Modal Dialog Content</h1>
+						{children}
 					</div>}
 			</div>
 		</div>
