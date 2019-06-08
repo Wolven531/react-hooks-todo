@@ -4,6 +4,11 @@ import { Todo as TodoModel } from '../../model/Todo'
 
 import './Todo.css'
 
+interface ITodoProps {
+	todo: TodoModel
+	toggleTodo: (todoId: string) => void
+}
+
 const dateFormatterOptions: Intl.DateTimeFormatOptions = {
 	day: 'numeric',
 	month: 'long',
@@ -14,13 +19,7 @@ const dateFormatterOptions: Intl.DateTimeFormatOptions = {
 }
 const dateFormatter = new Intl.DateTimeFormat('en-US', dateFormatterOptions)
 
-const Todo = ({
-	todo,
-	toggleTodo
-}: {
-	todo: TodoModel
-	toggleTodo: (todoId: string) => void
-}) => {
+const Todo = ({ todo, toggleTodo }: ITodoProps) => {
 	// const rtf = new Intl.RelativeTimeFormat('en', {
 	// 	localeMatcher: 'best fit',// other values: 'lookup'
 	// 	numeric: 'always',// other values: 'auto'
