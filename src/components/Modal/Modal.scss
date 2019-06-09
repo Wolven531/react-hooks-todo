@@ -34,9 +34,25 @@
 		.close {
 			border: 1px solid #000;
 			font-weight: bolder;
+			margin: 0;
 			position: absolute;
-			right: 1em;
-			top: 1em;
+			right: 1rem;
+			top: 1rem;
+			transition: all;
+			transition-delay: 0;
+			transition-duration: .25s;
+			transition-property: all;
+			transition-timing-function: ease-in-out;
+
+			&:hover {
+				background-image: linear-gradient(to right top, #f00, #600);
+				border-style: double;
+				border-width: 3px;
+				color: #ff0;
+				font-size: 1.3em;
+				padding: 10px;
+				text-shadow: 3px 3px #444;
+			}
 		}
 	}
 }
