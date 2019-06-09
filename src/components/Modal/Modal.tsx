@@ -1,5 +1,7 @@
 import React, { FC, MouseEvent } from 'react'
 
+import './Modal.scss'
+
 interface IModalProps {
 	handleModalDialogClose: () => void
 }
