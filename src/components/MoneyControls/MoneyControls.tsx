@@ -22,6 +22,9 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
+	const { addGatherer, addMoney, calculateGathererIncome, collectFromGatherers, gatherers, money } = moneyState
+	const { gathererLevel, getGathererUpgradeCost, upgradeGatherers } = upgradeStore
+
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {}
 
@@ -34,7 +37,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	useEffect(handleMounted, [])
 
 	const handleBuyGatherer = () => {
-		moneyState.addGatherer()
+		addGatherer()
 	}
 
 	const handleModalDialogClose = () => {
@@ -42,17 +45,17 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	}
 
 	const handleUpgradeGatherers = () => {
-		moneyState.addMoney(-1 * upgradeStore.getGathererUpgradeCost())
-		upgradeStore.upgradeGatherers()
+		addMoney(-1 * getGathererUpgradeCost())
+		upgradeGatherers()
 	}
 
 	useInterval(() => {
-		if (moneyState.gatherers < 1) {
+		if (gatherers < 1) {
 			return
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
 			setGathererTick(GATHERER_INITIAL_TICK)
-			moneyState.collectFromGatherers(upgradeStore.gathererLevel)
+			collectFromGatherers(gathererLevel)
 			return
 		}
 		setGathererTick(gathererTick + 1)
@@ -67,30 +70,30 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 				</article>
 			</Modal>)}
 			<section>
-				<p>Money: ${moneyState.money.toFixed(2)}</p>
-				{moneyState.gatherers < 1
+				<p>Money: ${money.toFixed(2)}</p>
+				{gatherers < 1
 					? null
 					: <article>
-						Gatherers: {moneyState.gatherers}
+						Gatherers: {gatherers}
 						<br/>
-						Gatherer Level: {upgradeStore.gathererLevel}
+						Gatherer Level: {gathererLevel}
 						<br/>
-						Gatherer Income = ${moneyState.calculateGathererIncome(upgradeStore.gathererLevel)}
+						Gatherer Income = ${calculateGathererIncome(gathererLevel)}
 						<br/>
 						<button className="upgrade"
-							disabled={moneyState.money < upgradeStore.getGathererUpgradeCost()}
-							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
+							disabled={money < getGathererUpgradeCost()}
+							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({getGathererUpgradeCost()})</button>
 						<br/>
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
 				<article>
 					<button className="add-money"
-						onClick={() => { moneyState.addMoney() }}>Add Money</button>
+						onClick={() => { addMoney() }}>Add Money</button>
 				</article>
 			</section>
 			<section>
 				<button className="buy-gatherer"
-					disabled={moneyState.money < GATHERER_COST}
+					disabled={money < GATHERER_COST}
 					onClick={handleBuyGatherer}>Buy Gatherer ({GATHERER_COST})</button>
 			</section>
 		</article>
