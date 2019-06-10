@@ -3,7 +3,16 @@ import { useState } from 'react'
 const GATHERER_COST = 10
 const GATHERER_INCOME = 1
 
-const useMoneyState = (initialValue: number) => {
+interface IMoneyState {
+	addGatherer: () => void
+	addMoney: () => void
+	calculateGathererIncome: (gathererLevel?: number) => number
+	collectFromGatherers: (gathererLevel?: number) => void
+	gatherers: number
+	money: number
+}
+
+const useMoneyState = (initialValue: number): IMoneyState => {
 	const [money, setMoney] = useState(initialValue)
 	const [gatherers, setGatherers] = useState(0)
 
@@ -29,4 +38,8 @@ const useMoneyState = (initialValue: number) => {
 	}
 }
 
-export { useMoneyState, GATHERER_COST }
+export {
+	IMoneyState,
+	useMoneyState,
+	GATHERER_COST
+}
