@@ -5,7 +5,7 @@ const GATHERER_INCOME = 1
 
 interface IMoneyState {
 	addGatherer: () => void
-	addMoney: () => void
+	addMoney: (additionalFunds?: number) => void
 	calculateGathererIncome: (gathererLevel?: number) => number
 	collectFromGatherers: (gathererLevel?: number) => void
 	gatherers: number
