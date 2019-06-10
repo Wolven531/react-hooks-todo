@@ -3,7 +3,7 @@ import React, { useEffect, useState, MouseEvent } from 'react'
 import { useInterval } from '../../hooks/useInterval'
 
 import { UpgradeStore } from '../../state/upgradeStore'
-import { GATHERER_COST } from '../../state/useMoneyState'
+import { GATHERER_COST, IMoneyState } from '../../state/useMoneyState'
 
 import { Modal } from '../../components/Modal/Modal'
 
@@ -14,23 +14,11 @@ const GATHERER_TICK_RATE = 10
 const GATHERER_TIME_SECONDS = 2
 
 interface IMoneyControlsProps {
-	addGatherer: () => void
-	addMoney: (additionalFunds?: number) => void
-	calculateGathererIncome: (gathererLevel?: number) => number
-	collectFromGatherers: (gathererLevel?: number) => void
-	gatherers: number
-	money: number
+	moneyState: IMoneyState
 	upgradeStore: UpgradeStore
 }
 
-const MoneyControls = ({
-	addGatherer,
-	addMoney,
-	calculateGathererIncome,
-	collectFromGatherers,
-	gatherers,
-	money,
-	upgradeStore }: IMoneyControlsProps) => {
+const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
@@ -46,7 +34,7 @@ const MoneyControls = ({
 	useEffect(handleMounted, [])
 
 	const handleBuyGatherer = () => {
-		addGatherer()
+		moneyState.addGatherer()
 	}
 
 	const handleModalDialogClose = () => {
@@ -54,17 +42,17 @@ const MoneyControls = ({
 	}
 
 	const handleUpgradeGatherers = () => {
-		addMoney(-1 * upgradeStore.getGathererUpgradeCost())
+		moneyState.addMoney(-1 * upgradeStore.getGathererUpgradeCost())
 		upgradeStore.upgradeGatherers()
 	}
 
 	useInterval(() => {
-		if (gatherers < 1) {
+		if (moneyState.gatherers < 1) {
 			return
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
 			setGathererTick(GATHERER_INITIAL_TICK)
-			collectFromGatherers(upgradeStore.gathererLevel)
+			moneyState.collectFromGatherers(upgradeStore.gathererLevel)
 			return
 		}
 		setGathererTick(gathererTick + 1)
@@ -79,30 +67,30 @@ const MoneyControls = ({
 				</article>
 			</Modal>)}
 			<section>
-				<p>Money: ${money.toFixed(2)}</p>
-				{gatherers < 1
+				<p>Money: ${moneyState.money.toFixed(2)}</p>
+				{moneyState.gatherers < 1
 					? null
 					: <article>
-						Gatherers: {gatherers}
+						Gatherers: {moneyState.gatherers}
 						<br/>
 						Gatherer Level: {upgradeStore.gathererLevel}
 						<br/>
-						Gatherer Income = ${calculateGathererIncome(upgradeStore.gathererLevel)}
+						Gatherer Income = ${moneyState.calculateGathererIncome(upgradeStore.gathererLevel)}
 						<br/>
 						<button className="upgrade"
-							disabled={money < upgradeStore.getGathererUpgradeCost()}
+							disabled={moneyState.money < upgradeStore.getGathererUpgradeCost()}
 							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
 						<br/>
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
 				<article>
 					<button className="add-money"
-						onClick={() => { addMoney() }}>Add Money</button>
+						onClick={() => { moneyState.addMoney() }}>Add Money</button>
 				</article>
 			</section>
 			<section>
 				<button className="buy-gatherer"
-					disabled={money < GATHERER_COST}
+					disabled={moneyState.money < GATHERER_COST}
 					onClick={handleBuyGatherer}>Buy Gatherer ({GATHERER_COST})</button>
 			</section>
 		</article>

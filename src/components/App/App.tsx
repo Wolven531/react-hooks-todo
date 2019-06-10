@@ -9,7 +9,7 @@ import { useMoneyState } from '../../state/useMoneyState'
 import './App.css'
 
 const App = () => {
-	const { addGatherer, addMoney, calculateGathererIncome, collectFromGatherers, gatherers, money } = useMoneyState(0)
+	const moneyState = useMoneyState(0)
 	const upgradeStore = new UpgradeStore()
 
 	// NOTE: This happens before un-render (only once)
@@ -29,11 +29,8 @@ const App = () => {
 
 	return (
 		<article className="app">
-			<MoneyControls
-				addGatherer={addGatherer} calculateGathererIncome={calculateGathererIncome} collectFromGatherers={collectFromGatherers} gatherers={gatherers}
-				addMoney={addMoney} money={money}
-				upgradeStore={upgradeStore} />
-			<CritterList currentMoney={money} />
+			<MoneyControls moneyState={moneyState} upgradeStore={upgradeStore} />
+			<CritterList currentMoney={moneyState.money} />
 		</article>
 	)
 }
