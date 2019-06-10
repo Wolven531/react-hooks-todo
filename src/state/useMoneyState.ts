@@ -3,7 +3,7 @@ import { useState } from 'react'
 const GATHERER_COST = 10
 const GATHERER_INCOME = 1
 
-interface IMoneyState {
+export interface IMoneyState {
 	addGatherer: () => void
 	addMoney: (additionalFunds?: number) => void
 	calculateGathererIncome: (gathererLevel?: number) => number
@@ -39,7 +39,6 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 }
 
 export {
-	IMoneyState,
 	useMoneyState,
 	GATHERER_COST
 }
