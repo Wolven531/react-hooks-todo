@@ -11,8 +11,8 @@ class UpgradeStore {
 
 	constructor(public initialLevel = 0) {
 		const [ _gathererLevel, setGathererLevel ] = useState(initialLevel)
-		this.setGathererLevel = setGathererLevel
 		this.gathererLevel = _gathererLevel
+		this.setGathererLevel = setGathererLevel
 	}
 
 	public getGathererUpgradeCost(): number {

@@ -23,7 +23,8 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
 	const { addGatherer, addMoney, calculateGathererIncome, collectFromGatherers, gatherers, money } = moneyState
-	const { gathererLevel, getGathererUpgradeCost, upgradeGatherers } = upgradeStore
+	// TODO: research why do each of these funcs not have a `this` ???
+	// const { gathererLevel, getGathererUpgradeCost, upgradeGatherers } = upgradeStore
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => {}
@@ -45,8 +46,8 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	}
 
 	const handleUpgradeGatherers = () => {
-		addMoney(-1 * getGathererUpgradeCost())
-		upgradeGatherers()
+		addMoney(-1 * upgradeStore.getGathererUpgradeCost())
+		upgradeStore.upgradeGatherers()
 	}
 
 	useInterval(() => {
@@ -55,7 +56,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		}
 		if (gathererTick >= GATHERER_TIME_SECONDS * GATHERER_TICK_RATE) {
 			setGathererTick(GATHERER_INITIAL_TICK)
-			collectFromGatherers(gathererLevel)
+			collectFromGatherers(upgradeStore.gathererLevel)
 			return
 		}
 		setGathererTick(gathererTick + 1)
@@ -76,13 +77,13 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 					: <article>
 						Gatherers: {gatherers}
 						<br/>
-						Gatherer Level: {gathererLevel}
+						Gatherer Level: {upgradeStore.gathererLevel}
 						<br/>
-						Gatherer Income = ${calculateGathererIncome(gathererLevel)}
+						Gatherer Income = ${calculateGathererIncome(upgradeStore.gathererLevel)}
 						<br/>
 						<button className="upgrade"
-							disabled={money < getGathererUpgradeCost()}
-							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({getGathererUpgradeCost()})</button>
+							disabled={money < upgradeStore.getGathererUpgradeCost()}
+							onClick={() => { handleUpgradeGatherers() }}>Upgrade Gatherers ({upgradeStore.getGathererUpgradeCost()})</button>
 						<br/>
 						<progress value={gathererTick} max={GATHERER_TIME_SECONDS * GATHERER_TICK_RATE} />
 					</article>}
