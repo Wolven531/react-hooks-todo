@@ -31,6 +31,8 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
+		moneyState.loadFromStorage()
+
 		return handleUnmount
 	}
 
