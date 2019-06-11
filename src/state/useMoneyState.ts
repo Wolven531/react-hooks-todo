@@ -9,6 +9,8 @@ export interface IMoneyState {
 	calculateGathererIncome: (gathererLevel?: number) => number
 	collectFromGatherers: (gathererLevel?: number) => void
 	gatherers: number
+	loadFromStorage: () => void
+	saveToStorage: () => void
 	money: number
 }
 
@@ -34,6 +36,23 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 		calculateGathererIncome,
 		collectFromGatherers: (gathererLevel = 1) => {
 			addMoney(calculateGathererIncome(gathererLevel))
+		},
+		loadFromStorage: () => {
+			if (window.localStorage) {
+				console.info('localStorage is available! loading money...')
+				const storedMoneyStr = window.localStorage.getItem('react-hooks-todo.money')
+				if (storedMoneyStr && storedMoneyStr.length) {
+					setMoney(parseInt(storedMoneyStr, 10))
+				}
+			}
+		},
+		saveToStorage: () => {
+			if (!window.localStorage) {
+				alert('local storage not available, unable to save 😢')
+				return
+			}
+			console.info('localStorage is available! saving money...')
+			window.localStorage.setItem('react-hooks-todo.money', String(money))
 		}
 	}
 }
