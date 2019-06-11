@@ -52,6 +52,19 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		upgradeStore.upgradeGatherers()
 	}
 
+	const dateFormatOptions: Intl.DateTimeFormatOptions = {
+		// day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+		// month: 'long',
+		second: 'numeric',
+		timeZone: 'UTC',
+		timeZoneName: 'short',
+		// weekday: 'long',
+		// year: 'numeric'
+	}
+	const dateFormatter = new Intl.DateTimeFormat('en-US', dateFormatOptions)
+
 	useInterval(() => {
 		if (gatherers < 1) {
 			return
@@ -63,6 +76,11 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		}
 		setGathererTick(gathererTick + 1)
 	}, 1000 / GATHERER_TICK_RATE)
+
+	useInterval(() => {
+		console.info(`[${dateFormatter.format(Date.now())}] saving money..., ${money}`)
+		moneyState.saveToStorage()
+	}, 1000)
 
 	return (
 		<article className="money-controls">
