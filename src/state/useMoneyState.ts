@@ -38,12 +38,13 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 			addMoney(calculateGathererIncome(gathererLevel))
 		},
 		loadFromStorage: () => {
-			if (window.localStorage) {
-				console.info('localStorage is available! loading money...')
-				const storedMoneyStr = window.localStorage.getItem('react-hooks-todo.money')
-				if (storedMoneyStr && storedMoneyStr.length) {
-					setMoney(parseInt(storedMoneyStr, 10))
-				}
+			if (!window.localStorage) {
+				console.warn('[loadFromStorage | useMoneyState] localStorage is NOT available! failed to load money')
+				return
+			}
+			const storedMoneyStr = window.localStorage.getItem('react-hooks-todo.money')
+			if (storedMoneyStr && storedMoneyStr.length) {
+				setMoney(parseInt(storedMoneyStr, 10))
 			}
 		},
 		saveToStorage: () => {
@@ -51,7 +52,7 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 				alert('local storage not available, unable to save 😢')
 				return
 			}
-			console.info('localStorage is available! saving money...')
+			// console.info('localStorage is available! saving money...')
 			window.localStorage.setItem('react-hooks-todo.money', String(money))
 		}
 	}
