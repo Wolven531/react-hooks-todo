@@ -14,6 +14,11 @@ export interface IMoneyState {
 	money: number
 }
 
+interface IAutoSave {
+	gatherers: number
+	money: number
+}
+
 const useMoneyState = (initialValue: number): IMoneyState => {
 	const [money, setMoney] = useState(initialValue)
 	const [gatherers, setGatherers] = useState(0)
@@ -39,13 +44,16 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 		},
 		loadFromStorage: () => {
 			if (!window.localStorage) {
-				console.warn('[loadFromStorage | useMoneyState] localStorage is NOT available! failed to load money')
+				console.warn('[loadFromStorage | useMoneyState] localStorage is NOT available! failed to load')
 				return
 			}
-			const storedMoneyStr = window.localStorage.getItem('react-hooks-todo.money')
-			if (storedMoneyStr && storedMoneyStr.length) {
-				setMoney(parseInt(storedMoneyStr, 10))
+			const storedAutoSaveStr = window.localStorage.getItem('react-hooks-todo.auto_save')
+			if (!storedAutoSaveStr || storedAutoSaveStr.length < 1) {
+				return
 			}
+			const autoSaveInfo: IAutoSave = JSON.parse(storedAutoSaveStr)
+			setGatherers(autoSaveInfo.gatherers)
+			setMoney(autoSaveInfo.money)
 		},
 		saveToStorage: () => {
 			if (!window.localStorage) {
@@ -53,7 +61,12 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 				return
 			}
 			// console.info('localStorage is available! saving money...')
-			window.localStorage.setItem('react-hooks-todo.money', String(money))
+			// window.localStorage.setItem('react-hooks-todo.money', String(money))
+			const autoSaveInfo: IAutoSave = {
+				gatherers,
+				money
+			}
+			window.localStorage.setItem('react-hooks-todo.auto_save', JSON.stringify(autoSaveInfo))
 		}
 	}
 }
