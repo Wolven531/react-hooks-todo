@@ -9,13 +9,14 @@ export interface IMoneyState {
 	calculateGathererIncome: (gathererLevel?: number) => number
 	collectFromGatherers: (gathererLevel?: number) => void
 	gatherers: number
-	loadFromStorage: () => void
-	saveToStorage: () => void
+	loadFromStorage: () => IAutoSave | undefined
+	saveToStorage: (gathererLevel: number) => void
 	money: number
 }
 
 interface IAutoSave {
 	gatherers: number
+	gathererLevel: number
 	money: number
 }
 
@@ -42,7 +43,7 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 		collectFromGatherers: (gathererLevel = 1) => {
 			addMoney(calculateGathererIncome(gathererLevel))
 		},
-		loadFromStorage: () => {
+		loadFromStorage: (): IAutoSave | undefined => {
 			if (!window.localStorage) {
 				console.warn('[loadFromStorage | useMoneyState] localStorage is NOT available! failed to load')
 				return
@@ -54,8 +55,10 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 			const autoSaveInfo: IAutoSave = JSON.parse(storedAutoSaveStr)
 			setGatherers(autoSaveInfo.gatherers)
 			setMoney(autoSaveInfo.money)
+
+			return autoSaveInfo
 		},
-		saveToStorage: () => {
+		saveToStorage: (gathererLevel: number) => {
 			if (!window.localStorage) {
 				alert('local storage not available, unable to save 😢')
 				return
@@ -63,6 +66,7 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 			// console.info('localStorage is available! saving money...')
 			// window.localStorage.setItem('react-hooks-todo.money', String(money))
 			const autoSaveInfo: IAutoSave = {
+				gathererLevel,
 				gatherers,
 				money
 			}

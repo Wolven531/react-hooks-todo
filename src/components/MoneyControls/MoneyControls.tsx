@@ -31,7 +31,13 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
-		moneyState.loadFromStorage()
+		const loadedInfo = moneyState.loadFromStorage()
+
+		if (loadedInfo) {
+			while (upgradeStore.gathererLevel < loadedInfo.gathererLevel) {
+				upgradeStore.upgradeGatherers()
+			}
+		}
 
 		return handleUnmount
 	}
@@ -79,7 +85,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 
 	useInterval(() => {
 		console.info(`[${dateFormatter.format(Date.now())}] saving money..., ${money}`)
-		moneyState.saveToStorage()
+		moneyState.saveToStorage(upgradeStore.gathererLevel)
 	}, 1000)
 
 	return (
