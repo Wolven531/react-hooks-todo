@@ -34,7 +34,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		const loadedInfo = moneyState.loadFromStorage()
 
 		if (loadedInfo) {
-			while (upgradeStore.gathererLevel < loadedInfo.gathererLevel) {
+			for (let a = 0; a < loadedInfo.gathererLevel; a++) {
 				upgradeStore.upgradeGatherers()
 			}
 		}
