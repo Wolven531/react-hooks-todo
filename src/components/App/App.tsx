@@ -6,7 +6,7 @@ import { MoneyControls } from '../MoneyControls/MoneyControls'
 import { UpgradeStore } from '../../state/upgradeStore'
 import { useMoneyState } from '../../state/useMoneyState'
 
-import './App.css'
+import './App.scss'
 
 const App = () => {
 	const moneyState = useMoneyState(0)

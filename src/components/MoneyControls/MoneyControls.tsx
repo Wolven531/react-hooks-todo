@@ -7,7 +7,7 @@ import { GATHERER_COST, IMoneyState } from '../../state/useMoneyState'
 
 import { Modal } from '../../components/Modal/Modal'
 
-import './MoneyControls.css'
+import './MoneyControls.scss'
 
 const GATHERER_INITIAL_TICK = 0
 const GATHERER_TICK_RATE = 10
