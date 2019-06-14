@@ -7,7 +7,7 @@ import { COMBAT_COST } from '../../service/combatService'
 
 import { useCritterState } from '../../state/useCritterState'
 
-import './CritterList.css'
+import './CritterList.scss'
 
 interface ICritterListProps {
 	currentMoney: number

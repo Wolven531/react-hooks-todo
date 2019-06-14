@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Critter as CritterModel } from '../../model/Critter'
 
-import './Critter.css'
+import './Critter.scss'
 
 interface ICritterProps {
 	critter: CritterModel
