@@ -5,7 +5,7 @@ import { Todo as TodoModel } from '../../model/Todo'
 import { Todo } from '../Todo/Todo'
 import { TodoForm } from '../TodoForm/TodoForm'
 
-import './TodoList.css'
+import './TodoList.scss'
 
 const TodoList = ({
 	addTodo,

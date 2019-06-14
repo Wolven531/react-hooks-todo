@@ -2,7 +2,7 @@ import React from 'react'
 
 import { COMBAT_COST } from '../../service/combatService'
 
-import './CritterListControls.css'
+import './CritterListControls.scss'
 
 interface ICritterListControlsProps {
 	canStartCombat: boolean

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Todo as TodoModel } from '../../model/Todo'
 
-import './Todo.css'
+import './Todo.scss'
 
 interface ITodoProps {
 	todo: TodoModel
