@@ -18,6 +18,13 @@ const App = () => {
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
 		window.document.title = 'Critter Manager'
+		const ws = new WebSocket('ws:localhost:8080')
+		ws.onmessage = evt => {
+			console.log(`message received... ${JSON.stringify(evt)}`)
+		}
+		ws.onopen = (evt) => {
+			console.log('web socket is opened!')
+		}
 
 		return handleUnmount
 	}
