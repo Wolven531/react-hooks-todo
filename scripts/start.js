@@ -31,6 +31,7 @@ const openBrowser = require('react-dev-utils/openBrowser')
 const paths = require('../config/paths')
 const configFactory = require('../config/webpack.config')
 const createDevServerConfig = require('../config/webpackDevServer.config')
+const WebSocket = require('ws')
 
 const useYarn = fs.existsSync(paths.yarnLockFile)
 const isInteractive = process.stdout.isTTY
@@ -115,6 +116,15 @@ checkBrowsers(paths.appPath, isInteractive)
 			}
 			console.log(chalk.cyan('Starting the development server...\n'))
 			openBrowser(urls.localUrlForBrowser)
+		})
+
+		const wss = new WebSocket.Server({ port: 8080 })
+		wss.on('connection', ws => {
+			ws.on('message', message => {
+			  console.log('received: %s', message)
+			})
+
+			ws.send('something')
 		})
 
 		const terminationCodes = ['SIGINT', 'SIGTERM']
