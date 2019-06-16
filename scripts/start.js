@@ -105,6 +105,7 @@ checkBrowsers(paths.appPath, isInteractive)
 			proxyConfig,
 			urls.lanUrlForConfig
 		)
+		let wss
 		const devServer = new WebpackDevServer(compiler, serverConfig)
 		// Launch WebpackDevServer.
 		devServer.listen(port, HOST, err => {
@@ -114,22 +115,23 @@ checkBrowsers(paths.appPath, isInteractive)
 			if (isInteractive) {
 				clearConsole()
 			}
+			console.log(chalk.cyan('Starting the web socket server...\n'))
+			wss = new WebSocket.Server({ port: 8080 })
+			wss.on('connection', ws => {
+				ws.on('message', message => {
+					console.log('received: %s', message)
+				})
+	
+				ws.send('something')
+			})
 			console.log(chalk.cyan('Starting the development server...\n'))
 			openBrowser(urls.localUrlForBrowser)
-		})
-
-		const wss = new WebSocket.Server({ port: 8080 })
-		wss.on('connection', ws => {
-			ws.on('message', message => {
-			  console.log('received: %s', message)
-			})
-
-			ws.send('something')
 		})
 
 		const terminationCodes = ['SIGINT', 'SIGTERM']
 		terminationCodes.forEach(function(sig) {
 			process.on(sig, function() {
+				wss.close()
 				devServer.close()
 				process.exit()
 			})
