@@ -84,7 +84,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	}, 1000 / GATHERER_TICK_RATE)
 
 	useInterval(() => {
-		console.info(`[${dateFormatter.format(Date.now())}] saving money..., ${money}`)
+		// console.info(`[${dateFormatter.format(Date.now())}] saving money..., ${money}`)
 		moneyState.saveToStorage(upgradeStore.gathererLevel)
 	}, 1000)
 
