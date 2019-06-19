@@ -5,7 +5,10 @@ import './WebSocketClient.scss'
 const WebSocketClient: FC = () => {
 	const [logLines, setLogLines] = useState<string[]>([])
 
-	const appendToLog = (msg: string) => {
+	const appendToLog = (msg: string, emitToConsole = true) => {
+		if (emitToConsole) {
+			console.log(msg)
+		}
 		setLogLines(logLines => logLines.concat(msg))
 	}
 
@@ -20,18 +23,16 @@ const WebSocketClient: FC = () => {
 		const webSocketClient = new WebSocket(`${secureWebSocketProto}localhost:5001/ws`)
 
 		webSocketClient.onopen = evt => {
-			appendToLog('web socket connection opened')
+			appendToLog('web socket is opened! sending message to server...')
 			const webSocketTarget: WebSocket = evt.target as WebSocket
-			console.log('web socket is opened! sending message to server...')
 			// NOTE: send message to server
 			webSocketTarget.send('ello!!!')
 		}
 
 		webSocketClient.onmessage = evt => {
-			appendToLog('web socket message received')
 			const { data, target, type } = evt
 			const webSocketTarget: WebSocket = target as WebSocket
-			console.log(`message received from="${webSocketTarget.url}" type="${type}" data="${data}"`)
+			appendToLog(`message received from="${webSocketTarget.url}" type="${type}" data="${data}"`)
 		}
 
 		return handleUnmount
