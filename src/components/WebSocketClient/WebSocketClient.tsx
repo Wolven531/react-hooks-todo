@@ -41,7 +41,7 @@ const WebSocketClient: FC = () => {
 	useEffect(handleMounted, [])
 
 	return (
-		<article>
+		<article className="websocket-client">
 			<h1>Web Socket Client</h1>
 			<section>
 				<h2>Log</h2>
