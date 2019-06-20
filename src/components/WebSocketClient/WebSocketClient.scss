@@ -5,6 +5,12 @@
 	flex-direction: column;
 	padding: 1em;
 
+	button {
+		display: inline-block;
+		line-height: 2em;
+		padding: .5em;
+	}
+
 	h1 {
 		font-size: 2em;
 		margin: 0 auto;
@@ -13,6 +19,14 @@
 
 	h2, section {
 		text-align: center;
+	}
+
+	input {
+		display: inline-block;
+		line-height: 2em;
+		margin-right: 1em;
+		text-indent: 10px;
+		width: 18em;
 	}
 
 	textarea {
