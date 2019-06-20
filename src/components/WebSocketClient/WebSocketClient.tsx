@@ -84,7 +84,6 @@ const WebSocketClient: FC = () => {
 				<input type="text" value={currentMessage}
 					onChange={handleCurrentMessageChange}
 					placeholder="Enter message to send to server..." />
-				<br />
 				<button onClick={handleSendToServer}>Send</button>
 			</section>
 		</article>
