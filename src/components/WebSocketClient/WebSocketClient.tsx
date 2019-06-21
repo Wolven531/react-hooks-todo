@@ -4,9 +4,18 @@ import './WebSocketClient.scss'
 
 // NOTE: create socket to echo server (use secure protocol, i.e. `wss` not `ws`)
 const secureWebSocketProto = 'wss://'
-const webSocketClient = new WebSocket(`${secureWebSocketProto}localhost:5001/ws`)
 
-webSocketClient.onopen = evt => {
+let webSocketClient: WebSocket
+try {
+	webSocketClient = new WebSocket(`${secureWebSocketProto}localhost:5001/ws`)
+// } catch(err) {
+} catch {
+	// console.warn(`failed to connect to web socket server`, err)
+	console.warn(`failed to connect to web socket server`)
+}
+
+// NOTE: using an undefined-safe operator here
+webSocketClient!.onopen = evt => {
 	console.info('web socket is opened! sending message to server...')
 	// appendToLog('web socket is opened! sending message to server...')
 	const webSocketTarget: WebSocket = evt.target as WebSocket
