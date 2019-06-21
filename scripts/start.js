@@ -115,15 +115,15 @@ checkBrowsers(paths.appPath, isInteractive)
 			if (isInteractive) {
 				clearConsole()
 			}
-			console.log(chalk.cyan('Starting the web socket server...\n'))
-			wss = new WebSocket.Server({ port: 8080 })
-			wss.on('connection', ws => {
-				ws.on('message', message => {
-					console.log('received: %s', message)
-				})
+			// console.log(chalk.cyan('Starting the web socket server...\n'))
+			// wss = new WebSocket.Server({ port: 8080 })
+			// wss.on('connection', ws => {
+			// 	ws.on('message', message => {
+			// 		console.log('received: %s', message)
+			// 	})
 	
-				ws.send('something')
-			})
+			// 	ws.send('something')
+			// })
 			console.log(chalk.cyan('Starting the development server...\n'))
 			openBrowser(urls.localUrlForBrowser)
 		})
