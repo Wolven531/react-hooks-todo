@@ -43,6 +43,10 @@ const WebSocketClient: FC = () => {
 		// const secureWebSocketProto = 'wss://'
 		// webSocketClient = new WebSocket(`${secureWebSocketProto}localhost:5001/ws`)
 
+		webSocketClient.onclose = evt => {
+			appendToLog(`web socket closed: ${evt.reason} [timestamp=${evt.timeStamp}]`)
+		}
+
 		webSocketClient.onmessage = evt => {
 			const { data, target, type } = evt
 			const webSocketTarget: WebSocket = target as WebSocket
