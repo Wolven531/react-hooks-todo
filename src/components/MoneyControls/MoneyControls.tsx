@@ -70,6 +70,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		// year: 'numeric'
 	}
 	const dateFormatter = new Intl.DateTimeFormat('en-US', dateFormatOptions)
+	const moneyFormatOptions: Intl.NumberFormatOptions = { currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0, style: 'currency' }
 
 	useInterval(() => {
 		if (gatherers < 1) {
@@ -93,11 +94,11 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 			{isShowingModal && (
 			<Modal handleModalDialogClose={handleModalDialogClose}>
 				<article>
-					<h1>Welcome!</h1>
+					<h1>Welcome to Critter Manager!</h1>
 				</article>
 			</Modal>)}
 			<section>
-				<p>Money: {money.toLocaleString('en-US', { currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0, style: 'currency' })}</p>
+				<p>Money: {money.toLocaleString('en-US', moneyFormatOptions)}</p>
 				{gatherers < 1
 					? null
 					: <article>
