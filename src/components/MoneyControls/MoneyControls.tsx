@@ -97,7 +97,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 				</article>
 			</Modal>)}
 			<section>
-				<p>Money: ${money.toFixed(2)}</p>
+				<p>Money: {money.toLocaleString('en-US', { currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0, style: 'currency' })}</p>
 				{gatherers < 1
 					? null
 					: <article>
