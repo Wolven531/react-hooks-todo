@@ -6,6 +6,7 @@ import { UpgradeStore } from '../../state/upgradeStore'
 import { GATHERER_COST, IMoneyState } from '../../state/useMoneyState'
 
 import { Modal } from '../../components/Modal/Modal'
+import { monify } from '../utils'
 
 import './MoneyControls.scss'
 
@@ -70,7 +71,6 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		// year: 'numeric'
 	}
 	const dateFormatter = new Intl.DateTimeFormat('en-US', dateFormatOptions)
-	const moneyFormatOptions: Intl.NumberFormatOptions = { currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0, style: 'currency' }
 
 	useInterval(() => {
 		if (gatherers < 1) {
@@ -98,7 +98,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 				</article>
 			</Modal>)}
 			<section>
-				<p>Money: {money.toLocaleString('en-US', moneyFormatOptions)}</p>
+				<p>Money: {monify(money)}</p>
 				{gatherers < 1
 					? null
 					: <article>
