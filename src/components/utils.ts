@@ -4,8 +4,6 @@ const MONEY_FORMAT_OPTIONS: Intl.NumberFormatOptions = { currency: 'USD', maximu
 	@param number amount - The numeric money amount
 	@returns string - The formatted version of the money
  */
-const monify = (amount: number): string => {
-	return amount.toLocaleString('en-US', MONEY_FORMAT_OPTIONS)
-}
+const monify = (amount: number): string => amount.toLocaleString('en-US', MONEY_FORMAT_OPTIONS)
 
 export { monify }
