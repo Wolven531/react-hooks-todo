@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { Critter as CritterModel } from '../../model/Critter'
 
@@ -8,7 +8,7 @@ interface ICritterProps {
 	critter: CritterModel
 }
 
-const Critter = ({ critter }: ICritterProps) => {
+const Critter: FC<ICritterProps> = ({ critter }) => {
 	const toggleSelectedOnClick = (evt: React.MouseEvent) => {
 		if (evt.currentTarget.classList.contains('selected')){
 			evt.currentTarget.classList.remove('selected')
