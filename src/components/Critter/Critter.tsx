@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 
 import { Critter as CritterModel } from '../../model/Critter'
 
@@ -9,16 +9,19 @@ interface ICritterProps {
 }
 
 const Critter: FC<ICritterProps> = ({ critter }) => {
+	const [isSelected, setIsSelected] = useState(false)
+	const classes = ['critter']
+
 	const toggleSelectedOnClick = (evt: React.MouseEvent) => {
-		if (evt.currentTarget.classList.contains('selected')){
-			evt.currentTarget.classList.remove('selected')
-			return
-		}
-		evt.currentTarget.classList.add('selected')
+		setIsSelected(!isSelected)
+	}
+
+	if (isSelected) {
+		classes.push('selected')
 	}
 
 	return (
-		<section className="critter" onClick={toggleSelectedOnClick}>
+		<section className={classes.join(' ')} onClick={toggleSelectedOnClick}>
 			<table>
 				{/*
 				<thead>
