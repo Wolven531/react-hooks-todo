@@ -68,21 +68,8 @@ describe('Mount and render Critter component', () => {
 		beforeEach(() => {
 			wrapperCritter.update()
 
-			// const currentTarget = wrapperCritter.getDOMNode()
-			// const currentTarget = wrapperCritter.getElement(0)
 			const currentTarget = wrapperCritter.getElement()
-			// const currentTarget = React.findDOMNode() 
-			// const currentTarget = reactDOM.findDOMNode(wrapperCritter)
-			// const currentTarget = wrapperCritter.getNode()
-			// const currentTarget = wrapperCritter.get(0)
-			// const currentTarget = wrapperCritter.at(0)
-			// const currentTarget = wrapperCritter.instance()
-			// const currentTarget = wrapperCritter
 
-			// (currentTarget as any).classList = new DOMTokenList()
-			// (currentTarget as any).classList = DOMTokenList()
-			// (currentTarget as any).classList = DOMTokenList.new()
-			// const evt = new MouseEvent('click')
 			wrapperCritter.simulate('click', { currentTarget })
 		})
 
