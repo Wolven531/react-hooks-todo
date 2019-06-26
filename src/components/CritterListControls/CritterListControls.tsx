@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { COMBAT_COST } from '../../service/combatService'
 
@@ -13,13 +13,13 @@ interface ICritterListControlsProps {
 	startCombat: () => void
 }
 
-const CritterListControls = ({
+const CritterListControls: FC<ICritterListControlsProps> = ({
 	canStartCombat,
 	clearCritters,
 	saveToLocalStorage,
 	shouldShowCombat,
 	spawnCritter,
-	startCombat }: ICritterListControlsProps) => {
+	startCombat }) => {
 	return (
 		<section className="critter-list-controls">
 			{shouldShowCombat
