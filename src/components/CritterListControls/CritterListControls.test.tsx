@@ -44,7 +44,7 @@ describe('Shallow render CritterListControls component', () => {
 	})
 })
 
-describe('Shallow render CritterListControls component w/ combat shown', () => {
+describe('Shallow render CritterListControls component w/ combat shown but disabled', () => {
 	let wrapperCritterListControls: ShallowWrapper<FC>
 
 	beforeEach(() => {
@@ -64,6 +64,31 @@ describe('Shallow render CritterListControls component w/ combat shown', () => {
 
 		expect(combatButton.exists()).toBe(true)
 		expect(combatButton.text()).toBe('Start Combat (100)')
+		expect(combatButton.props().disabled).toBe(true)
+	})
+})
+
+describe('Shallow render CritterListControls component w/ combat shown and enabled', () => {
+	let wrapperCritterListControls: ShallowWrapper<FC>
+
+	beforeEach(() => {
+		wrapperCritterListControls = shallow(<CritterListControls
+			canStartCombat={true}
+			clearCritters={() => { return }}
+			saveToLocalStorage={() => { return }}
+			shouldShowCombat={true}
+			spawnCritter={() => { return }}
+			startCombat={() => { return }} />)
+	})
+
+	it('shallow renders WebSocketClient, MoneyControls, CritterList, and Critter details', () => {
+		wrapperCritterListControls.update()
+
+		const combatButton = wrapperCritterListControls.find('button.combat')
+
+		expect(combatButton.exists()).toBe(true)
+		expect(combatButton.text()).toBe('Start Combat (100)')
+		expect(combatButton.props().disabled).toBe(false)
 	})
 })
 
