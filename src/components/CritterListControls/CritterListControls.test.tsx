@@ -36,8 +36,34 @@ describe('Shallow render CritterListControls component', () => {
 	it('shallow renders WebSocketClient, MoneyControls, CritterList, and Critter details', () => {
 		wrapperCritterListControls.update()
 
+		const combatButton = wrapperCritterListControls.find('button.combat')
+
+		expect(combatButton.exists()).toBe(false)
 		expect(wrapperCritterListControls.exists()).toBe(true)
 		expect(wrapperCritterListControls.hasClass('critter-list-controls')).toBe(true)
+	})
+})
+
+describe('Shallow render CritterListControls component w/ combat shown', () => {
+	let wrapperCritterListControls: ShallowWrapper<FC>
+
+	beforeEach(() => {
+		wrapperCritterListControls = shallow(<CritterListControls
+			canStartCombat={false}
+			clearCritters={() => { return }}
+			saveToLocalStorage={() => { return }}
+			shouldShowCombat={true}
+			spawnCritter={() => { return }}
+			startCombat={() => { return }} />)
+	})
+
+	it('shallow renders WebSocketClient, MoneyControls, CritterList, and Critter details', () => {
+		wrapperCritterListControls.update()
+
+		const combatButton = wrapperCritterListControls.find('button.combat')
+
+		expect(combatButton.exists()).toBe(true)
+		expect(combatButton.text()).toBe('Start Combat (100)')
 	})
 })
 
