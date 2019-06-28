@@ -1,7 +1,3 @@
-/* eslint-env jest */
-/* globals jest */
-/* tslint-env jest */
-/* tslint jest */
 import {
 	configure,
 	mount,
@@ -10,10 +6,6 @@ import {
 	ShallowWrapper
 } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-// import jest from 'jest'
-// import jest = require('jest')
-// import * as jest from 'jest'
-// const jest = require('jest')
 import React, { FC } from 'react'
 
 // models
@@ -48,16 +40,18 @@ describe('Shallow render CritterListControls component', () => {
 })
 
 describe('Shallow render CritterListControls component w/ combat shown but disabled', () => {
+	let mockStartCombat: jest.Mock
 	let wrapperCritterListControls: ShallowWrapper<FC>
 
 	beforeEach(() => {
+		mockStartCombat = jest.fn()
 		wrapperCritterListControls = shallow(<CritterListControls
 			canStartCombat={false}
 			clearCritters={() => { return }}
 			saveToLocalStorage={() => { return }}
 			shouldShowCombat={true}
 			spawnCritter={() => { return }}
-			startCombat={() => { return }} />)
+			startCombat={mockStartCombat} />)
 	})
 
 	it('shallow renders WebSocketClient, MoneyControls, CritterList, and Critter details', () => {
@@ -68,6 +62,20 @@ describe('Shallow render CritterListControls component w/ combat shown but disab
 		expect(combatButton.exists()).toBe(true)
 		expect(combatButton.text()).toBe('Start Combat (100)')
 		expect(combatButton.props().disabled).toBe(true)
+	})
+
+	describe('clicking disabled combat button', () => {
+		beforeEach(() => {
+			wrapperCritterListControls.update()
+
+			const combatButton = wrapperCritterListControls.find('button.combat')
+
+			combatButton.simulate('click')
+		})
+
+		it('should NOT call startCombat', () => {
+			expect(mockStartCombat).not.toHaveBeenCalled()
+		})
 	})
 })
 
@@ -96,7 +104,7 @@ describe('Shallow render CritterListControls component w/ combat shown and enabl
 })
 
 describe('Mount and render CritterListControls component w/ combat shown and enabled', () => {
-	let mockStartCombat: any
+	let mockStartCombat: jest.Mock
 	let wrapperCritterListControls: ReactWrapper<FC>
 
 	beforeEach(() => {
