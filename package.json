@@ -19,7 +19,6 @@
 		"react-app-polyfill": "^1.0.1",
 		"react-dom": "^16.8.6",
 		"resolve": "1.11.0",
-		"typescript": "3.5.1",
 		"uuid": "^3.3.2",
 		"ws": "^7.0.0"
 	},
@@ -30,7 +29,10 @@
 		"test-debug": "node --inspect-brk scripts/test.js --coverage --watchAll"
 	},
 	"eslintConfig": {
-		"extends": "react-app"
+		"extends": "react-app",
+		"env": {
+			"jest": true
+		}
 	},
 	"browserslist": [
 		">0.2%",
@@ -88,6 +90,8 @@
 		"sass-loader": "7.1.0",
 		"style-loader": "0.23.1",
 		"terser-webpack-plugin": "1.2.2",
+		"tslint": "^5.18.0",
+		"typescript": "^3.5.1",
 		"url-loader": "1.1.2",
 		"webpack": "4.28.3",
 		"webpack-dev-server": "3.1.14",
@@ -97,7 +101,13 @@
 	"jest": {
 		"collectCoverageFrom": [
 			"src/**/*.{js,jsx,ts,tsx}",
-			"!src/**/*.d.ts"
+			"!src/**/*.d.ts",
+			"!scripts/**/*.js",
+			"!src/index.tsx",
+			"!src/serviceWorker.ts"
+		],
+		"coveragePathIgnorePatterns": [
+			"<rootDir>/scripts/.*"
 		],
 		"resolver": "jest-pnp-resolver",
 		"setupFiles": [
