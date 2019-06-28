@@ -1,3 +1,7 @@
+/* eslint-env jest */
+/* globals jest */
+/* tslint-env jest */
+/* tslint jest */
 import {
 	configure,
 	mount,
@@ -6,19 +10,18 @@ import {
 	ShallowWrapper
 } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
+// import jest from 'jest'
+// import jest = require('jest')
+// import * as jest from 'jest'
+// const jest = require('jest')
 import React, { FC } from 'react'
-import { v1 } from 'uuid'
 
 // models
-import { Critter as CritterModel } from '../../model/Critter'
 
 // local
 import { CritterListControls } from './CritterListControls'
 
 configure({ adapter: new Adapter() })
-
-const fixtureCritter = new CritterModel('George', 100, 5, 3)
-const fixtureCritterWithId = new CritterModel('George', 100, 5, 3, v1())
 
 describe('Shallow render CritterListControls component', () => {
 	let wrapperCritterListControls: ShallowWrapper<FC>
@@ -92,18 +95,20 @@ describe('Shallow render CritterListControls component w/ combat shown and enabl
 	})
 })
 
-describe('Mount and render CritterListControls component', () => {
+describe('Mount and render CritterListControls component w/ combat shown and enabled', () => {
+	let mockStartCombat: any
 	let wrapperCritterListControls: ReactWrapper<FC>
 
 	beforeEach(() => {
+		mockStartCombat = jest.fn()
 		// NOTE: need mount (rather than shallow) so that stateless componentDidMount will run
 		const critterListControls = <CritterListControls
-			canStartCombat={false}
+			canStartCombat={true}
 			clearCritters={() => { return }}
 			saveToLocalStorage={() => { return }}
-			shouldShowCombat={false}
+			shouldShowCombat={true}
 			spawnCritter={() => { return }}
-			startCombat={() => { return }} />
+			startCombat={mockStartCombat} />
 		wrapperCritterListControls = mount(critterListControls)
 	})
 
@@ -115,5 +120,19 @@ describe('Mount and render CritterListControls component', () => {
 		wrapperCritterListControls.update()
 
 		expect(wrapperCritterListControls.exists()).toBe(true)
+	})
+
+	describe('clicking combat button', () => {
+		beforeEach(() => {
+			wrapperCritterListControls.update()
+
+			const combatButton = wrapperCritterListControls.find('button.combat')
+
+			combatButton.simulate('click')
+		})
+
+		it('should call startCombat', () => {
+			expect(mockStartCombat).toHaveBeenCalledTimes(1)
+		})
 	})
 })
