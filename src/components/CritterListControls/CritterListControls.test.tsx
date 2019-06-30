@@ -16,15 +16,17 @@ import { CritterListControls } from './CritterListControls'
 configure({ adapter: new Adapter() })
 
 describe('Shallow render CritterListControls component', () => {
+	let mockSpawnCritter: jest.Mock
 	let wrapperCritterListControls: ShallowWrapper<FC>
 
 	beforeEach(() => {
+		mockSpawnCritter = jest.fn()
 		wrapperCritterListControls = shallow(<CritterListControls
 			canStartCombat={false}
 			clearCritters={() => { return }}
 			saveToLocalStorage={() => { return }}
 			shouldShowCombat={false}
-			spawnCritter={() => { return }}
+			spawnCritter={mockSpawnCritter}
 			startCombat={() => { return }} />)
 	})
 
@@ -36,6 +38,20 @@ describe('Shallow render CritterListControls component', () => {
 		expect(combatButton.exists()).toBe(false)
 		expect(wrapperCritterListControls.exists()).toBe(true)
 		expect(wrapperCritterListControls.hasClass('critter-list-controls')).toBe(true)
+	})
+
+	describe('clicking spawn critter', () => {
+		beforeEach(() => {
+			wrapperCritterListControls.update()
+
+			const spawnButton = wrapperCritterListControls.find('button.create')
+
+			spawnButton.simulate('click')
+		})
+
+		it('should invoke spawnCritter()', () => {
+			expect(mockSpawnCritter).toHaveBeenCalledTimes(1)
+		})
 	})
 })
 
@@ -139,7 +155,7 @@ describe('Mount and render CritterListControls component w/ combat shown and ena
 			combatButton.simulate('click')
 		})
 
-		it('should call startCombat', () => {
+		it('should invoke startCombat()', () => {
 			expect(mockStartCombat).toHaveBeenCalledTimes(1)
 		})
 	})
