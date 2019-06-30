@@ -16,15 +16,19 @@ import { CritterListControls } from './CritterListControls'
 configure({ adapter: new Adapter() })
 
 describe('Shallow render CritterListControls component', () => {
+	let mockClearCritters: jest.Mock
+	let mockSaveToLocalStorage: jest.Mock
 	let mockSpawnCritter: jest.Mock
 	let wrapperCritterListControls: ShallowWrapper<FC>
 
 	beforeEach(() => {
+		mockClearCritters = jest.fn()
+		mockSaveToLocalStorage = jest.fn()
 		mockSpawnCritter = jest.fn()
 		wrapperCritterListControls = shallow(<CritterListControls
 			canStartCombat={false}
-			clearCritters={() => { return }}
-			saveToLocalStorage={() => { return }}
+			clearCritters={mockClearCritters}
+			saveToLocalStorage={mockSaveToLocalStorage}
 			shouldShowCombat={false}
 			spawnCritter={mockSpawnCritter}
 			startCombat={() => { return }} />)
@@ -45,12 +49,28 @@ describe('Shallow render CritterListControls component', () => {
 			wrapperCritterListControls.update()
 
 			const spawnButton = wrapperCritterListControls.find('button.create')
+			expect(spawnButton.text()).toBe('Spawn Critter')
 
 			spawnButton.simulate('click')
 		})
 
 		it('should invoke spawnCritter()', () => {
 			expect(mockSpawnCritter).toHaveBeenCalledTimes(1)
+		})
+	})
+
+	describe('clicking spawn critter', () => {
+		beforeEach(() => {
+			wrapperCritterListControls.update()
+
+			const saveButton = wrapperCritterListControls.find('button.update')
+			expect(saveButton.text()).toBe('Save Critters (local)')
+
+			saveButton.simulate('click')
+		})
+
+		it('should invoke spawnCritter()', () => {
+			expect(mockSaveToLocalStorage).toHaveBeenCalledTimes(1)
 		})
 	})
 })
