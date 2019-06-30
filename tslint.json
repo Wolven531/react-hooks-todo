@@ -14,8 +14,9 @@
 			"options": "tabs",
 			"severity": "error"
 		},
+		"object-literal-key-quotes": false,
 		"quotemark": {
-			"options": "single",
+			"options": ["jsx-double", "single"],
 			"severity": "error"
 		},
 		"semicolon": {
@@ -29,7 +30,6 @@
 			},
 			"severity": "error"
 		}
-		
 	},
 	"rulesDirectory": [],
 	"linterOptions": {}
