@@ -73,6 +73,21 @@ describe('Shallow render CritterListControls component', () => {
 			expect(mockSaveToLocalStorage).toHaveBeenCalledTimes(1)
 		})
 	})
+
+	describe('clicking clear critters', () => {
+		beforeEach(() => {
+			wrapperCritterListControls.update()
+
+			const clearButton = wrapperCritterListControls.find('button.delete')
+			expect(clearButton.text()).toBe('Clear Critters')
+
+			clearButton.simulate('click')
+		})
+
+		it('should invoke clearCritters()', () => {
+			expect(mockClearCritters).toHaveBeenCalledTimes(1)
+		})
+	})
 })
 
 describe('Shallow render CritterListControls component w/ combat shown but disabled', () => {
