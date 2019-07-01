@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { Todo as TodoModel } from '../../model/Todo'
 
@@ -19,13 +19,13 @@ const dateFormatterOptions: Intl.DateTimeFormatOptions = {
 }
 const dateFormatter = new Intl.DateTimeFormat('en-US', dateFormatterOptions)
 
-const Todo = ({ todo, toggleTodo }: ITodoProps) => {
+const Todo: FC<ITodoProps> = ({ todo, toggleTodo }) => {
 	// const rtf = new Intl.RelativeTimeFormat('en', {
 	// 	localeMatcher: 'best fit',// other values: 'lookup'
 	// 	numeric: 'always',// other values: 'auto'
 	// 	style: 'long'// other values: 'short' or 'narrow'
 	// })
-	
+
 	return (
 		<div className={['todo', todo.completed ? 'completed' : ''].join(' ')}
 			onClick={() => { toggleTodo(todo.id) }}>
