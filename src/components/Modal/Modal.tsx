@@ -13,7 +13,7 @@ const Modal: FC<IModalProps> = ({
 	children,
 	showCloseButton = true,
 	isLoading = false
-	}) => {
+}) => {
 	const handleModalClick = (evt: MouseEvent) => {
 		// TODO: figure out how to alert the user about the modal
 		// const { currentTarget, target, preventDefault } = evt
@@ -21,18 +21,16 @@ const Modal: FC<IModalProps> = ({
 		// alert(`Must close the modal... ${(target as Element).classList}`)
 	}
 
+	const optionalCloseButton = showCloseButton
+		? (<button onClick={handleModalDialogClose} className="close">X</button>)
+		: null
+
 	return (
 		<div onClick={handleModalClick} className="modal-container">
 			<div className="modal">
 				{isLoading
 					? <div>Loading...</div>
-					: <div>
-						{showCloseButton
-							? <button onClick={handleModalDialogClose} className="close">X</button>
-							: null
-						}
-						{children}
-					</div>}
+					: <div>{optionalCloseButton}{children}</div>}
 			</div>
 		</div>
 	)
