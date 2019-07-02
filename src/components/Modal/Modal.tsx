@@ -25,7 +25,7 @@ const Modal: FC<IModalProps> = ({
 		<div onClick={handleModalClick} className="modal-container">
 			<div className="modal">
 				{isLoading
-					? <div>Spinner</div>
+					? <div>Loading...</div>
 					: <div>
 						{showCloseButton
 							? <button onClick={handleModalDialogClose} className="close">X</button>
