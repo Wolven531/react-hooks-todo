@@ -28,6 +28,22 @@ describe('Shallow render Modal component using defaults', () => {
 		expect(wrapperModal.exists()).toBe(true)
 		expect(wrapperModal.hasClass('modal-container')).toBe(true)
 	})
+
+	describe('click close button', () => {
+		beforeEach(() => {
+			wrapperModal.update()
+
+			const closeButton = wrapperModal.find('.close')
+
+			expect(closeButton.text()).toBe('X')
+
+			closeButton.simulate('click')
+		})
+
+		it('invokes handleModalDialogClose', () => {
+			expect(mockHandleModalDialogClose).toHaveBeenCalledTimes(1)
+		})
+	})
 })
 
 describe('Shallow render Modal component w/o close button, that is loading', () => {
