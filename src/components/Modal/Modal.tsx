@@ -4,10 +4,16 @@ import './Modal.scss'
 
 interface IModalProps {
 	handleModalDialogClose: () => void
+	isLoading?: boolean
 	showCloseButton?: boolean
 }
 
-const Modal: FC<IModalProps> = ({ handleModalDialogClose, children, showCloseButton = true }) => {
+const Modal: FC<IModalProps> = ({
+	handleModalDialogClose,
+	children,
+	showCloseButton = true,
+	isLoading = false
+	}) => {
 	const handleModalClick = (evt: MouseEvent) => {
 		// TODO: figure out how to alert the user about the modal
 		// const { currentTarget, target, preventDefault } = evt
@@ -18,7 +24,7 @@ const Modal: FC<IModalProps> = ({ handleModalDialogClose, children, showCloseBut
 	return (
 		<div onClick={handleModalClick} className="modal-container">
 			<div className="modal">
-				{false // TODO: this should be `isLoading`
+				{isLoading
 					? <div>Spinner</div>
 					: <div>
 						{showCloseButton
