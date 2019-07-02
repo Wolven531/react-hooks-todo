@@ -29,6 +29,20 @@ describe('Shallow render Modal component using defaults', () => {
 		expect(wrapperModal.hasClass('modal-container')).toBe(true)
 	})
 
+	describe('click Modal (not on close button)', () => {
+		beforeEach(() => {
+			wrapperModal.update()
+
+			wrapperModal.simulate('click')
+		})
+
+		it('remains visible', () => {
+			wrapperModal.update()
+
+			expect(wrapperModal.exists()).toBe(true)
+		})
+	})
+
 	describe('click close button', () => {
 		beforeEach(() => {
 			wrapperModal.update()
