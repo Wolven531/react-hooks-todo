@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import { Critter } from '../../components/Critter/Critter'
 import { CritterListControls } from '../../components/CritterListControls/CritterListControls'
@@ -9,11 +9,11 @@ import { useCritterState } from '../../state/useCritterState'
 
 import './CritterList.scss'
 
-interface ICritterListProps {
+export interface ICritterListProps {
 	currentMoney: number
 }
 
-const CritterList = ({ currentMoney }: ICritterListProps) => {
+const CritterList: FC<ICritterListProps> = ({ currentMoney }) => {
 	const { clearCritters, critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
 
 	const startCombat = () => {
