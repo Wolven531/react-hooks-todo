@@ -6,7 +6,7 @@ import { CritterList, ICritterListProps } from './CritterList'
 
 configure({ adapter: new Adapter() })
 
-describe('CritterList unit test', () => {
+describe('Shallow render CritterList', () => {
 	let wrapperCritterListPage: ShallowWrapper<FC<ICritterListProps>>
 
 	beforeEach(() => {
@@ -18,7 +18,7 @@ describe('CritterList unit test', () => {
 		expect(displayContainer.children()).toHaveLength(0)
 	})
 
-	it('should shallow render CritterList', () => {
+	it('shallow renders CritterList w/ no issues', () => {
 		wrapperCritterListPage.update()
 
 		expect(wrapperCritterListPage.exists()).toBe(true)
