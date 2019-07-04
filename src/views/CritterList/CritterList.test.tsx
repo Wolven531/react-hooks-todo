@@ -11,6 +11,11 @@ describe('CritterList unit test', () => {
 
 	beforeEach(() => {
 		wrapperCritterListPage = shallow(<CritterList currentMoney={0} />)
+		wrapperCritterListPage.hasClass('critter-list')
+
+		const displayContainer = wrapperCritterListPage.find('.display-container')
+		expect(displayContainer.exists()).toBe(true)
+		expect(displayContainer.children()).toHaveLength(0)
 	})
 
 	it('should shallow render CritterList', () => {
