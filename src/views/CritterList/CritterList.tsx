@@ -16,10 +16,6 @@ export interface ICritterListProps {
 const CritterList: FC<ICritterListProps> = ({ currentMoney }) => {
 	const { clearCritters, critters, loadFromStorage, saveToLocalStorage, spawnCritter } = useCritterState([])
 
-	const startCombat = () => {
-		console.log('[startCombat | CritterList] Starting combat...')
-	}
-
 	useEffect(() => {
 		loadFromStorage()
 	}, [])
@@ -32,7 +28,7 @@ const CritterList: FC<ICritterListProps> = ({ currentMoney }) => {
 				saveToLocalStorage={saveToLocalStorage}
 				shouldShowCombat={true}
 				spawnCritter={spawnCritter}
-				startCombat={startCombat} />
+				startCombat={() => {}} />
 			<section className="display-container">
 				{critters.map(critter => <Critter key={critter.id} critter={critter} />)}
 			</section>
