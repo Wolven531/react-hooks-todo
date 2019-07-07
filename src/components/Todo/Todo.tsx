@@ -6,7 +6,7 @@ import { prettifyTimestamp } from '../utils'
 
 import './Todo.scss'
 
-interface ITodoProps {
+export interface ITodoProps {
 	todo: TodoModel
 	toggleTodo: (todoId: string) => void
 }
