@@ -23,7 +23,14 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	const [gathererTick, setGathererTick] = useState(GATHERER_INITIAL_TICK)
 	const [isShowingModal, setIsShowingModal] = useState(true)
 
-	const { addGatherer, addMoney, calculateGathererIncome, collectFromGatherers, gatherers, money } = moneyState
+	const {
+		addGatherer,
+		addMoney,
+		calculateGathererIncome,
+		collectFromGatherers,
+		gatherers,
+		money,
+		resetProgress } = moneyState
 	// TODO: research why do each of these funcs not have a `this` ???
 	// const { gathererLevel, getGathererUpgradeCost, upgradeGatherers } = upgradeStore
 
@@ -55,7 +62,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 	}
 
 	const handleResetProgress = () => {
-		
+		resetProgress()
 	}
 
 	const handleUpgradeGatherers = () => {

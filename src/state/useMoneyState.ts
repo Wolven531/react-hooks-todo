@@ -10,6 +10,7 @@ export interface IMoneyState {
 	collectFromGatherers: (gathererLevel?: number) => void
 	gatherers: number
 	loadFromStorage: () => IAutoSave | undefined
+	resetProgress: () => void
 	saveToStorage: (gathererLevel: number) => void
 	money: number
 }
@@ -57,6 +58,10 @@ const useMoneyState = (initialValue: number): IMoneyState => {
 			setMoney(autoSaveInfo.money)
 
 			return autoSaveInfo
+		},
+		resetProgress: () => {
+			setGatherers(0)
+			setMoney(0)
 		},
 		saveToStorage: (gathererLevel: number) => {
 			if (!window.localStorage) {
