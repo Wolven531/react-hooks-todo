@@ -1,25 +1,22 @@
-import React, { useState, useEffect, useRef, MutableRefObject } from 'react'
+import { MutableRefObject, useEffect, useRef } from 'react'
 
 // NOTE: Inspired by https://overreacted.io/making-setinterval-declarative-with-react-hooks/
-
 const useInterval = (callback: () => void, delay?: number) => {
 	const savedCallback: MutableRefObject<Function> = useRef() as MutableRefObject<Function>
 
-	// Store the latest callback
-	useEffect(() => {
+	useEffect(() => {// store the latest callback
 		savedCallback.current = callback
-	}, [callback])
+	}, [callback])// track on the callback provided
 
-	// Set up the interval
-	useEffect(() => {
-		const tick = () => {
+	useEffect(() => {// set up the interval
+		if (delay === undefined) {
+			return
+		}
+		const id = setInterval(() => {// NOTE: this anon func is the tick
 			savedCallback.current()
-		}
-		if (delay !== null) {
-			const id = setInterval(tick, delay)
-			return () => { clearInterval(id) }
-		}
-	}, [delay])
+		}, delay)
+		return () => { clearInterval(id) }// NOTE: cleanup func
+	}, [delay])// track on the delay provided
 }
 
 export { useInterval }
