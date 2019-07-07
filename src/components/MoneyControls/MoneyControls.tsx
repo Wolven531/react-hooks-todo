@@ -66,19 +66,6 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		upgradeStore.upgradeGatherers()
 	}
 
-	const dateFormatOptions: Intl.DateTimeFormatOptions = {
-		// day: 'numeric',
-		hour: 'numeric',
-		minute: 'numeric',
-		// month: 'long',
-		second: 'numeric',
-		timeZone: 'UTC',
-		timeZoneName: 'short',
-		// weekday: 'long',
-		// year: 'numeric'
-	}
-	const dateFormatter = new Intl.DateTimeFormat('en-US', dateFormatOptions)
-
 	useInterval(() => {
 		if (gatherers < 1) {
 			return

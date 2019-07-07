@@ -1,3 +1,15 @@
+const DATE_FORMAT_OPTIONS: Intl.DateTimeFormatOptions = {
+	// day: 'numeric',
+	hour: 'numeric',
+	minute: 'numeric',
+	// month: 'long',
+	second: 'numeric',
+	timeZone: 'UTC',
+	timeZoneName: 'short',
+	// weekday: 'long',
+	// year: 'numeric'
+}
+const DATE_FORMATTER = new Intl.DateTimeFormat('en-US', DATE_FORMAT_OPTIONS)
 const MONEY_FORMAT_OPTIONS: Intl.NumberFormatOptions = { currency: 'USD', maximumFractionDigits: 0, minimumFractionDigits: 0, style: 'currency' }
 
 /*
