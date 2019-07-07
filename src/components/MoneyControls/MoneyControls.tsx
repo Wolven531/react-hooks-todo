@@ -61,10 +61,6 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 		setIsShowingModal(false)
 	}
 
-	const handleResetProgress = () => {
-		resetProgress()
-	}
-
 	const handleUpgradeGatherers = () => {
 		addMoney(-1 * upgradeStore.getGathererUpgradeCost())
 		upgradeStore.upgradeGatherers()
@@ -106,7 +102,7 @@ const MoneyControls = ({ moneyState, upgradeStore }: IMoneyControlsProps) => {
 			<Modal handleModalDialogClose={handleModalDialogClose}>
 				<article>
 					<h1>Welcome to Critter Manager!</h1>
-					<button onClick={handleResetProgress}>Reset Progress</button>
+					<button onClick={() => { resetProgress() }}>Reset Progress</button>
 				</article>
 			</Modal>)}
 			<section>
