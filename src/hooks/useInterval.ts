@@ -9,9 +9,9 @@ const useInterval = (callback: () => void, delay?: number) => {
 	}, [callback])// track on the callback provided
 
 	useEffect(() => {// set up the interval
-		if (delay === undefined) {
-			return
-		}
+		// if (delay === undefined) {
+		// 	return
+		// }
 		const id = setInterval(() => {// NOTE: this anon func is the tick
 			savedCallback.current()
 		}, delay)
