@@ -14,14 +14,12 @@ import { ITodoProps, Todo } from './Todo'
 
 configure({ adapter: new Adapter() })
 
-describe('Shallow render Todo component', () => {
-	const fakeTodo: TodoModel = new TodoModel('1', ' some desc ', false, (new Date(1990, 9, 15).getTime()))
-	let mockToggleTodo: jest.Mock
+describe('Shallow render incomplete Todo component', () => {
+	const fakeIncompleteTodo: TodoModel = new TodoModel('1', ' some desc ', false, (new Date(1990, 9, 15).getTime()))
 	let wrapperTodo: ShallowWrapper<FC<ITodoProps>>
 
 	beforeEach(() => {
-		mockToggleTodo = jest.fn()
-		wrapperTodo = shallow(<Todo todo={fakeTodo} toggleTodo={mockToggleTodo} />)
+		wrapperTodo = shallow(<Todo todo={fakeIncompleteTodo} toggleTodo={jest.fn()} />)
 	})
 
 	it('shallow renders', () => {
@@ -38,15 +36,40 @@ describe('Shallow render Todo component', () => {
 	})
 })
 
+describe('Shallow render completed Todo component', () => {
+	const fakeCompletedTodo: TodoModel = new TodoModel('1', ' some desc ', true, (new Date(1990, 9, 15).getTime()))
+	let wrapperTodo: ShallowWrapper<FC<ITodoProps>>
+
+	beforeEach(() => {
+		wrapperTodo = shallow(<Todo todo={fakeCompletedTodo} toggleTodo={jest.fn()} />)
+	})
+
+	it('shallow renders', () => {
+		wrapperTodo.update()
+
+		expect(wrapperTodo.exists()).toBe(true)
+		expect(wrapperTodo.hasClass('todo')).toBe(true)
+		expect(wrapperTodo.hasClass('completed')).toBe(true)
+
+		expect(wrapperTodo.find('input[type="checkbox"]').props()).toMatchObject({
+			checked: true,
+			readOnly: true,
+			type: 'checkbox'
+		})
+	})
+})
+
 describe('Mount and render Todo component', () => {
 	const fakeTodo: TodoModel = new TodoModel('1', ' some desc ', false, (new Date(1990, 9, 15).getTime()))
-	let toggleTodoProvider: { toggleTodo: (todoId: string) => void }
+	let toggleTodoProvider = {
+		toggleTodo: (todoId: string) => { fakeTodo.completed = !fakeTodo.completed }
+	}
 	let wrapperTodo: ReactWrapper<FC<ITodoProps>>
 
 	beforeEach(() => {
-		toggleTodoProvider = {
-			toggleTodo: (todoId: string) => { fakeTodo.completed = !fakeTodo.completed }
-		}
+		// toggleTodoProvider = {
+		// 	toggleTodo: (todoId: string) => { fakeTodo.completed = !fakeTodo.completed }
+		// }
 		// NOTE: need mount (rather than shallow) so that stateless componentDidMount will run if present
 		const todo = <Todo todo={fakeTodo} toggleTodo={toggleTodoProvider.toggleTodo} />
 		wrapperTodo = mount(todo)
@@ -70,7 +93,8 @@ describe('Mount and render Todo component', () => {
 
 			spyToggleTodo = jest.spyOn(toggleTodoProvider, 'toggleTodo')
 
-			wrapperTodo.find('.todo').simulate('click')
+			// wrapperTodo.find('.todo').simulate('click')
+			wrapperTodo.simulate('click')
 		})
 
 		it('updates Todo class and completion checkbox', () => {
