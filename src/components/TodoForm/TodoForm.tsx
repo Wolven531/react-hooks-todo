@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 
 import moment from 'moment'
 
 import { Todo } from '../../model/Todo'
 
-const TodoForm = ({
-	addTodo
-}: {
+export interface ITodoFormProps {
 	addTodo: (newTodo: Todo) => void
-}) => {
+}
+
+const TodoForm: FC<ITodoFormProps> = ({ addTodo }) => {
 	const [todo, setTodo] = useState('')
 	// const clearCompletedTodos = () => {
 	// 	setTodos(todos.filter(todo => !todo.completed))
