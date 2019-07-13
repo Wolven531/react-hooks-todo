@@ -1,22 +1,18 @@
 import {
 	configure,
-	mount,
-	ReactWrapper,
 	shallow,
 	ShallowWrapper
 } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import React, { FC } from 'react'
 
-import { Todo as TodoModel } from '../../model/Todo'
-
 import { ITodoFormProps, TodoForm } from './TodoForm'
 
 configure({ adapter: new Adapter() })
 
 describe('Shallow render TodoForm component', () => {
-	let mockAddTodo = jest.fn()
-	let mockPreventDefault = jest.fn()
+	const mockAddTodo = jest.fn()
+	const mockPreventDefault = jest.fn()
 	let wrapperTodoForm: ShallowWrapper<FC<ITodoFormProps>>
 
 	beforeEach(() => {
@@ -57,11 +53,42 @@ describe('Shallow render TodoForm component', () => {
 				wrapperTodoForm.update()
 			})
 
-			it('calls addTodo()', () => {
+			it('calls preventDefault() and addTodo()', () => {
 				expect(mockAddTodo).toHaveBeenCalledTimes(1)
 				expect(mockPreventDefault).toHaveBeenCalledTimes(1)
 				// expect(mockAddTodo).toHaveBeenLastCalledWith()
 			})
+		})
+	})
+})
+
+describe('Shallow render TodoForm component', () => {
+	const mockAddTodo = jest.fn()
+	const mockPreventDefault = jest.fn()
+	let wrapperTodoForm: ShallowWrapper<FC<ITodoFormProps>>
+
+	beforeEach(() => {
+		wrapperTodoForm = shallow(<TodoForm addTodo={mockAddTodo} />)
+		wrapperTodoForm.update()
+	})
+
+	describe('click "Add Todo" button w/ empty input', () => {
+		let mockAlert = jest.fn()
+
+		beforeEach(() => {
+			window.alert = mockAlert
+
+			const addTodoButton = wrapperTodoForm.find('button')
+
+			addTodoButton.simulate('click', { preventDefault: mockPreventDefault })
+			wrapperTodoForm.update()
+		})
+
+		it('calls preventDefault() and window.alert() and NOT addTodo()', () => {
+			expect(mockPreventDefault).toHaveBeenCalledTimes(1)
+			expect(mockAlert).toHaveBeenCalledTimes(1)
+			expect(mockAlert).toHaveBeenLastCalledWith('Todo must have a description')
+			expect(mockAddTodo).not.toHaveBeenCalled()
 		})
 	})
 })
