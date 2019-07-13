@@ -11,11 +11,13 @@ import { ITodoFormProps, TodoForm } from './TodoForm'
 configure({ adapter: new Adapter() })
 
 describe('Shallow render TodoForm component', () => {
-	const mockAddTodo = jest.fn()
-	const mockPreventDefault = jest.fn()
+	let mockAddTodo: jest.Mock
+	let mockPreventDefault: jest.Mock
 	let wrapperTodoForm: ShallowWrapper<FC<ITodoFormProps>>
 
 	beforeEach(() => {
+		mockAddTodo = jest.fn()
+		mockPreventDefault = jest.fn()
 		wrapperTodoForm = shallow(<TodoForm addTodo={mockAddTodo} />)
 		wrapperTodoForm.update()
 	})
@@ -59,17 +61,6 @@ describe('Shallow render TodoForm component', () => {
 				// expect(mockAddTodo).toHaveBeenLastCalledWith()
 			})
 		})
-	})
-})
-
-describe('Shallow render TodoForm component', () => {
-	const mockAddTodo = jest.fn()
-	const mockPreventDefault = jest.fn()
-	let wrapperTodoForm: ShallowWrapper<FC<ITodoFormProps>>
-
-	beforeEach(() => {
-		wrapperTodoForm = shallow(<TodoForm addTodo={mockAddTodo} />)
-		wrapperTodoForm.update()
 	})
 
 	describe('click "Add Todo" button w/ empty input', () => {
