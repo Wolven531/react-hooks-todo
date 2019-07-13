@@ -26,4 +26,24 @@ describe('Shallow render TodoForm component', () => {
 	it('shallow renders properly', () => {
 		expect(wrapperTodoForm.exists()).toBe(true)
 	})
+
+	describe('changing todo input', () => {
+		beforeEach(() => {
+			const todoInput = wrapperTodoForm.find('input')
+
+			todoInput.simulate('change', { currentTarget: { value: ' some new todo ' } })
+			wrapperTodoForm.update()
+		})
+
+		it('updates todo input display', () => {
+			const todoInput = wrapperTodoForm.find('input')
+
+			expect(todoInput.props()).toMatchObject({
+				name: 'new-todo',
+				placeholder: 'Enter a new task',
+				type: 'text',
+				value: ' some new todo '
+			})
+		})
+	})
 })
