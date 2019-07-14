@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { Todo as TodoModel } from '../../model/Todo'
 
@@ -7,17 +7,14 @@ import { TodoForm } from '../TodoForm/TodoForm'
 
 import './TodoList.scss'
 
-const TodoList = ({
-	addTodo,
-	clearCompletedTodos,
-	todos,
-	toggleTodo
-}: {
+export interface ITodoListProps {
 	addTodo: (todo: TodoModel) => void
 	clearCompletedTodos: () => void
 	todos: TodoModel[]
 	toggleTodo: (todoId: string) => void
-}) => {
+}
+
+const TodoList: FC<ITodoListProps> = ({ addTodo, clearCompletedTodos, todos, toggleTodo }) => {
 	const saveTodos = () => {
 		if (!window.localStorage) {
 			alert('local storage not available, unable to save 😢')
