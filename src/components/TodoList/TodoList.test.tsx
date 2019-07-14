@@ -13,13 +13,15 @@ configure({ adapter: new Adapter() })
 
 describe('Shallow render TodoList component w/ empty list of Todo models', () => {
 	let mockAddTodo: jest.Mock
+	let mockClearCompletedTodos: jest.Mock
 	let wrapperTodoList: ShallowWrapper<FC<ITodoListProps>>
 
 	beforeEach(() => {
 		mockAddTodo = jest.fn()
+		mockClearCompletedTodos = jest.fn()
 		wrapperTodoList = shallow(<TodoList
 			addTodo={mockAddTodo}
-			clearCompletedTodos={jest.fn()}
+			clearCompletedTodos={mockClearCompletedTodos}
 			todos={[]}
 			toggleTodo={jest.fn()} />)
 		wrapperTodoList.update()
@@ -45,5 +47,16 @@ describe('Shallow render TodoList component w/ empty list of Todo models', () =>
 		const emptyMessage = wrapperTodoList.find('.empty-msg')
 		expect(emptyMessage.exists()).toBe(true)
 		expect(emptyMessage.text()).toBe('No todos are saved')
+	})
+
+	describe('click clear button', () => {
+		beforeEach(() => {
+			const clearButton = wrapperTodoList.find('button.clear')
+			clearButton.simulate('click')
+		})
+
+		it('calls provided clearCompletedTodos() function', () => {
+			expect(mockClearCompletedTodos).toHaveBeenCalledTimes(1)
+		})
 	})
 })
