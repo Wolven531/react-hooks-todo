@@ -11,7 +11,7 @@ import { TodoForm } from '../TodoForm/TodoForm';
 
 configure({ adapter: new Adapter() })
 
-describe('Shallow render TodoList component', () => {
+describe('Shallow render TodoList component w/ empty list of Todo models', () => {
 	let mockAddTodo: jest.Mock
 	let wrapperTodoList: ShallowWrapper<FC<ITodoListProps>>
 
@@ -25,7 +25,7 @@ describe('Shallow render TodoList component', () => {
 		wrapperTodoList.update()
 	})
 
-	it('shallow renders properly, including TodoForm', () => {
+	it('shallow renders properly, including TodoForm, buttons, and empty message', () => {
 		expect(wrapperTodoList.exists()).toBe(true)
 
 		expect(wrapperTodoList.hasClass('todo-list')).toBe(true)
@@ -33,5 +33,9 @@ describe('Shallow render TodoList component', () => {
 		const todoForm = wrapperTodoList.find(TodoForm)
 		expect(todoForm.exists()).toBe(true)
 		expect(todoForm.props().addTodo).toEqual(mockAddTodo)
+
+		const emptyMessage = wrapperTodoList.find('.empty-msg')
+		expect(emptyMessage.exists()).toBe(true)
+		expect(emptyMessage.text()).toBe('No todos are saved')
 	})
 })
