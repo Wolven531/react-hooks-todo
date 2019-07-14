@@ -34,6 +34,14 @@ describe('Shallow render TodoList component w/ empty list of Todo models', () =>
 		expect(todoForm.exists()).toBe(true)
 		expect(todoForm.props().addTodo).toEqual(mockAddTodo)
 
+		const clearButton = wrapperTodoList.find('button.clear')
+		expect(clearButton.exists()).toBe(true)
+		expect(clearButton.text()).toBe('Clear completed Todo items')
+
+		const saveButton = wrapperTodoList.find('button.save')
+		expect(saveButton.exists()).toBe(true)
+		expect(saveButton.text()).toBe('Save Todo list')
+
 		const emptyMessage = wrapperTodoList.find('.empty-msg')
 		expect(emptyMessage.exists()).toBe(true)
 		expect(emptyMessage.text()).toBe('No todos are saved')
