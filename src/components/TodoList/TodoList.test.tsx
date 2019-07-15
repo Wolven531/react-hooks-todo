@@ -6,8 +6,8 @@ import {
 import Adapter from 'enzyme-adapter-react-16'
 import React, { FC } from 'react'
 
+import { TodoForm } from '../TodoForm/TodoForm'
 import { ITodoListProps, TodoList } from './TodoList'
-import { TodoForm } from '../TodoForm/TodoForm';
 
 configure({ adapter: new Adapter() })
 
@@ -65,10 +65,12 @@ describe('Shallow render TodoList component w/ empty list of Todo models', () =>
 
 	describe('click save button w/o localStorage avilable', () => {
 		let mockAlert = jest.fn()
+		let originalWindow: Window
 
 		beforeEach(() => {
+			originalWindow = window
 			window.alert = mockAlert
-			delete (window as any).localStorage
+			delete ((window as any).localStorage)
 
 			const saveButton = wrapperTodoList.find('button.save')
 			saveButton.simulate('click')
@@ -77,6 +79,36 @@ describe('Shallow render TodoList component w/ empty list of Todo models', () =>
 		it('calls alert() w/ warning message (since localStorage is missing)', () => {
 			expect(mockAlert).toHaveBeenCalledTimes(1)
 			expect(mockAlert).toHaveBeenLastCalledWith('local storage not available, unable to save 😢')
+		})
+
+		afterEach(() => {
+			window = originalWindow
+		})
+	})
+
+	describe('click save button w/ localStorage avilable', () => {
+		let mockSetItem: jest.Mock
+		let originalLocalStorage: Storage
+
+		beforeEach(() => {
+			originalLocalStorage = window.localStorage
+			mockSetItem = jest.fn(); // NOTE: semi needed for syntax
+
+			(window as any).localStorage = {
+				setItem: mockSetItem
+			}
+
+			const saveButton = wrapperTodoList.find('button.save')
+			saveButton.simulate('click')
+		})
+
+		it('calls localStorage.setItem w/ empty list of Todo models', () => {
+			expect(mockSetItem).toHaveBeenCalledTimes(1)
+			expect(mockSetItem).toHaveBeenLastCalledWith('react-hooks-todo.todos', JSON.stringify([]))
+		})
+
+		afterEach(() => {
+			(window as any).localStorage = originalLocalStorage
 		})
 	})
 })
