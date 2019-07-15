@@ -11,21 +11,16 @@ import { TodoForm } from '../TodoForm/TodoForm';
 
 configure({ adapter: new Adapter() })
 
-describe('Shallow render TodoList component w/ empty list of Todo models and w/o localStorage', () => {
+describe('Shallow render TodoList component w/ empty list of Todo models', () => {
 	let mockAddTodo: jest.Mock
-	let mockAlert: jest.Mock
 	let mockClearCompletedTodos: jest.Mock
 	let mockToggleTodo: jest.Mock
 	let wrapperTodoList: ShallowWrapper<FC<ITodoListProps>>
 
 	beforeEach(() => {
 		mockAddTodo = jest.fn()
-		mockAlert = jest.fn()
 		mockClearCompletedTodos = jest.fn()
-		mockToggleTodo = jest.fn(); // NOTE: this semi is necessary because of next line
-
-		(window as any).alert = mockAlert; // NOTE: this semi is necessary because of next line
-		(window as any).localStorage = null
+		mockToggleTodo = jest.fn()
 
 		wrapperTodoList = shallow(<TodoList
 			addTodo={mockAddTodo}
@@ -68,15 +63,20 @@ describe('Shallow render TodoList component w/ empty list of Todo models and w/o
 		})
 	})
 
-	// describe('click save button', () => {
-	// 	beforeEach(() => {
-	// 		const saveButton = wrapperTodoList.find('button.save')
-	// 		saveButton.simulate('click')
-	// 	})
+	describe('click save button w/o localStorage avilable', () => {
+		let mockAlert = jest.fn()
 
-	// 	it('calls alert() w/ warning message (since localStorage is missing)', () => {
-	// 		expect(mockAlert).toHaveBeenCalledTimes(1)
-	// 		expect(mockAlert).toHaveBeenLastCalledWith('local storage not available, unable to save 😢')
-	// 	})
-	// })
+		beforeEach(() => {
+			window.alert = mockAlert
+			delete (window as any).localStorage
+
+			const saveButton = wrapperTodoList.find('button.save')
+			saveButton.simulate('click')
+		})
+
+		it('calls alert() w/ warning message (since localStorage is missing)', () => {
+			expect(mockAlert).toHaveBeenCalledTimes(1)
+			expect(mockAlert).toHaveBeenLastCalledWith('local storage not available, unable to save 😢')
+		})
+	})
 })
