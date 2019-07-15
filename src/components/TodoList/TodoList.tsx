@@ -20,7 +20,7 @@ const TodoList: FC<ITodoListProps> = ({ addTodo, clearCompletedTodos, todos, tog
 			alert('local storage not available, unable to save 😢')
 			return
 		}
-		console.info('localStorage is available! saving todos...')
+		// console.info('localStorage is available! saving todos...')
 		window.localStorage.setItem('react-hooks-todo.todos', JSON.stringify(todos))
 	}
 

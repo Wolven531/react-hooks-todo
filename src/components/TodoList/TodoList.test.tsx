@@ -64,13 +64,15 @@ describe('Shallow render TodoList component w/ empty list of Todo models', () =>
 	})
 
 	describe('click save button w/o localStorage avilable', () => {
-		let mockAlert = jest.fn()
+		let mockAlert: jest.Mock
 		let originalWindow: Window
 
 		beforeEach(() => {
 			originalWindow = window
+
+			mockAlert = jest.fn()
 			window.alert = mockAlert
-			delete ((window as any).localStorage)
+			delete (window as any).localStorage
 
 			const saveButton = wrapperTodoList.find('button.save')
 			saveButton.simulate('click')
