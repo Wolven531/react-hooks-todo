@@ -29,7 +29,7 @@ const WebSocketClient: FC = () => {
 	// const [webSocketClient, setWebSocketClient] = useState<WebSocket>()
 	// let webSocketClient: WebSocket
 
-	const appendToLog = (msg: string, emitToConsole = true) => {
+	const appendToLog = (msg: string, emitToConsole = false) => {
 		if (emitToConsole) {
 			console.log(msg)
 		}
