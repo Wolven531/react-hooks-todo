@@ -137,6 +137,11 @@ describe('Shallow render TodoList component w/ list of Todo models', () => {
 		wrapperTodoList.update()
 	})
 
+	it('should NOT render empty message', () => {
+		const emptyMessage = wrapperTodoList.find('.empty-msg')
+		expect(emptyMessage.exists()).toBe(false)
+	})
+
 	it('renders Todo components properly', () => {
 		const todoComps = wrapperTodoList.find(Todo)
 
