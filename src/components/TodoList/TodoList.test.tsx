@@ -6,8 +6,11 @@ import {
 import Adapter from 'enzyme-adapter-react-16'
 import React, { FC } from 'react'
 
+import { Todo as TodoModel } from '../../model/Todo'
+
 import { TodoForm } from '../TodoForm/TodoForm'
 import { ITodoListProps, TodoList } from './TodoList'
+import { Todo } from '../Todo/Todo';
 
 configure({ adapter: new Adapter() })
 
@@ -111,6 +114,40 @@ describe('Shallow render TodoList component w/ empty list of Todo models', () =>
 
 		afterEach(() => {
 			(window as any).localStorage = originalLocalStorage
+		})
+	})
+})
+
+describe('Shallow render TodoList component w/ list of Todo models', () => {
+	const fakeTodos = [
+		new TodoModel('1', ' desc 1 ', true, 0),
+		new TodoModel('2', ' desc 2 ', false, 1)
+	]
+	let mockToggleTodo: jest.Mock
+	let wrapperTodoList: ShallowWrapper<FC<ITodoListProps>>
+
+	beforeEach(() => {
+		mockToggleTodo = jest.fn()
+
+		wrapperTodoList = shallow(<TodoList
+			addTodo={jest.fn()}
+			clearCompletedTodos={jest.fn()}
+			todos={fakeTodos}
+			toggleTodo={mockToggleTodo} />)
+		wrapperTodoList.update()
+	})
+
+	it('renders Todo components properly', () => {
+		const todoComps = wrapperTodoList.find(Todo)
+
+		// NOTE: cannot assert for `key` value
+		expect(todoComps.first().props()).toMatchObject({
+			todo: fakeTodos[0],
+			toggleTodo: mockToggleTodo
+		})
+		expect(todoComps.at(1).props()).toMatchObject({
+			todo: fakeTodos[1],
+			toggleTodo: mockToggleTodo
 		})
 	})
 })
