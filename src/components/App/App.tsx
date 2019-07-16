@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react'
+// import { Router } from 'react-router'
 
 import { CritterList } from '../../views/CritterList/CritterList'
 import { MoneyControls } from '../MoneyControls/MoneyControls'
@@ -30,6 +31,11 @@ const App: FC = () => {
 
 	return (
 		<article className="app">
+			{/*
+			<Router history={new History()}>
+
+			</Router>
+			*/}
 			<WebSocketClient />
 			<MoneyControls moneyState={moneyState} upgradeStore={upgradeStore} />
 			<CritterList currentMoney={moneyState.money} />
