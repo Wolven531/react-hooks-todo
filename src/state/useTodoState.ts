@@ -2,7 +2,18 @@ import { useState } from 'react'
 
 import { Todo } from '../model/Todo'
 
-const useTodoState = (initialValue: Todo[]) => {
+type TodoState = (initialTodos: Todo[]) => ITodoState
+
+export interface ITodoState {
+	todos: Todo[]
+	addTodo: (newTodo: Todo) => void
+	clearCompletedTodos: () => void
+	deleteTodo: (todoId: string) => void
+	loadFromStorage: () => void
+	toggleTodo: (todoId: string) => void
+}
+
+const useTodoState: TodoState = (initialValue: Todo[]) => {
 	const [todos, setTodos] = useState(initialValue)
 
 	return {
