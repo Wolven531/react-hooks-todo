@@ -1,5 +1,11 @@
 import React, { FC, useEffect } from 'react'
 // import { Router } from 'react-router'
+import {
+	BrowserRouter as Router,
+	Link,
+	Route,
+	Switch,
+  } from 'react-router-dom'
 
 import { CritterList } from '../../views/CritterList/CritterList'
 import { MoneyControls } from '../MoneyControls/MoneyControls'
@@ -31,14 +37,19 @@ const App: FC = () => {
 
 	return (
 		<article className="app">
-			{/*
-			<Router history={new History()}>
-
+			<Router>
+				<div>
+					<Link to="/">Critter List</Link>{' '}
+					<Link to="/money">Money</Link>{' '}
+					<Link to="/webSocket">Web Socket</Link>{' '}
+					<Switch>
+						<Route exact={true} path="/" render={() => <CritterList currentMoney={moneyState.money} />} />
+						<Route path="/money" render={() => <MoneyControls moneyState={moneyState} upgradeStore={upgradeStore} />} />
+						<Route path="/webSocket" component={WebSocketClient} />
+						<Route render={() => <h1>Page not found</h1>} />
+					</Switch>
+				</div>
 			</Router>
-			*/}
-			<WebSocketClient />
-			<MoneyControls moneyState={moneyState} upgradeStore={upgradeStore} />
-			<CritterList currentMoney={moneyState.money} />
 		</article>
 	)
 }
