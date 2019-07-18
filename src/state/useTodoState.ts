@@ -28,13 +28,14 @@ const useTodoState: TodoState = (initialValue: Todo[]) => {
 			setTodos(todos.filter(todo => todo.id !== todoId))
 		},
 		loadFromStorage: () => {
-			if (window.localStorage) {
-				console.info('localStorage is available! loading todos...')
-				const storedTodoStr = window.localStorage.getItem('react-hooks-todo.todos')
-				if (storedTodoStr && storedTodoStr.length) {
-					setTodos(JSON.parse(storedTodoStr))
-				}
+			if (!window.localStorage) {
+				return
 			}
+			const storedTodoStr = window.localStorage.getItem('react-hooks-todo.todos')
+			if (storedTodoStr === null || storedTodoStr.length < 1) {
+				return
+			}
+			setTodos(JSON.parse(storedTodoStr))
 		},
 		toggleTodo: (todoId: string) => {
 			setTodos(todos.map(todo => {

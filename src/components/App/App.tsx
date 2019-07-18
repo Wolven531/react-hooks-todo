@@ -14,7 +14,7 @@ import './App.scss'
 
 const App: FC = () => {
 	const todoState = useTodoState([])
-	const { addTodo, clearCompletedTodos, todos, toggleTodo } = todoState
+	const { addTodo, clearCompletedTodos, loadFromStorage, todos, toggleTodo } = todoState
 
 	// NOTE: This happens before un-render (only once)
 	const handleUnmount = () => { }
@@ -22,6 +22,8 @@ const App: FC = () => {
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
 		window.document.title = 'Todo Manager'
+
+		loadFromStorage()
 
 		return handleUnmount
 	}

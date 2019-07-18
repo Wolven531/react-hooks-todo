@@ -54,11 +54,15 @@ describe('Shallow render App component', () => {
 	})
 })
 
-describe('Mount and render App component', () => {
+describe('Mount and render App component w/o localStorage', () => {
 	// let spyComponentDidMount
+	let originalLocalStorage: Storage
 	let wrapperApp: ReactWrapper<FC>
 
 	beforeEach(() => {
+		originalLocalStorage = window.localStorage
+
+		delete (window as any).localStorage
 		// NOTE: need mount (rather than shallow) so that stateless componentDidMount will run
 		// wrapperApp = mount(<App/>)
 		const app = <App/>
@@ -68,7 +72,8 @@ describe('Mount and render App component', () => {
 	})
 
 	afterEach(() => {
-		wrapperApp.unmount()
+		wrapperApp.unmount(); // NOTE: semi is needed due to next line syntax
+		(window as any).localStorage = originalLocalStorage
 	})
 
 	// TODO: test this in integration test
@@ -96,6 +101,7 @@ describe('Mount and render App component', () => {
 		const todoList = wrapperApp.find(TodoList)
 
 		expect(todoList.exists()).toBe(true)
+		expect(todoList.props().todos).toHaveLength(0)
 
 		expect(document.title).toBe('Todo Manager')
 	})
