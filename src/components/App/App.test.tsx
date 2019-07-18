@@ -45,6 +45,12 @@ describe('Shallow render App component', () => {
 
 		const routes = wrapperApp.find(Route)
 		expect(routes).toHaveLength(2)
+		expect(routes.first().props()).toMatchObject({
+			exact: true,
+			path: '/'
+		})
+		expect(routes.first().props().render).toBeDefined()
+		expect(routes.at(1).props().render).toBeDefined()
 	})
 })
 
