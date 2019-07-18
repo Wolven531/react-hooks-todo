@@ -23,11 +23,7 @@ import React, { FC } from 'react'
 
 // components
 import App from './App'
-import { MoneyControls } from '../MoneyControls/MoneyControls'
-import { WebSocketClient } from '../WebSocketClient/WebSocketClient'
-
-// views
-import { CritterList } from '../../views/CritterList/CritterList'
+import { TodoList } from '../TodoList/TodoList'
 
 configure({ adapter: new Adapter() })
 
@@ -43,13 +39,9 @@ describe('Shallow render App component', () => {
 
 		expect(wrapperApp.exists()).toBe(true)
 
-		const webSocketClient = wrapperApp.find(WebSocketClient)
-		const moneyControls = wrapperApp.find(MoneyControls)
-		const critterList = wrapperApp.find(CritterList)
+		const todoList = wrapperApp.find(TodoList)
 
-		expect(webSocketClient.exists()).toBe(true)
-		expect(moneyControls.exists()).toBe(true)
-		expect(critterList.exists()).toBe(true)
+		expect(todoList.exists()).toBe(true)
 	})
 })
 
@@ -69,20 +61,16 @@ describe('Mount and render App component', () => {
 		wrapperApp.unmount()
 	})
 
-	it('mounts and renders WebSocketClient, MoneyControls, and CritterList', () => {
+	it('mounts and renders TodoList', () => {
 		// expect(spyComponentDidMount).toHaveBeenCalled()
 		wrapperApp.update()
 
 		expect(wrapperApp.exists()).toBe(true)
 
-		const webSocketClient = wrapperApp.find(WebSocketClient)
-		const moneyControls = wrapperApp.find(MoneyControls)
-		const critterList = wrapperApp.find(CritterList)
+		const todoList = wrapperApp.find(TodoList)
 
-		expect(webSocketClient.exists()).toBe(true)
-		expect(moneyControls.exists()).toBe(true)
-		expect(critterList.exists()).toBe(true)
+		expect(todoList.exists()).toBe(true)
 
-		expect(document.title).toBe('Critter Manager')
+		expect(document.title).toBe('Todo Manager')
 	})
 })
