@@ -7,6 +7,7 @@ import {
 } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import React, { FC } from 'react'
+import { Link, Route } from 'react-router-dom'
 
 // TODO: lookup how to import functions jasmine ???
 // import { expect } from 'jasmine'
@@ -24,7 +25,6 @@ import React, { FC } from 'react'
 // components
 import App from './App'
 import { TodoList } from '../TodoList/TodoList'
-import { Link, Route } from 'react-router-dom';
 
 configure({ adapter: new Adapter() })
 
@@ -64,18 +64,35 @@ describe('Mount and render App component', () => {
 		const app = <App/>
 		// spyComponentDidMount = spyOn(app, 'componentDidMount')
 		wrapperApp = mount(app)
+		wrapperApp.update()
 	})
 
 	afterEach(() => {
 		wrapperApp.unmount()
 	})
 
+	// TODO: test this in integration test
+	// describe('navigate to unknown location', () => {
+	// 	beforeEach(() => {
+	// 		// NOTE: attempt 1
+	// 		// window.document.location.replace('/asdf')
+
+	// 		// NOTE: attempt 2
+	// 		// const router = wrapperApp.find(Router);// NOTE: semi needed for next line
+	// 		// (router.context as any).history.push('/asdf')
+
+	// 		// NOTE: attempt 3
+	// 		// window.history.pushState(null, '/asdf', '/asdf')
+	// 	})
+
+	// 	it('renders "Page Not Found" route properly', () => {
+	// 		const pageNotFoundRoute = wrapperApp.find(Route).last()
+	// 		expect(pageNotFoundRoute.text()).toBe('Page not found')
+	// 	})
+	// })
+
 	it('mounts and renders TodoList', () => {
 		// expect(spyComponentDidMount).toHaveBeenCalled()
-		wrapperApp.update()
-
-		expect(wrapperApp.exists()).toBe(true)
-
 		const todoList = wrapperApp.find(TodoList)
 
 		expect(todoList.exists()).toBe(true)
