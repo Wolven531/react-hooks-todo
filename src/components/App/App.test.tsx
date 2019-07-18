@@ -25,6 +25,7 @@ import { Link, Route } from 'react-router-dom'
 // components
 import App from './App'
 import { TodoList } from '../TodoList/TodoList'
+import { Todo } from '../../model/Todo';
 
 configure({ adapter: new Adapter() })
 
@@ -104,5 +105,36 @@ describe('Mount and render App component w/o localStorage', () => {
 		expect(todoList.props().todos).toHaveLength(0)
 
 		expect(document.title).toBe('Todo Manager')
+	})
+})
+
+describe('Mount and render App component w/ non-empty localStorage', () => {
+	const fakeCompleteTodo = new Todo('1', 'desc 1', true, 1)
+	const fakeIncompleteTodo = new Todo('2', 'desc 2', false, 2)
+	let mockLocalStorage: { getItem: (key: string) => string | null }
+	let originalLocalStorage: Storage
+	let wrapperApp: ReactWrapper<FC>
+
+	beforeEach(() => {
+		originalLocalStorage = window.localStorage
+
+		mockLocalStorage = { getItem: jest.fn(() => JSON.stringify([fakeCompleteTodo, fakeIncompleteTodo])) }; // NOTE: semi is needed due to next line syntax
+		(window as any).localStorage = mockLocalStorage
+
+		const app = <App/>
+		wrapperApp = mount(app)
+		wrapperApp.update()
+	})
+
+	afterEach(() => {
+		wrapperApp.unmount(); // NOTE: semi is needed due to next line syntax
+		(window as any).localStorage = originalLocalStorage
+	})
+
+	it('mounts and renders TodoList w/ Todo items', () => {
+		const todoList = wrapperApp.find(TodoList)
+
+		expect(todoList.exists()).toBe(true)
+		expect(todoList.props().todos).toEqual([fakeCompleteTodo, fakeIncompleteTodo])
 	})
 })
