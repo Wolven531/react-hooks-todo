@@ -22,10 +22,12 @@ import { Link, Route } from 'react-router-dom'
 // 	it
 // } from 'mocha'
 
+// models
+import { Todo } from '../../model/Todo'
+
 // components
 import App from './App'
 import { TodoList } from '../TodoList/TodoList'
-import { Todo } from '../../model/Todo';
 
 configure({ adapter: new Adapter() })
 
@@ -38,8 +40,6 @@ describe('Shallow render App component', () => {
 	})
 
 	it('shallow renders Link and Routes (home and 404)', () => {
-		expect(wrapperApp.exists()).toBe(true)
-
 		const todoLink = wrapperApp.find(Link)
 
 		expect(todoLink.props()).toMatchObject({ to: '/' })
@@ -55,111 +55,95 @@ describe('Shallow render App component', () => {
 	})
 })
 
-describe('Mount and render App component w/o localStorage', () => {
+describe('Mount tests that alter local storage', () => {
+	interface IFakeLocalStorage {
+		getItem: (key: string) => string | null
+	}
+	
+	const originalLocalStorage = window.localStorage
+	const unmountAndRestoreLocalStorage = (wrapper: ReactWrapper<any>) => {
+		wrapper.unmount(); // NOTE: semi is needed due to next line syntax
+		(window as any).localStorage = originalLocalStorage
+	}
 	// let spyComponentDidMount
-	let originalLocalStorage: Storage
 	let wrapperApp: ReactWrapper<FC>
 
-	beforeEach(() => {
-		originalLocalStorage = window.localStorage
+	describe('Render App component w/o localStorage', () => {
+		beforeEach(() => {
+			delete (window as any).localStorage
+			// NOTE: need mount (rather than shallow) so that stateless componentDidMount will run
+			// wrapperApp = mount(<App/>)
+			// spyComponentDidMount = spyOn(app, 'componentDidMount')
+			wrapperApp = mount(<App/>)
+			wrapperApp.update()
+		})
 
-		delete (window as any).localStorage
-		// NOTE: need mount (rather than shallow) so that stateless componentDidMount will run
-		// wrapperApp = mount(<App/>)
-		const app = <App/>
-		// spyComponentDidMount = spyOn(app, 'componentDidMount')
-		wrapperApp = mount(app)
-		wrapperApp.update()
+		it('mounts and renders TodoList w/ no Todo items and sets document.title', () => {
+			// expect(spyComponentDidMount).toHaveBeenCalled()
+			const todoList = wrapperApp.find(TodoList)
+			expect(todoList.props().todos).toEqual([])
+
+			expect(document.title).toBe('Todo Manager')
+		})
+
+		// TODO: test this in integration test
+		// describe('navigate to unknown location', () => {
+		// 	beforeEach(() => {
+		// 		// NOTE: attempt 1
+		// 		// window.document.location.replace('/asdf')
+
+		// 		// NOTE: attempt 2
+		// 		// const router = wrapperApp.find(Router);// NOTE: semi needed for next line
+		// 		// (router.context as any).history.push('/asdf')
+
+		// 		// NOTE: attempt 3
+		// 		// window.history.pushState(null, '/asdf', '/asdf')
+		// 	})
+
+		// 	it('renders "Page Not Found" route properly', () => {
+		// 		const pageNotFoundRoute = wrapperApp.find(Route).last()
+		// 		expect(pageNotFoundRoute.text()).toBe('Page not found')
+		// 	})
+		// })
+	})
+
+	describe('Render App component w/ empty localStorage', () => {
+		let mockLocalStorage: IFakeLocalStorage
+
+		beforeEach(() => {
+			mockLocalStorage = { getItem: jest.fn(() => '') }; // NOTE: semi is needed due to next line syntax
+			(window as any).localStorage = mockLocalStorage
+
+			wrapperApp = mount(<App/>)
+			wrapperApp.update()
+		})
+
+		it('mounts and renders TodoList w/ no Todo items', () => {
+			const todoList = wrapperApp.find(TodoList)
+			expect(todoList.props().todos).toEqual([])
+		})
+	})
+
+	describe('Render App component w/ non-empty localStorage', () => {
+		const fakeCompleteTodo = new Todo('1', 'desc 1', true, 1)
+		const fakeIncompleteTodo = new Todo('2', 'desc 2', false, 2)
+		let mockLocalStorage: IFakeLocalStorage
+
+		beforeEach(() => {
+			mockLocalStorage = { getItem: jest.fn(() => JSON.stringify([fakeCompleteTodo, fakeIncompleteTodo])) }; // NOTE: semi is needed due to next line syntax
+			(window as any).localStorage = mockLocalStorage
+
+			wrapperApp = mount(<App/>)
+			wrapperApp.update()
+		})
+
+		it('mounts and renders TodoList w/ Todo items', () => {
+			const todoList = wrapperApp.find(TodoList)
+			expect(todoList.props().todos).toEqual([fakeCompleteTodo, fakeIncompleteTodo])
+		})
 	})
 
 	afterEach(() => {
-		wrapperApp.unmount(); // NOTE: semi is needed due to next line syntax
-		(window as any).localStorage = originalLocalStorage
-	})
-
-	// TODO: test this in integration test
-	// describe('navigate to unknown location', () => {
-	// 	beforeEach(() => {
-	// 		// NOTE: attempt 1
-	// 		// window.document.location.replace('/asdf')
-
-	// 		// NOTE: attempt 2
-	// 		// const router = wrapperApp.find(Router);// NOTE: semi needed for next line
-	// 		// (router.context as any).history.push('/asdf')
-
-	// 		// NOTE: attempt 3
-	// 		// window.history.pushState(null, '/asdf', '/asdf')
-	// 	})
-
-	// 	it('renders "Page Not Found" route properly', () => {
-	// 		const pageNotFoundRoute = wrapperApp.find(Route).last()
-	// 		expect(pageNotFoundRoute.text()).toBe('Page not found')
-	// 	})
-	// })
-
-	it('mounts and renders TodoList w/ no Todo items', () => {
-		// expect(spyComponentDidMount).toHaveBeenCalled()
-		const todoList = wrapperApp.find(TodoList)
-
-		expect(todoList.props().todos).toEqual([])
-
-		expect(document.title).toBe('Todo Manager')
-	})
-})
-
-describe('Mount and render App component w/ empty localStorage', () => {
-	let mockLocalStorage: { getItem: (key: string) => string | null }
-	let originalLocalStorage: Storage
-	let wrapperApp: ReactWrapper<FC>
-
-	beforeEach(() => {
-		originalLocalStorage = window.localStorage
-
-		mockLocalStorage = { getItem: jest.fn(() => '') }; // NOTE: semi is needed due to next line syntax
-		(window as any).localStorage = mockLocalStorage
-
-		wrapperApp = mount(<App/>)
-		wrapperApp.update()
-	})
-
-	afterEach(() => {
-		wrapperApp.unmount(); // NOTE: semi is needed due to next line syntax
-		(window as any).localStorage = originalLocalStorage
-	})
-
-	it('mounts and renders TodoList w/ no Todo items', () => {
-		const todoList = wrapperApp.find(TodoList)
-
-		expect(todoList.props().todos).toEqual([])
-	})
-})
-
-describe('Mount and render App component w/ non-empty localStorage', () => {
-	const fakeCompleteTodo = new Todo('1', 'desc 1', true, 1)
-	const fakeIncompleteTodo = new Todo('2', 'desc 2', false, 2)
-	let mockLocalStorage: { getItem: (key: string) => string | null }
-	let originalLocalStorage: Storage
-	let wrapperApp: ReactWrapper<FC>
-
-	beforeEach(() => {
-		originalLocalStorage = window.localStorage
-
-		mockLocalStorage = { getItem: jest.fn(() => JSON.stringify([fakeCompleteTodo, fakeIncompleteTodo])) }; // NOTE: semi is needed due to next line syntax
-		(window as any).localStorage = mockLocalStorage
-
-		wrapperApp = mount(<App/>)
-		wrapperApp.update()
-	})
-
-	afterEach(() => {
-		wrapperApp.unmount(); // NOTE: semi is needed due to next line syntax
-		(window as any).localStorage = originalLocalStorage
-	})
-
-	it('mounts and renders TodoList w/ Todo items', () => {
-		const todoList = wrapperApp.find(TodoList)
-
-		expect(todoList.exists()).toBe(true)
-		expect(todoList.props().todos).toEqual([fakeCompleteTodo, fakeIncompleteTodo])
+		unmountAndRestoreLocalStorage(wrapperApp)
 	})
 })
