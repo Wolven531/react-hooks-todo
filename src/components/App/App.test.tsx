@@ -24,6 +24,7 @@ import React, { FC } from 'react'
 // components
 import App from './App'
 import { TodoList } from '../TodoList/TodoList'
+import { Link, Route } from 'react-router-dom';
 
 configure({ adapter: new Adapter() })
 
@@ -32,16 +33,18 @@ describe('Shallow render App component', () => {
 
 	beforeEach(() => {
 		wrapperApp = shallow(<App/>)
+		wrapperApp.update()
 	})
 
-	it('shallow renders WebSocketClient, MoneyControls, and CritterList', () => {
-		wrapperApp.update()
-
+	it('shallow renders Link and Routes (home and 404)', () => {
 		expect(wrapperApp.exists()).toBe(true)
 
-		const todoList = wrapperApp.find(TodoList)
+		const todoLink = wrapperApp.find(Link)
 
-		expect(todoList.exists()).toBe(true)
+		expect(todoLink.props()).toMatchObject({ to: '/' })
+
+		const routes = wrapperApp.find(Route)
+		expect(routes).toHaveLength(2)
 	})
 })
 
