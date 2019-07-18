@@ -17,7 +17,7 @@ const App: FC = () => {
 	const { addTodo, clearCompletedTodos, todos, toggleTodo } = todoState
 
 	// NOTE: This happens before un-render (only once)
-	const handleUnmount = () => {}
+	const handleUnmount = () => { }
 
 	// NOTE: This happens after render (only once)
 	const handleMounted = () => {
@@ -34,17 +34,17 @@ const App: FC = () => {
 	return (
 		<article className="app">
 			<Router>
-				<div>
-					<Link to="/">Manage Todos</Link>
-					<Switch>
-						<Route exact={true} path="/" render={() => <TodoList
+				<Link to="/">Manage Todos</Link>
+				<Switch>
+					<Route exact={true} path="/" render={() =>
+						<TodoList
 							addTodo={addTodo}
 							clearCompletedTodos={clearCompletedTodos}
 							todos={todos}
-							toggleTodo={toggleTodo} />} />
-						<Route render={() => <h1>Page not found</h1>} />
-					</Switch>
-				</div>
+							toggleTodo={toggleTodo} />}
+					/>
+					<Route render={() => <h1>Page not found</h1>} />
+				</Switch>
 			</Router>
 		</article>
 	)
