@@ -97,14 +97,40 @@ describe('Mount and render App component w/o localStorage', () => {
 	// 	})
 	// })
 
-	it('mounts and renders TodoList', () => {
+	it('mounts and renders TodoList w/ no Todo items', () => {
 		// expect(spyComponentDidMount).toHaveBeenCalled()
 		const todoList = wrapperApp.find(TodoList)
 
-		expect(todoList.exists()).toBe(true)
-		expect(todoList.props().todos).toHaveLength(0)
+		expect(todoList.props().todos).toEqual([])
 
 		expect(document.title).toBe('Todo Manager')
+	})
+})
+
+describe('Mount and render App component w/ empty localStorage', () => {
+	let mockLocalStorage: { getItem: (key: string) => string | null }
+	let originalLocalStorage: Storage
+	let wrapperApp: ReactWrapper<FC>
+
+	beforeEach(() => {
+		originalLocalStorage = window.localStorage
+
+		mockLocalStorage = { getItem: jest.fn(() => '') }; // NOTE: semi is needed due to next line syntax
+		(window as any).localStorage = mockLocalStorage
+
+		wrapperApp = mount(<App/>)
+		wrapperApp.update()
+	})
+
+	afterEach(() => {
+		wrapperApp.unmount(); // NOTE: semi is needed due to next line syntax
+		(window as any).localStorage = originalLocalStorage
+	})
+
+	it('mounts and renders TodoList w/ no Todo items', () => {
+		const todoList = wrapperApp.find(TodoList)
+
+		expect(todoList.props().todos).toEqual([])
 	})
 })
 
@@ -121,8 +147,7 @@ describe('Mount and render App component w/ non-empty localStorage', () => {
 		mockLocalStorage = { getItem: jest.fn(() => JSON.stringify([fakeCompleteTodo, fakeIncompleteTodo])) }; // NOTE: semi is needed due to next line syntax
 		(window as any).localStorage = mockLocalStorage
 
-		const app = <App/>
-		wrapperApp = mount(app)
+		wrapperApp = mount(<App/>)
 		wrapperApp.update()
 	})
 
