@@ -8,6 +8,7 @@ import {
 
 import { useTodoState } from '../../state/useTodoState'
 
+import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { TodoList } from '../TodoList/TodoList'
 
 import './App.scss'
@@ -45,7 +46,9 @@ const App: FC = () => {
 							todos={todos}
 							toggleTodo={toggleTodo} />}
 					/>
-					<Route render={() => <h1>Page not found</h1>} />
+					<Route>
+						<PageNotFound />
+					</Route>
 				</Switch>
 			</Router>
 		</article>
