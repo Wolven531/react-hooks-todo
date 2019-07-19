@@ -27,6 +27,7 @@ import { Todo } from '../../model/Todo'
 
 // components
 import App from './App'
+import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { TodoList } from '../TodoList/TodoList'
 
 configure({ adapter: new Adapter() })
@@ -51,7 +52,7 @@ describe('Shallow render App component', () => {
 			path: '/'
 		})
 		expect(routes.first().props().render).toBeDefined()
-		expect(routes.at(1).props().render).toBeDefined()
+		expect(routes.at(1).children(PageNotFound).exists()).toBe(true)
 	})
 })
 
