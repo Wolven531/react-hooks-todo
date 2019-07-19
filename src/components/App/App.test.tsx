@@ -30,6 +30,9 @@ import App from './App'
 import { PageNotFound } from '../PageNotFound/PageNotFound'
 import { TodoList } from '../TodoList/TodoList'
 
+// testing
+import { IFakeLocalStorage } from '../test-utils'
+
 configure({ adapter: new Adapter() })
 
 describe('Shallow render App component', () => {
@@ -57,10 +60,6 @@ describe('Shallow render App component', () => {
 })
 
 describe('Mount tests that alter local storage', () => {
-	interface IFakeLocalStorage {
-		getItem: (key: string) => string | null
-	}
-	
 	const originalLocalStorage = window.localStorage
 	const unmountAndRestoreLocalStorage = (wrapper: ReactWrapper<any>) => {
 		wrapper.unmount(); // NOTE: semi is needed due to next line syntax

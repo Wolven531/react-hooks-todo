@@ -107,6 +107,7 @@
 	"jest": {
 		"collectCoverageFrom": [
 			"src/**/*.{js,jsx,ts,tsx}",
+			"!src/components/test-utils.tsx",
 			"!src/**/*.d.ts",
 			"!scripts/**/*.js",
 			"!src/index.tsx",
