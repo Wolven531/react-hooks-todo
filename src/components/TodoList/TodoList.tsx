@@ -27,14 +27,15 @@ const TodoList: FC<ITodoListProps> = ({ addTodo, clearCompletedTodos, todos, tog
 	return (
 		<div className="todo-list">
 			<TodoForm addTodo={addTodo} />
-			{todos.length === 0 && <div className="empty-msg">No todos are saved</div>}
-			<button className="clear" onClick={() => { clearCompletedTodos() }}>Clear completed Todo items</button>
+			{todos.length > 0
+				? <React.Fragment>
+					<button className="clear" onClick={() => { clearCompletedTodos() }}>Clear completed Todo items</button>
+					{todos.map((todo, index) => (
+						<Todo key={index} todo={todo} toggleTodo={toggleTodo} />
+					))}
+				</React.Fragment>
+				: <div className="empty-msg">No todos are saved</div>}
 			<button className="save" onClick={() => { saveTodos() }}>Save Todo list</button>
-			{todos.length > 0 && <React.Fragment>
-				{todos.map((todo, index) => (
-					<Todo key={index} todo={todo} toggleTodo={toggleTodo} />
-				))}
-			</React.Fragment>}
 		</div>
 	)
 }
