@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 
+import { v1 } from 'uuid'
 import moment from 'moment'
 
 import { Todo } from '../../model/Todo'
@@ -20,7 +21,7 @@ const TodoForm: FC<ITodoFormProps> = ({ addTodo }) => {
 			alert('Todo must have a description')
 			return
 		}
-		addTodo(new Todo('', todo, false, moment.now()))
+		addTodo(new Todo(v1(), todo, false, moment.now()))
 	}
 
 	return (
@@ -35,11 +36,6 @@ const TodoForm: FC<ITodoFormProps> = ({ addTodo }) => {
 				value={todo}
 			/>
 			<button onClick={handleClick}>Add new task</button>
-			{/*
-			<button onClick={clearCompletedTodos}>
-				Remove completed tasks
-			</button>
-			*/}
 		</form>
 	)
 }
