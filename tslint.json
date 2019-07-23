@@ -10,6 +10,7 @@
 	},
 	"jsRules": true,
 	"rules": {
+		"arrow-parens": false,
 		"indent": {
 			"options": "tabs",
 			"severity": "error"
