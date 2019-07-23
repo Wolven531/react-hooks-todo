@@ -26,6 +26,7 @@ const TodoList: FC<ITodoListProps> = ({ addTodo, clearCompletedTodos, todos, tog
 
 	return (
 		<div className="todo-list">
+			<h1>Todo Manager</h1>
 			<TodoForm addTodo={addTodo} />
 			{todos.length > 0
 				? <React.Fragment>
