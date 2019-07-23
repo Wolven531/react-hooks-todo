@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 import { Todo as TodoModel } from '../../model/Todo'
 
@@ -15,6 +15,10 @@ export interface ITodoListProps {
 }
 
 const TodoList: FC<ITodoListProps> = ({ addTodo, clearCompletedTodos, todos, toggleTodo }) => {
+	useEffect(() => {
+		window.document.title = 'Todo Manager'
+	}, [])// empty (no arg) to track nothing, just fire on mount/unmount
+
 	const saveTodos = () => {
 		if (!window.localStorage) {
 			alert('local storage not available, unable to save 😢')

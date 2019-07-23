@@ -17,22 +17,15 @@ const App: FC = () => {
 	const todoState = useTodoState([])
 	const { addTodo, clearCompletedTodos, loadFromStorage, todos, toggleTodo } = todoState
 
-	// NOTE: This happens before un-render (only once)
-	const handleUnmount = () => { }
+	const handleUnmount = () => {}// happens before un-render (only once)
 
-	// NOTE: This happens after render (only once)
-	const handleMounted = () => {
-		window.document.title = 'Todo Manager'
-
+	const handleMounted = () => {// happens after render (only once)
 		loadFromStorage()
 
 		return handleUnmount
 	}
 
-	// NOTE: empty (no arg) to track nothing, just fire on mount/unmount
-	useEffect(handleMounted, [])
-
-	// console.info(`About to render`)
+	useEffect(handleMounted, [])// empty (no arg) to track nothing, just fire on mount/unmount
 
 	return (
 		<article className="app">
