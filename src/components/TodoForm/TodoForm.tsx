@@ -22,6 +22,7 @@ const TodoForm: FC<ITodoFormProps> = ({ addTodo }) => {
 			return
 		}
 		addTodo(new Todo(v1(), todo, false, moment.now()))
+		setTodo('')
 	}
 
 	return (

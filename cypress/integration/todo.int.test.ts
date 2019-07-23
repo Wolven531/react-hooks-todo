@@ -25,13 +25,16 @@ describe('Todo Manager page', () => {
 				.click()
 		})
 
-		it('should add todo w/ text', () => {
+		it('should add todo w/ text and clear input text', () => {
 			cy.get('.todo')
 				.should('have.length', 1)
 			cy.get('.todo')
 				.first()
 				.find('.description')
 				.should('have.text', ' a new todo ')
+			cy.get('form')
+				.find('input[placeholder="Enter a new task"]')
+				.should('have.value', '')
 		})
 	})
 })
