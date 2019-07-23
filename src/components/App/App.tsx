@@ -36,6 +36,7 @@ const App: FC = () => {
 
 	return (
 		<article className="app">
+			<h1>Todo Manager</h1>
 			<Router>
 				<Link to="/">Manage Todos</Link>
 				<Switch>
