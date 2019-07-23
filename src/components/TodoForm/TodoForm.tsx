@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 
-import { v1 } from 'uuid'
 import moment from 'moment'
+import { v1 } from 'uuid'
 
 import { Todo } from '../../model/Todo'
 
