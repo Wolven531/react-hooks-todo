@@ -12,23 +12,24 @@ describe('Todo Manager page', () => {
 
 		cy.get('.app')
 			.find('h1')
-			.contains(/Todo Manager/)
+			.should('have.text', 'Todo Manager')
 	})
 
 	describe('entering new todo and clicking add', () => {
 		beforeEach(() => {
 			cy.get('form')
 				.find('input[placeholder="Enter a new task"]')
+				.clear()
 				.type(' a new todo ')
 			cy.get('form')
 				.find('button')
+				.contains('Add new task')
 				.click()
 		})
 
 		it('should add todo w/ text and clear input text', () => {
 			cy.get('.todo')
 				.should('have.length', 1)
-			cy.get('.todo')
 				.first()
 				.find('.description')
 				.should('have.text', ' a new todo ')
