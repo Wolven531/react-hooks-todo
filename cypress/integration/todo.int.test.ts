@@ -46,6 +46,8 @@ describe('visit nonsense page', () => {
 	})
 
 	it('should render "not found" page', () => {
+		cy.title().should('equal', 'Page Not Found')
+
 		cy.get('h1')
 			.should('have.text', 'Page not found')
 	})
