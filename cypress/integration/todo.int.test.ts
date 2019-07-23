@@ -2,12 +2,12 @@
 
 // import { someUtil } from '@src/utils'
 
-describe('Todo Manager page', () => {
+describe('visit Todo Manager page', () => {
 	beforeEach(() => {
 		cy.visit('/')
 	})
 
-	it('renders app w/ informative header', () => {
+	it('should render app w/ informative header', () => {
 		cy.title().should('equal', 'Todo Manager')
 
 		cy.get('.app')
@@ -15,7 +15,7 @@ describe('Todo Manager page', () => {
 			.should('have.text', 'Todo Manager')
 	})
 
-	describe('entering new todo and clicking add', () => {
+	describe('enter new todo and click add', () => {
 		beforeEach(() => {
 			cy.get('form')
 				.find('input[placeholder="Enter a new task"]')
@@ -37,5 +37,16 @@ describe('Todo Manager page', () => {
 				.find('input[placeholder="Enter a new task"]')
 				.should('have.value', '')
 		})
+	})
+})
+
+describe('visit nonsense page', () => {
+	beforeEach(() => {
+		cy.visit('/asdf')
+	})
+
+	it('should render "not found" page', () => {
+		cy.get('h1')
+			.should('have.text', 'Page not found')
 	})
 })
