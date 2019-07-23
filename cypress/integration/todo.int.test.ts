@@ -1,8 +1,9 @@
 /// <reference types="Cypress" />
+/// <reference types="mocha" />
 
 // import { someUtil } from '@src/utils'
 
-it('shows app home page', function () {
+Mocha.it('shows app home page', () => {
 	cy.visit('/')
 	// cy.contains('.app')
 	cy.title().should('equal', 'Todo Manager')
