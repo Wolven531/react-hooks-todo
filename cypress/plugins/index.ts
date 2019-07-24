@@ -6,7 +6,7 @@
 
 // `on` - used to hook into various events Cypress emits
 // `config` -  resolved Cypress config
-module.exports = (on, config) => {
+module.exports = (on: () => any, config: any) => {
 	// following config from https://glebbahmutov.com/blog/////use-typescript-with-cypress/
 	//   const options = {
 	//     // send in the options from your webpack.config.js, so it works the same as your app's code
