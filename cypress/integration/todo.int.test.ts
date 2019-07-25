@@ -15,7 +15,7 @@ describe('visit Todo Manager page', () => {
 			.should('have.text', 'Todo Manager')
 	})
 
-	describe('enter new todo and click add', () => {
+	describe('enter two new todo items and click add', () => {
 		beforeEach(() => {
 			cy.get('form')
 				.find('input[placeholder="Enter a new task"]')
@@ -25,11 +25,19 @@ describe('visit Todo Manager page', () => {
 				.find('button')
 				.contains('Add new task')
 				.click()
+			cy.get('form')
+				.find('input[placeholder="Enter a new task"]')
+				.clear()
+				.type(' a new todo 2 ')
+			cy.get('form')
+				.find('button')
+				.contains('Add new task')
+				.click()
 		})
 
 		it('should add todo w/ text and clear input text', () => {
 			cy.get('.todo')
-				.should('have.length', 1)
+				.should('have.length', 2)
 				.first()
 				.find('.description')
 				.should('have.text', ' a new todo ')
@@ -38,13 +46,14 @@ describe('visit Todo Manager page', () => {
 				.should('have.value', '')
 		})
 
-		describe('click newly added todo', () => {
+		describe('click first todo', () => {
 			beforeEach(() => {
-				cy.get('.todo').click()
+				cy.get('.todo').first().click()
 			})
 
-			it('should toggle todo item (to complete)', () => {
-				cy.get('.todo').should('have.class', 'completed')
+			it('should toggle first todo item (to complete) but leave second untouched', () => {
+				cy.get('.todo').first().should('have.class', 'completed')
+				cy.get('.todo').eq(1).should('not.have.class', 'completed')
 			})
 
 			describe('click completed todo', () => {
@@ -53,8 +62,19 @@ describe('visit Todo Manager page', () => {
 				})
 	
 				it('should toggle todo item (to incomplete)', () => {
-					cy.get('.todo').should('not.have.class', 'completed')
+					cy.get('.todo').first().should('not.have.class', 'completed')
 				})
+			})
+		})
+
+		describe('click second todo and click clear button', () => {
+			beforeEach(() => {
+				cy.get('.todo').eq(1).click()
+				cy.get('.todo-list').find('button.clear').click()
+			})
+	
+			it('should remove second item but leave first untouched', () => {
+				cy.get('.todo').should('have.length', 1)
 			})
 		})
 	})
