@@ -37,6 +37,16 @@ describe('visit Todo Manager page', () => {
 				.find('input[placeholder="Enter a new task"]')
 				.should('have.value', '')
 		})
+
+		describe('click newly added todo', () => {
+			beforeEach(() => {
+				cy.get('.todo').click()
+			})
+
+			it('should toggle todo item (to complete)', () => {
+				cy.get('.todo').should('have.class', 'completed')
+			})
+		})
 	})
 })
 
