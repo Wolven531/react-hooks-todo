@@ -46,6 +46,16 @@ describe('visit Todo Manager page', () => {
 			it('should toggle todo item (to complete)', () => {
 				cy.get('.todo').should('have.class', 'completed')
 			})
+
+			describe('click completed todo', () => {
+				beforeEach(() => {
+					cy.get('.todo.completed').click()
+				})
+	
+				it('should toggle todo item (to incomplete)', () => {
+					cy.get('.todo').should('not.have.class', 'completed')
+				})
+			})
 		})
 	})
 })
