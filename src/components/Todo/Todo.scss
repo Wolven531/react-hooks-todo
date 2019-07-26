@@ -35,6 +35,17 @@
 			// 0 0 1em #00f,
 			// 0 0 .2em #00f;
 		top: 1em;
+		transition: all;
+		transition-delay: 0;
+		transition-duration: .25s;
+		transition-timing-function: ease-in-out;
+
+		&:hover {
+			font-weight: bolder;
+			font-size: 1em;
+			right: .67em;
+			top: .67em;
+		}
 	}
 
 	.description {
