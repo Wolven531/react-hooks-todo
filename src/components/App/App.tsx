@@ -15,7 +15,7 @@ import './App.scss'
 
 const App: FC = () => {
 	const todoState = useTodoState([])
-	const { addTodo, clearCompletedTodos, loadFromStorage, todos, toggleTodo } = todoState
+	const { addTodo, clearCompletedTodos, deleteTodo, loadFromStorage, todos, toggleTodo } = todoState
 
 	const handleUnmount = () => {}// happens before un-render (only once)
 
@@ -36,6 +36,7 @@ const App: FC = () => {
 						<TodoList
 							addTodo={addTodo}
 							clearCompletedTodos={clearCompletedTodos}
+							deleteTodo={deleteTodo}
 							todos={todos}
 							toggleTodo={toggleTodo} />}
 					/>

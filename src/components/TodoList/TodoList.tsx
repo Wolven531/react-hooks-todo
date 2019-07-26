@@ -10,11 +10,12 @@ import './TodoList.scss'
 export interface ITodoListProps {
 	addTodo: (todo: TodoModel) => void
 	clearCompletedTodos: () => void
+	deleteTodo: (todoId: string) => void
 	todos: TodoModel[]
 	toggleTodo: (todoId: string) => void
 }
 
-const TodoList: FC<ITodoListProps> = ({ addTodo, clearCompletedTodos, todos, toggleTodo }) => {
+const TodoList: FC<ITodoListProps> = ({ addTodo, clearCompletedTodos, deleteTodo, todos, toggleTodo }) => {
 	useEffect(() => {
 		window.document.title = 'Todo Manager'
 	}, [])// empty (no arg) to track nothing, just fire on mount/unmount
@@ -36,7 +37,7 @@ const TodoList: FC<ITodoListProps> = ({ addTodo, clearCompletedTodos, todos, tog
 				? <React.Fragment>
 					<button className="clear" onClick={() => { clearCompletedTodos() }}>Clear completed Todo items</button>
 					{todos.map((todo, index) => (
-						<Todo key={index} todo={todo} toggleTodo={toggleTodo} />
+						<Todo key={index} deleteTodo={deleteTodo} todo={todo} toggleTodo={toggleTodo} />
 					))}
 				</React.Fragment>
 				: <div className="empty-msg">No todos are saved</div>}
