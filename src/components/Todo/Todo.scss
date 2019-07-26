@@ -8,12 +8,33 @@
 	grid-template-rows: auto 1em;
 	justify-items: start;
 	padding: .5em;
+	position: relative;
 
 	.creation {
 		color: #333;
 		grid-column: 3;
 		grid-row: 2;
 		font-size: .6em;
+	}
+
+	.delete {
+		background-color: #fff;
+		background: radial-gradient(#ff0, #f00);
+		border: 1px solid #000;
+		box-shadow: 2px 2px 5px #333;
+		color: #ff0;
+		color: #fff;
+		color: #000;
+		cursor: pointer;
+		font-size: .8em;
+		padding: 2px 4px;
+		position: absolute;
+		right: 1em;
+		text-shadow: 2px 2px 1em #333;
+			// 1px 1px 2px #f00,
+			// 0 0 1em #00f,
+			// 0 0 .2em #00f;
+		top: 1em;
 	}
 
 	.description {
