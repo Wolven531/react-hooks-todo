@@ -19,7 +19,10 @@ const Todo: FC<ITodoProps> = ({ deleteTodo, todo, toggleTodo }) => {
 			<input type="checkbox" checked={todo.completed} readOnly={true} />
 			<p className="description">{todo.description}</p>
 			<div className="creation">{prettifyTimestamp(todo.creationTimestamp)}</div>
-			<div className="delete" onClick={() => { deleteTodo(todo.id) }}>X</div>
+			<div className="delete" onClick={evt => {
+				evt.stopPropagation()
+				deleteTodo(todo.id)
+			}}>X</div>
 		</div>
 	)
 }
