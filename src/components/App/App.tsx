@@ -3,7 +3,7 @@ import {
 	BrowserRouter as Router,
 	Link,
 	Route,
-	Switch,
+	Switch
 } from 'react-router-dom'
 
 import { useTodoState } from '../../state/useTodoState'
