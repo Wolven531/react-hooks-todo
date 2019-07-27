@@ -63,17 +63,14 @@ describe('Mount and render Todo component', () => {
 	const fakeTodo: TodoModel = new TodoModel('1', ' some desc ', false, (new Date(1990, 9, 15).getTime()))
 	const mockDeleteTodo = jest.fn()
 	const mockToggleTodo = jest.fn()
-	// const toggleTodoProvider = {
-	// 	toggleTodo: (todoId: string) => { fakeTodo.completed = !fakeTodo.completed }
-	// }
 	let wrapperTodo: ReactWrapper<FC<ITodoProps>>
 
 	beforeEach(() => {
-		// toggleTodoProvider = {
-		// 	toggleTodo: (todoId: string) => { fakeTodo.completed = !fakeTodo.completed }
-		// }
 		// NOTE: need mount (rather than shallow) so that stateless componentDidMount will run if present
-		const todo = <Todo deleteTodo={mockDeleteTodo} todo={fakeTodo} toggleTodo={mockToggleTodo} />
+		const todo = <Todo
+			deleteTodo={mockDeleteTodo}
+			todo={fakeTodo}
+			toggleTodo={mockToggleTodo} />
 		wrapperTodo = mount(todo)
 		wrapperTodo.update()
 	})
@@ -87,14 +84,7 @@ describe('Mount and render Todo component', () => {
 	})
 
 	describe('clicking on Todo', () => {
-		// let spyToggleTodo: jest.SpyInstance
-
 		beforeEach(() => {
-			// wrapperTodo.update()
-
-			// spyToggleTodo = jest.spyOn(toggleTodoProvider, 'toggleTodo')
-
-			// wrapperTodo.find('.todo').simulate('click')
 			wrapperTodo.simulate('click')
 			wrapperTodo.update()
 		})
@@ -102,17 +92,6 @@ describe('Mount and render Todo component', () => {
 		it('updates calls provided toggleTodo', () => {
 			expect(mockToggleTodo).toHaveBeenCalledTimes(1)
 			expect(mockToggleTodo).toHaveBeenLastCalledWith('1')
-			// expect(spyToggleTodo).toHaveBeenCalledTimes(1)
-			// expect(spyToggleTodo).toHaveBeenLastCalledWith(fakeTodo.id)
-
-			// expect(wrapperTodo.hasClass('completed')).toBe(true)
-
-			// const completionCheckbox = wrapperTodo.find('input[type="checkbox"]')
-			// expect(completionCheckbox.props()).toMatchObject({
-			// 	checked: true,
-			// 	readOnly: true,
-			// 	type: 'checkbox'
-			// })
 		})
 	})
 })
