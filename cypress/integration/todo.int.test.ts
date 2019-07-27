@@ -4,7 +4,8 @@
 
 // NOTE: need to import jest due to --isolatedModules
 // NOTE: naming the import with `_` prefixed skips import usage check
-import * as _jest from 'jest'
+// TODO: the import below breaks the integration test in Cypress
+// import * as _jest from 'jest'
 
 describe('visit Todo Manager page', () => {
 	beforeEach(() => {
