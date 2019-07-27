@@ -1,12 +1,13 @@
-// More on Cypress config options here:  https://on.cypress.io/plugins-guide
-// const webpack = require('@cypress/webpack-preprocessor')
+export default function pluginFunction(on: () => any, config: any) {
+	// More on Cypress config options here:  https://on.cypress.io/plugins-guide
+	// const webpack = require('@cypress/webpack-preprocessor')
 
-// This function is called when a project is opened or re-opened
-// (e.g. due to the project's config changing)
+	// This function is called when a project is opened or re-opened
+	// (e.g. due to the project's config changing)
 
-// `on` - used to hook into various events Cypress emits
-// `config` -  resolved Cypress config
-module.exports = (on: () => any, config: any) => {
+	// `on` - used to hook into various events Cypress emits
+	// `config` -  resolved Cypress config
+
 	// following config from https://glebbahmutov.com/blog/////use-typescript-with-cypress/
 	//   const options = {
 	//     // send in the options from your webpack.config.js, so it works the same as your app's code

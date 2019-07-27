@@ -2,6 +2,10 @@
 
 // import { someUtil } from '@src/utils'
 
+// NOTE: need to import jest due to --isolatedModules
+// NOTE: naming the import with `_` prefixed skips import usage check
+import * as _jest from 'jest'
+
 describe('visit Todo Manager page', () => {
 	beforeEach(() => {
 		cy.visit('/')
@@ -60,7 +64,7 @@ describe('visit Todo Manager page', () => {
 				beforeEach(() => {
 					cy.get('.todo.completed').click()
 				})
-	
+
 				it('should toggle todo item (to incomplete)', () => {
 					cy.get('.todo').first().should('not.have.class', 'completed')
 				})
@@ -72,7 +76,7 @@ describe('visit Todo Manager page', () => {
 				cy.get('.todo').eq(1).click()
 				cy.get('.todo-list').find('button.clear').click()
 			})
-	
+
 			it('should remove second item but leave first untouched', () => {
 				cy.get('.todo').should('have.length', 1)
 			})

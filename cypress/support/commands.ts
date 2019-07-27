@@ -1,3 +1,5 @@
+export {} // NOTE: need to export anything due to --isolatedModules
+
 // More on Cypress commands here: https://on.cypress.io/custom-commands
 
 // -- This is a parent command --
