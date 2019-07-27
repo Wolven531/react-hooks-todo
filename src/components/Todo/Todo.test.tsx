@@ -96,14 +96,17 @@ describe('Mount and render Todo component', () => {
 	})
 
 	describe('clicking on Todo delete', () => {
+		const mockStopPropagation = jest.fn()
+
 		beforeEach(() => {
-			wrapper.find('.delete').simulate('click')
+			wrapper.find('.delete').simulate('click', { stopPropagation: mockStopPropagation })
 			wrapper.update()
 		})
 
 		it('updates calls provided deleteTodo', () => {
 			expect(mockDeleteTodo).toHaveBeenCalledTimes(1)
 			expect(mockDeleteTodo).toHaveBeenLastCalledWith('1')
+			expect(mockStopPropagation).toHaveBeenCalledTimes(1)
 		})
 	})
 })
