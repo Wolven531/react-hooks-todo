@@ -20,11 +20,10 @@ describe('Shallow render incomplete Todo component', () => {
 
 	beforeEach(() => {
 		wrapper = shallow(<Todo deleteTodo={jest.fn()} todo={fakeIncompleteTodo} toggleTodo={jest.fn()} />)
+		wrapper.update()
 	})
 
 	it('shallow renders', () => {
-		wrapper.update()
-
 		expect(wrapper.exists()).toBe(true)
 		expect(wrapper.hasClass('todo')).toBe(true)
 
@@ -42,11 +41,10 @@ describe('Shallow render completed Todo component', () => {
 
 	beforeEach(() => {
 		wrapper = shallow(<Todo deleteTodo={jest.fn()} todo={fakeCompletedTodo} toggleTodo={jest.fn()} />)
+		wrapper.update()
 	})
 
 	it('shallow renders', () => {
-		wrapper.update()
-
 		expect(wrapper.exists()).toBe(true)
 		expect(wrapper.hasClass('todo')).toBe(true)
 		expect(wrapper.hasClass('completed')).toBe(true)
