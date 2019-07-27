@@ -94,4 +94,16 @@ describe('Mount and render Todo component', () => {
 			expect(mockToggleTodo).toHaveBeenLastCalledWith('1')
 		})
 	})
+
+	describe('clicking on Todo delete', () => {
+		beforeEach(() => {
+			wrapperTodo.find('.delete').simulate('click')
+			wrapperTodo.update()
+		})
+
+		it('updates calls provided deleteTodo', () => {
+			expect(mockDeleteTodo).toHaveBeenCalledTimes(1)
+			expect(mockDeleteTodo).toHaveBeenLastCalledWith('1')
+		})
+	})
 })
